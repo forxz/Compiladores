@@ -4,8 +4,12 @@
 extern char *lexpal[MAXPAL];
 
 //lista de tokens de pl0
-enum simbolo {nulo,ident,numero,mas,menos,por,barra,oddtok,igl,nig,mnr,mei,myr,mai,parena,parenc,coma,puntoycoma,
-	          punto,asignacion,begintok,endtok,iftok,thentok,whiletok,dotok,calltok,consttok,vartok,proctok}; //definido aquí en el encabezado
+enum simbolo { mainTok, intTok, floatTok, boolTok, charTok, stringTok, fileTok, arrayTok, ifTok, elseTok, switchTok, caseTok, breakTok, trueTok, falseTok, 
+				existTok, whileTok, forTok, repeatTok, untilTok, andTok, orTok, functionTok, procedureTok, returnTok, refTok, printTok, readTok, sortTok, 
+				concatTok, compareTok, factorialTok, averageTok, powTok, evenTok, substringTok, openFileTok, closeFileTok, nullTok, assigTok, commaTok, numberValTok, 
+				floatValTok, boolValTok, charValTok, stringValTok, fileValTok, arrayValTok, lessTok, moreTok, bracketLTok, bracketRTok, cBracketLTok, cBracketRTok, 
+				parentLTok, parentRTok, colonTok, semiColonTok, plusTok, minusTok, multTok, divideTok, percentTok, moreETok, lessETok, denialTok, notEqualTok, equalTok, 
+				identTok, enterTok }; //definido aquí en el encabezado
 
 extern enum simbolo token;
 

@@ -19,18 +19,29 @@ void inicializar_espec()
 {
   int i;
   for (i=0;i<=254;++i) 
-    espec[i]=nulo;
+    espec[i]=nullTok;
 
-  espec[43]=mas;
-  espec[45]=menos;
-  espec[42]=por;
-  espec[47]=barra;
-  espec[40]=parena;
-  espec[41]=parenc;
-  espec[61]=igl;
-  espec[46]=punto;
-  espec[44]=coma;
-  espec[59]=puntoycoma;
+  espec[10]=enterTok;
+  espec[33]=denialTok;
+  espec[37]=percentTok;
+  espec[43]=plusTok;
+  espec[45]=minusTok;
+  espec[42]=multTok;
+  espec[47]=divideTok;
+  espec[40]=parentLTok;
+  espec[41]=parentRTok;
+  espec[58]=colonTok;
+  espec[61]=assigTok;
+  espec[44]=commaTok;
+  espec[59]=semiColonTok;
+  espec[60]=lessTok;
+  espec[62]=moreTok;
+  espec[91]=bracketLTok;
+  espec[93]=bracketRTok;
+  espec[123]=cBracketLTok;
+  espec[125]=cBracketRTok;
+  
+
 }
 
 //imprime_token: transforma de enumerado a string. no aparecerá más en el compilador

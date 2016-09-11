@@ -48,7 +48,7 @@ void obtoken()
     if (ok==1) 
        token=tokpal[j]; //es palabra reservada
     else
-       token=ident; //es identificador
+       token=identTok; //es identificador
  
     strcpy(lex,lexid); //copiar en lex
  }
@@ -63,43 +63,43 @@ void obtoken()
        lexid[i]='\0';
        if (j>MAXDIGIT)
           error(30); //este número es demasiado grande
-       token=numero;
+       token=numberValTok;
        valor=atol(lexid); //valor numérico de una lexeme correspondiene a un número	        
     }
     else //reconocimiento de símbolos especiales, incluyendo pares de simbolos (aplicamos "lookahead symbol technique")
        if (ch=='<') {
           ch=obtch();
           if (ch=='=') {
-             token=mei;
+             token=lessETok;
              ch=obtch();
           }
           else
              if (ch=='>') {
-                token=nig;
+                token=notEqualTok;
                 ch=obtch();
              }
              else
-                token=mnr;
+                token=lessTok;
        }
        else
           if (ch=='>') {
              ch=obtch();
              if (ch=='=') {
-                token=mai;
+                token=moreETok;
                 ch=obtch();
              }
              else 
-                token=myr;
+                token=moreTok;
           }
           else 
              if (ch==':') {
                 ch=obtch();
                 if (ch=='=') {
-	               token=asignacion;
+	               token=assigTok;
 	               ch=obtch();
                 }
                else
-	               token=nulo;
+	               token=nullTok;
              }
              else {
                 token=espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
