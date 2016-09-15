@@ -39,35 +39,21 @@ Partial Class Form1
         Me.SeleccionarTodoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LimpiarTexoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FormatoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FuenteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FondoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NegritaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CursivaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SubrayadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ScannerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaVentanaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AbrirVentanaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LeemeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.NuevoDoc = New System.Windows.Forms.ToolStripButton()
         Me.AbrirDoc = New System.Windows.Forms.ToolStripButton()
+        Me.btnGuardar = New System.Windows.Forms.ToolStripButton()
         Me.GuardarDoc = New System.Windows.Forms.ToolStripButton()
-        Me.ImpDoc = New System.Windows.Forms.ToolStripButton()
-        Me.CopiarTexto = New System.Windows.Forms.ToolStripButton()
         Me.CortarTexto = New System.Windows.Forms.ToolStripButton()
         Me.PegarTexto = New System.Windows.Forms.ToolStripButton()
         Me.Undo = New System.Windows.Forms.ToolStripButton()
         Me.Redo = New System.Windows.Forms.ToolStripButton()
         Me.Fuente = New System.Windows.Forms.ToolStripButton()
-        Me.ColorFuente = New System.Windows.Forms.ToolStripButton()
-        Me.Negrita = New System.Windows.Forms.ToolStripButton()
-        Me.Cursiva = New System.Windows.Forms.ToolStripButton()
-        Me.SubRaya = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton14 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton15 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton16 = New System.Windows.Forms.ToolStripButton()
         Me.ColorFondo = New System.Windows.Forms.ToolStripButton()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -169,63 +155,33 @@ Partial Class Form1
         '
         'FormatoToolStripMenuItem
         '
-        Me.FormatoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FuenteToolStripMenuItem, Me.ColorToolStripMenuItem, Me.FondoToolStripMenuItem, Me.NegritaToolStripMenuItem, Me.CursivaToolStripMenuItem, Me.SubrayadoToolStripMenuItem})
+        Me.FormatoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem})
         Me.FormatoToolStripMenuItem.Name = "FormatoToolStripMenuItem"
-        Me.FormatoToolStripMenuItem.Size = New System.Drawing.Size(64, 20)
-        Me.FormatoToolStripMenuItem.Text = "Formato"
+        Me.FormatoToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
+        Me.FormatoToolStripMenuItem.Text = "Compilar"
         '
-        'FuenteToolStripMenuItem
+        'ScannerToolStripMenuItem
         '
-        Me.FuenteToolStripMenuItem.Name = "FuenteToolStripMenuItem"
-        Me.FuenteToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.FuenteToolStripMenuItem.Text = "Fuente"
-        '
-        'ColorToolStripMenuItem
-        '
-        Me.ColorToolStripMenuItem.Name = "ColorToolStripMenuItem"
-        Me.ColorToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.ColorToolStripMenuItem.Text = "Color"
-        '
-        'FondoToolStripMenuItem
-        '
-        Me.FondoToolStripMenuItem.Name = "FondoToolStripMenuItem"
-        Me.FondoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.FondoToolStripMenuItem.Text = "Fondo"
-        '
-        'NegritaToolStripMenuItem
-        '
-        Me.NegritaToolStripMenuItem.Name = "NegritaToolStripMenuItem"
-        Me.NegritaToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.NegritaToolStripMenuItem.Text = "Negrita"
-        '
-        'CursivaToolStripMenuItem
-        '
-        Me.CursivaToolStripMenuItem.Name = "CursivaToolStripMenuItem"
-        Me.CursivaToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.CursivaToolStripMenuItem.Text = "Cursiva"
-        '
-        'SubrayadoToolStripMenuItem
-        '
-        Me.SubrayadoToolStripMenuItem.Name = "SubrayadoToolStripMenuItem"
-        Me.SubrayadoToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.SubrayadoToolStripMenuItem.Text = "Subrayado"
+        Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'NuevaVentanaToolStripMenuItem
         '
-        Me.NuevaVentanaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AbrirVentanaToolStripMenuItem})
+        Me.NuevaVentanaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LeemeToolStripMenuItem})
         Me.NuevaVentanaToolStripMenuItem.Name = "NuevaVentanaToolStripMenuItem"
         Me.NuevaVentanaToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.NuevaVentanaToolStripMenuItem.Text = "Ayuda"
         '
-        'AbrirVentanaToolStripMenuItem
+        'LeemeToolStripMenuItem
         '
-        Me.AbrirVentanaToolStripMenuItem.Name = "AbrirVentanaToolStripMenuItem"
-        Me.AbrirVentanaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.AbrirVentanaToolStripMenuItem.Text = "Leeme"
+        Me.LeemeToolStripMenuItem.Name = "LeemeToolStripMenuItem"
+        Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.LeemeToolStripMenuItem.Text = "Leeme"
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoDoc, Me.AbrirDoc, Me.GuardarDoc, Me.ImpDoc, Me.CopiarTexto, Me.CortarTexto, Me.PegarTexto, Me.Undo, Me.Redo, Me.Fuente, Me.ColorFuente, Me.Negrita, Me.Cursiva, Me.SubRaya, Me.ToolStripButton14, Me.ToolStripButton15, Me.ToolStripButton16, Me.ColorFondo})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoDoc, Me.AbrirDoc, Me.btnGuardar, Me.GuardarDoc, Me.CortarTexto, Me.PegarTexto, Me.Undo, Me.Redo, Me.Fuente, Me.ColorFondo})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(916, 25)
@@ -250,6 +206,15 @@ Partial Class Form1
         Me.AbrirDoc.Size = New System.Drawing.Size(23, 22)
         Me.AbrirDoc.Text = "Abrir"
         '
+        'btnGuardar
+        '
+        Me.btnGuardar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnGuardar.Image = CType(resources.GetObject("btnGuardar.Image"), System.Drawing.Image)
+        Me.btnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnGuardar.Name = "btnGuardar"
+        Me.btnGuardar.Size = New System.Drawing.Size(23, 22)
+        Me.btnGuardar.Text = "Guardar"
+        '
         'GuardarDoc
         '
         Me.GuardarDoc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -257,25 +222,7 @@ Partial Class Form1
         Me.GuardarDoc.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.GuardarDoc.Name = "GuardarDoc"
         Me.GuardarDoc.Size = New System.Drawing.Size(23, 22)
-        Me.GuardarDoc.Text = "Guardar"
-        '
-        'ImpDoc
-        '
-        Me.ImpDoc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ImpDoc.Image = CType(resources.GetObject("ImpDoc.Image"), System.Drawing.Image)
-        Me.ImpDoc.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ImpDoc.Name = "ImpDoc"
-        Me.ImpDoc.Size = New System.Drawing.Size(23, 22)
-        Me.ImpDoc.Text = "ToolStripButton4"
-        '
-        'CopiarTexto
-        '
-        Me.CopiarTexto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopiarTexto.Image = CType(resources.GetObject("CopiarTexto.Image"), System.Drawing.Image)
-        Me.CopiarTexto.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopiarTexto.Name = "CopiarTexto"
-        Me.CopiarTexto.Size = New System.Drawing.Size(23, 22)
-        Me.CopiarTexto.Text = "ToolStripButton5"
+        Me.GuardarDoc.Text = "Guardar Como"
         '
         'CortarTexto
         '
@@ -322,69 +269,6 @@ Partial Class Form1
         Me.Fuente.Size = New System.Drawing.Size(23, 22)
         Me.Fuente.Text = "Fuente"
         '
-        'ColorFuente
-        '
-        Me.ColorFuente.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ColorFuente.Image = CType(resources.GetObject("ColorFuente.Image"), System.Drawing.Image)
-        Me.ColorFuente.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ColorFuente.Name = "ColorFuente"
-        Me.ColorFuente.Size = New System.Drawing.Size(23, 22)
-        Me.ColorFuente.Text = "Color de fuente"
-        '
-        'Negrita
-        '
-        Me.Negrita.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Negrita.Image = CType(resources.GetObject("Negrita.Image"), System.Drawing.Image)
-        Me.Negrita.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Negrita.Name = "Negrita"
-        Me.Negrita.Size = New System.Drawing.Size(23, 22)
-        Me.Negrita.Text = "Negrita"
-        '
-        'Cursiva
-        '
-        Me.Cursiva.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Cursiva.Image = CType(resources.GetObject("Cursiva.Image"), System.Drawing.Image)
-        Me.Cursiva.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Cursiva.Name = "Cursiva"
-        Me.Cursiva.Size = New System.Drawing.Size(23, 22)
-        Me.Cursiva.Text = "Cursiva"
-        '
-        'SubRaya
-        '
-        Me.SubRaya.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.SubRaya.Image = CType(resources.GetObject("SubRaya.Image"), System.Drawing.Image)
-        Me.SubRaya.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.SubRaya.Name = "SubRaya"
-        Me.SubRaya.Size = New System.Drawing.Size(23, 22)
-        Me.SubRaya.Text = "Subrayado"
-        '
-        'ToolStripButton14
-        '
-        Me.ToolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton14.Image = CType(resources.GetObject("ToolStripButton14.Image"), System.Drawing.Image)
-        Me.ToolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton14.Name = "ToolStripButton14"
-        Me.ToolStripButton14.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton14.Text = "Alinear izquierda"
-        '
-        'ToolStripButton15
-        '
-        Me.ToolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton15.Image = CType(resources.GetObject("ToolStripButton15.Image"), System.Drawing.Image)
-        Me.ToolStripButton15.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton15.Name = "ToolStripButton15"
-        Me.ToolStripButton15.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton15.Text = "Alinear centro"
-        '
-        'ToolStripButton16
-        '
-        Me.ToolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton16.Image = CType(resources.GetObject("ToolStripButton16.Image"), System.Drawing.Image)
-        Me.ToolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton16.Name = "ToolStripButton16"
-        Me.ToolStripButton16.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton16.Text = "Alinear derecha"
-        '
         'ColorFondo
         '
         Me.ColorFondo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -396,20 +280,19 @@ Partial Class Form1
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(13, 53)
+        Me.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RichTextBox1.Location = New System.Drawing.Point(0, 49)
+        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(10)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(891, 456)
+        Me.RichTextBox1.Size = New System.Drawing.Size(916, 472)
         Me.RichTextBox1.TabIndex = 2
         Me.RichTextBox1.Text = ""
-        '
-        'PrintDialog1
-        '
-        Me.PrintDialog1.UseEXDialog = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(916, 521)
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.ToolStrip1)
@@ -441,34 +324,20 @@ Partial Class Form1
     Friend WithEvents SeleccionarTodoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents LimpiarTexoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FormatoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents FuenteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ColorToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents FondoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents NegritaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CursivaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents SubrayadoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ScannerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents NuevoDoc As System.Windows.Forms.ToolStripButton
     Friend WithEvents AbrirDoc As System.Windows.Forms.ToolStripButton
     Friend WithEvents GuardarDoc As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ImpDoc As System.Windows.Forms.ToolStripButton
-    Friend WithEvents CopiarTexto As System.Windows.Forms.ToolStripButton
     Friend WithEvents CortarTexto As System.Windows.Forms.ToolStripButton
     Friend WithEvents PegarTexto As System.Windows.Forms.ToolStripButton
     Friend WithEvents Undo As System.Windows.Forms.ToolStripButton
     Friend WithEvents Redo As System.Windows.Forms.ToolStripButton
     Friend WithEvents Fuente As System.Windows.Forms.ToolStripButton
-    Friend WithEvents Negrita As System.Windows.Forms.ToolStripButton
-    Friend WithEvents Cursiva As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ColorFuente As System.Windows.Forms.ToolStripButton
-    Friend WithEvents SubRaya As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton14 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton15 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton16 As System.Windows.Forms.ToolStripButton
     Friend WithEvents ColorFondo As System.Windows.Forms.ToolStripButton
     Friend WithEvents NuevaVentanaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AbrirVentanaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LeemeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
-    Friend WithEvents PrintDialog1 As System.Windows.Forms.PrintDialog
+    Friend WithEvents btnGuardar As System.Windows.Forms.ToolStripButton
 
 End Class
