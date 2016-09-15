@@ -71,18 +71,18 @@ Public Class Form1
         RichTextBox1.Clear() 'Limpia la pantalla del editor
     End Sub
 
-    Private Sub FuenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerToolStripMenuItem.Click, Fuente.Click
-        Dim Forma2 As New Form2
-        Forma2.Show()
-        'Try
-        '    Dim fuente As FontDialog = New FontDialog
-        '    fuente.Font = RichTextBox1.Font
-        '    If fuente.ShowDialog = System.Windows.Forms.DialogResult.OK Then
-        '        RichTextBox1.Font = fuente.Font
-        '    End If
-        'Catch ex As Exception
+    Private Sub FuenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Fuente.Click
+        'Dim Forma2 As New Form2
+        'Forma2.Show()
+        Try
+            Dim fuente As FontDialog = New FontDialog
+            fuente.Font = RichTextBox1.Font
+            If fuente.ShowDialog = System.Windows.Forms.DialogResult.OK Then
+                RichTextBox1.Font = fuente.Font
+            End If
+        Catch ex As Exception
 
-        'End Try
+        End Try
     End Sub
 
     Private Sub FondoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ColorFondo.Click
@@ -120,5 +120,10 @@ Public Class Form1
         Catch Exp As Exception
             MessageBox.Show(Exp.Message, "No se abrio", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Try
+    End Sub
+
+    Private Sub ScannerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerToolStripMenuItem.Click
+        Dim ventanaComp As New Form2
+        ventanaComp.Show()
     End Sub
 End Class
