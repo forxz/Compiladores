@@ -22,7 +22,7 @@ int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 void obtoken()
 {
  char lexid[MAXID+1]; //+1 para colocar el marcador "\0"
- int i,j;
+ int i,j, points;
  int ok=0;
 
  //quitar blancos, caracter de cambio de línea y tabuladores
@@ -53,58 +53,48 @@ void obtoken()
     strcpy(lex,lexid); //copiar en lex
  }
  else //si comienza con un dígito...
-    if (isdigit(ch)) {
-       lexid[0]=ch;
-       i=j=1;
-       while ( isdigit( (ch=obtch()))) {
-	         if (i<MAXDIGIT) lexid[i++]=ch;
-	         j++;
+    if (isdigit(ch)) 
+	{
+       lexid[0] = ch;
+       i = j = 1;
+	   points = 0;
+       while (ch=obtch())
+	   {
+		   if (isdigit(ch)) j++;
+		   else
+		   {
+			   if (ch == '.') points++;
+			   else
+				   if (ch == ' ' || ch == 10 || ch == ')' || ch == ']' || ch == ',')
+				   {
+					   if (j <= MAXDIGIT)
+					   {
+						   lexid[i] = '\0';
+						   if (points == 0) token = numberValTok; // es un numero
+						   else if (points == 1) token = floatValTok; // es un flotante
+						   else token = nullTok;
+						   break;
+					   }
+					   else error(30); //este número es demasiado grande
+				   }
+				   else
+				   {
+					   token = nullTok;
+					   while (ch = obtch())  if (ch == 10 || ch == ' ' || ch == ')' || ch == ']' || ch == ',')  break;
+				   }
+		   }
        }
-       lexid[i]='\0';
-       if (j>MAXDIGIT)
-          error(30); //este número es demasiado grande
-       token=numberValTok;
-       valor=atol(lexid); //valor numérico de una lexeme correspondiene a un número	        
-    }
+	}
     else //reconocimiento de símbolos especiales, incluyendo pares de simbolos (aplicamos "lookahead symbol technique")
-       if (ch=='<') {
-          ch=obtch();
-          if (ch=='=') {
-             token=lessETok;
-             ch=obtch();
-          }
-          else
-             if (ch=='>') {
-                token=notEqualTok;
-                ch=obtch();
-             }
-             else
-                token=lessTok;
-       }
-       else
-          if (ch=='>') {
-             ch=obtch();
-             if (ch=='=') {
-                token=moreETok;
-                ch=obtch();
-             }
-             else 
-                token=moreTok;
-          }
-          else 
-             if (ch==':') {
-                ch=obtch();
-                if (ch=='=') {
-	               token=assigTok;
-	               ch=obtch();
-                }
-               else
-	               token=nullTok;
-             }
-             else {
-                token=espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
-                ch=obtch();
-             }
+		switch (ch)
+		{
+		case '#':  // es un comentario de linea
+			while (ch = obtch()) if (ch == 10) break; 
+			break;
+		default:
+			token = espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
+			ch = obtch();
+		}
 }
 
 //obtch: obtiene el siguiente caracter del programa fuente
