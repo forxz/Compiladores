@@ -22,6 +22,7 @@ int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 void obtoken()
 {
  char lexid[MAXID+1]; //+1 para colocar el marcador "\0"
+ char charT;
  int i,j, points;
  int ok=0;
 
@@ -91,9 +92,66 @@ void obtoken()
 		case '#':  // es un comentario de linea
 			while (ch = obtch()) if (ch == 10) break; 
 			break;
+		case '/':
+			if (obtch() == '*')  while (ch = obtch()) if (ch == '*' && obtch() == '\'') break;
+			else token = divideTok;
+			break;
+		case '>':
+			if (obtch() == '=') token = moreETok;
+			else token = moreTok;
+			break;
+		case '<':
+			if (obtch() == '=') token = lessETok;
+			else token = lessTok;
+			break;
+		case '=':
+			if (obtch() == '=') token = equalTok;
+			else token = assigTok;
+			break;
+		case '\'':
+			ch = obtch();
+			if (ch != ' ' && ch != 10 && ch != '\'')
+			{
+				char c = ch;
+				ch = obtch();
+				if (ch == '\'')
+				{
+					charT = c;
+					token = charTok;
+					break;
+				}
+			}
+
+			token = nullTok;
+			break;
+		case '"':
+			char variable[1000];
+			i = 0;
+			while (ch = obtch())
+			{
+				if (ch == 10 || ch == '\'')
+				{
+					token = nullTok;
+					break;
+				}
+				else
+					if (ch == '"')
+					{
+						variable[i] = '\0';
+						token = stringTok;
+						break;
+					}
+					else
+					{
+						variable[i] = ch;
+						i++;
+					}
+			}
+			break;
 		default:
 			token = espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
 			ch = obtch();
+			break;
 		}
 }
 
