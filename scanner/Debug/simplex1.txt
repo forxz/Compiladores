@@ -1,0 +1,16 @@
+int c  	#Variable global
+function sumar(int n1, int n2) : int
+main {
+		int a =3
+int b = 5
+c = sumar(a, b)
+if (c<0){
+			print(“El número es negativo”)
+}else{
+			print(“El número es positivo”)
+}
+}
+
+	function sumar(int n1, int n2) : int {
+		return n1+n2
+}

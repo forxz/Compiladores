@@ -48,9 +48,16 @@ void inicializar_espec()
 void imprime_token()
 {
 
- char *token_string[]={"nulo","ident","numero","mas","menos","por","barra","oddtok","igl","nig","mnr","mei","myr",
-	                   "mai","parena","parenc","coma","puntoycoma","punto","asignacion","begintok","endtok","iftok",
-					   "thentok","whiletok","dotok","calltok","consttok","vartok","proctok"};
+	char *token_string[] = { "mainTok", "intTok", "floatTok", "boolTok", "charTok", "stringTok", "fileTok", 
+							 "arrayTok", "ifTok", "elseTok", "switchTok", "caseTok", "breakTok", "trueTok", 
+							 "falseTok", "existTok", "whileTok", "forTok", "repeatTok", "untilTok", "andTok", 
+							 "orTok", "functionTok", "procedureTok", "returnTok", "refTok", "printTok", "readTok", 
+							 "sortTok", "concatTok", "compareTok", "factorialTok", "averageTok", "powTok", "evenTok", 
+							 "substringTok", "openFileTok", "closeFileTok", "nullTok", "assigTok", "commaTok", "numberValTok", 
+							 "floatValTok", "boolValTok", "charValTok", "stringValTok", "fileValTok", "arrayValTok", "lessTok", 
+							 "moreTok", "bracketLTok", "bracketRTok", "cBracketLTok", "cBracketRTok", "parentLTok", "parentRTok",
+							 "colonTok", "semiColonTok", "plusTok", "minusTok", "multTok", "divideTok", "percentTok", "moreETok",
+							 "lessETok", "denialTok", "notEqualTok", "equalTok", "identTok", "enterTok" };
  printf("(%10s) \n",token_string[token]);
   
 }

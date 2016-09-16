@@ -180,7 +180,7 @@ int obtch()
  if ( (linea[offset]=='\0') || (fin_de_archivo==1) )   
     return(' '); 
  else  
-    return(toupper(linea[offset])); //de esto depende si el lenguaje es sensitivo de mayúsculas o no.
+    return(linea[offset]); //de esto depende si el lenguaje es sensitivo de mayúsculas o no.
 
 }
 
