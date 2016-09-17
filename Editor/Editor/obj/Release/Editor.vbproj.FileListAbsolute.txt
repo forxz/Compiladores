@@ -9,3 +9,4 @@ C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.vbpr
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.exe
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.xml
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.pdb
+C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Parametros.resources

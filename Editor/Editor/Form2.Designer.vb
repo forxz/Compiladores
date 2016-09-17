@@ -24,7 +24,7 @@ Partial Class Form2
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.TokensRichTextBox = New System.Windows.Forms.RichTextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
@@ -40,7 +40,7 @@ Partial Class Form2
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.RichTextBox1)
+        Me.TabPage1.Controls.Add(Me.TokensRichTextBox)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
@@ -49,14 +49,17 @@ Partial Class Form2
         Me.TabPage1.Text = "Scanner"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'RichTextBox1
+        'TokensRichTextBox
         '
-        Me.RichTextBox1.BackColor = System.Drawing.SystemColors.WindowFrame
-        Me.RichTextBox1.Location = New System.Drawing.Point(7, 4)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(782, 398)
-        Me.RichTextBox1.TabIndex = 0
-        Me.RichTextBox1.Text = ""
+        Me.TokensRichTextBox.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.TokensRichTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TokensRichTextBox.ForeColor = System.Drawing.Color.Red
+        Me.TokensRichTextBox.Location = New System.Drawing.Point(7, 4)
+        Me.TokensRichTextBox.Name = "TokensRichTextBox"
+        Me.TokensRichTextBox.ReadOnly = True
+        Me.TokensRichTextBox.Size = New System.Drawing.Size(782, 398)
+        Me.TokensRichTextBox.TabIndex = 0
+        Me.TokensRichTextBox.Text = ""
         '
         'Form2
         '
@@ -73,5 +76,5 @@ Partial Class Form2
     End Sub
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
+    Friend WithEvents TokensRichTextBox As System.Windows.Forms.RichTextBox
 End Class

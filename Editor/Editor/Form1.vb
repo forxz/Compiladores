@@ -126,4 +126,9 @@ Public Class Form1
         Dim ventanaComp As New Form2
         ventanaComp.Show()
     End Sub
+
+    Private Sub ParametrosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ParametrosToolStripMenuItem.Click
+        Dim ventanaParametros As New Parametros
+        ventanaParametros.Show()
+    End Sub
 End Class
