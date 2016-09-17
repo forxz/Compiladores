@@ -14,6 +14,8 @@ Public Class Form1
             Abrir.OpenFile()
             STR = System.IO.File.OpenText(Abrir.FileName) 'Lee el archivo
             RichTextBox1.Text = STR.ReadToEnd() 'Muestra el contenido del archivo en pantalla
+            STR.Close()
+            rutaArchivo = Abrir.FileName
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error al leer archivo", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -21,6 +23,7 @@ Public Class Form1
 
     Private Sub NuevoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevoToolStripMenuItem.Click, NuevoDoc.Click
         RichTextBox1.Clear() 'Limpia la pantalla para redactar un nuevo documento
+        rutaArchivo = ""
     End Sub
 
     Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click, GuardarDoc.Click
@@ -111,18 +114,7 @@ Public Class Form1
         End If
     End Sub
 
-<<<<<<< HEAD
     Private Sub LeemeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LeemeToolStripMenuItem.Click
-        Dim loPSI As New ProcessStartInfo
-        Dim loProceso As New Process
-        loPSI.FileName = "../Editor/ProyectoCompiladoresParteI.pdf" 'No se porque no abre el pdf
-        Try
-            loProceso = Process.Start(loPSI)
-        Catch Exp As Exception
-            MessageBox.Show(Exp.Message, "No se abrio", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End Try
-=======
-    Private Sub AbrirVentanaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirVentanaToolStripMenuItem.Click
         Dim loPSI As New ProcessStartInfo
         Dim loProceso As New Process
         loPSI.FileName = "Ayuda.pdf"
@@ -132,14 +124,6 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub ToolStripButton14_Click(sender As Object, e As EventArgs) Handles ToolStripButton14.Click
-        RichTextBox1.SelectionAlignment = HorizontalAlignment.Left
-    End Sub
-
-    Private Sub ToolStripButton15_Click(sender As Object, e As EventArgs) Handles ToolStripButton15.Click
-        RichTextBox1.SelectionAlignment = HorizontalAlignment.Center
->>>>>>> origin/Editor
-    End Sub
 
     Private Sub ScannerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerToolStripMenuItem.Click
         Dim ventanaComp As New Form2

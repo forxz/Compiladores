@@ -28,7 +28,6 @@ Partial Class Form1
         Me.AbrirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GuardarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EdicionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeshacerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,8 +37,11 @@ Partial Class Form1
         Me.PegarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SeleccionarTodoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LimpiarTexoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CompilarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ScannerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaVentanaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LeemeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ParametrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.NuevoDoc = New System.Windows.Forms.ToolStripButton()
         Me.AbrirDoc = New System.Windows.Forms.ToolStripButton()
@@ -52,9 +54,6 @@ Partial Class Form1
         Me.Fuente = New System.Windows.Forms.ToolStripButton()
         Me.ColorFondo = New System.Windows.Forms.ToolStripButton()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.CompilarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ScannerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ParametrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -70,7 +69,7 @@ Partial Class Form1
         '
         'ArchivoToolStripMenuItem
         '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AbrirToolStripMenuItem, Me.NuevoToolStripMenuItem, Me.GuardarToolStripMenuItem, Me.ImprimirToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AbrirToolStripMenuItem, Me.NuevoToolStripMenuItem, Me.GuardarToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
         Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ArchivoToolStripMenuItem.Text = "Archivo"
@@ -78,31 +77,25 @@ Partial Class Form1
         'AbrirToolStripMenuItem
         '
         Me.AbrirToolStripMenuItem.Name = "AbrirToolStripMenuItem"
-        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(120, 22)
+        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AbrirToolStripMenuItem.Text = "Abrir"
         '
         'NuevoToolStripMenuItem
         '
         Me.NuevoToolStripMenuItem.Name = "NuevoToolStripMenuItem"
-        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(120, 22)
+        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.NuevoToolStripMenuItem.Text = "Nuevo"
         '
         'GuardarToolStripMenuItem
         '
         Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(120, 22)
+        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GuardarToolStripMenuItem.Text = "Guardar"
-        '
-        'ImprimirToolStripMenuItem
-        '
-        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(120, 22)
-        Me.ImprimirToolStripMenuItem.Text = "Imprimir"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(120, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'EdicionToolStripMenuItem
@@ -154,6 +147,19 @@ Partial Class Form1
         Me.LimpiarTexoToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
         Me.LimpiarTexoToolStripMenuItem.Text = "Limpiar texo"
         '
+        'CompilarToolStripMenuItem
+        '
+        Me.CompilarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem})
+        Me.CompilarToolStripMenuItem.Name = "CompilarToolStripMenuItem"
+        Me.CompilarToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
+        Me.CompilarToolStripMenuItem.Text = "Compilar"
+        '
+        'ScannerToolStripMenuItem
+        '
+        Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerToolStripMenuItem.Text = "Scanner"
+        '
         'NuevaVentanaToolStripMenuItem
         '
         Me.NuevaVentanaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LeemeToolStripMenuItem})
@@ -166,6 +172,12 @@ Partial Class Form1
         Me.LeemeToolStripMenuItem.Name = "LeemeToolStripMenuItem"
         Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.LeemeToolStripMenuItem.Text = "Leeme"
+        '
+        'ParametrosToolStripMenuItem
+        '
+        Me.ParametrosToolStripMenuItem.Name = "ParametrosToolStripMenuItem"
+        Me.ParametrosToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
+        Me.ParametrosToolStripMenuItem.Text = "Parametros"
         '
         'ToolStrip1
         '
@@ -268,38 +280,23 @@ Partial Class Form1
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RichTextBox1.Location = New System.Drawing.Point(0, 49)
-        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(10)
+        Me.RichTextBox1.AcceptsTab = True
+        Me.RichTextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RichTextBox1.Location = New System.Drawing.Point(10, 54)
+        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(30)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(916, 472)
+        Me.RichTextBox1.ShortcutsEnabled = False
+        Me.RichTextBox1.Size = New System.Drawing.Size(896, 458)
         Me.RichTextBox1.TabIndex = 2
         Me.RichTextBox1.Text = ""
         '
-        'CompilarToolStripMenuItem
-        '
-        Me.CompilarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem})
-        Me.CompilarToolStripMenuItem.Name = "CompilarToolStripMenuItem"
-        Me.CompilarToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
-        Me.CompilarToolStripMenuItem.Text = "Compilar"
-        '
-        'ScannerToolStripMenuItem
-        '
-        Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ScannerToolStripMenuItem.Text = "Scanner"
-        '
-        'ParametrosToolStripMenuItem
-        '
-        Me.ParametrosToolStripMenuItem.Name = "ParametrosToolStripMenuItem"
-        Me.ParametrosToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
-        Me.ParametrosToolStripMenuItem.Text = "Parametros"
-        '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoScroll = True
+        Me.AutoScroll = true
         Me.ClientSize = New System.Drawing.Size(916, 521)
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.ToolStrip1)
@@ -307,20 +304,19 @@ Partial Class Form1
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
         Me.Text = "Editor"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(false)
+        Me.MenuStrip1.PerformLayout
+        Me.ToolStrip1.ResumeLayout(false)
+        Me.ToolStrip1.PerformLayout
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents ArchivoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AbrirToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NuevoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GuardarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ImprimirToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SalirToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EdicionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeshacerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

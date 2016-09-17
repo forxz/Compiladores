@@ -4,29 +4,55 @@ Public Class Parametros
     Dim rutaexe$ = ""
     Private Sub Parametros_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            Dim freader As New StreamReader(Path.GetFullPath("C:\Users\PC9\Documents\GitHub\Compiladores\Editor\param.txt"))
+            Dim freader As New StreamReader(Path.GetFullPath("param.txt"))
             Dim linea As String ', nombreparam As String, valorparam As String
             Dim datos As New ArrayList()
-            Do
-                linea = freader.ReadLine()
-                If Not linea Is Nothing Then
-                    If linea.Length <> 0 Then
-                        datos.Add(linea)
-                    End If
-                    Me.RichTextBox1.Text = linea
+            
+            linea = freader.ReadLine()
+            If Not linea Is Nothing Then
+                If linea.Length <> 0 Then
+                    datos.Add(linea)
+                    linea = linea.ToString.Split(":")(1)
+                    Me.txtMaxLinea.Text = linea
                 End If
-            Loop Until linea Is Nothing
+
+            End If
+
+            linea = freader.ReadLine()
+            If Not linea Is Nothing Then
+                If linea.Length <> 0 Then
+                    datos.Add(linea)
+                    linea = linea.ToString.Split(":")(1)
+                    Me.txtMaxDigit.Text = linea
+                End If
+
+            End If
+
+            linea = freader.ReadLine()
+            If Not linea Is Nothing Then
+                If linea.Length <> 0 Then
+                    datos.Add(linea)
+                    linea = linea.ToString.Split(":")(1)
+                    Me.txtMaxID.Text = linea
+                End If
+
+            End If
+            'Loop Until linea Is Nothing
+
+
+
             freader.Close()
+
             'For i As Integer = 0 To datos.Count - 1
             '    nombreparam = datos(i).ToString.Split(";")(0)
             '    valorparam = datos(i).ToString.Split(";")(1)
             '    Select Case nombreparam
             '        Case "MAXLINEA"
-            '            Me.NUDMaxLinea.Value = valorparam
+            'Me.txtMaxLinea.Text = linea
             '        Case "MAXDIGIT"
-            '            Me.NUDMaxDigit.Value = valorparam
+            'Me.txtMaxDigit.Text = linea
             '        Case "MAXID"
-            '            Me.NUDMaxId.Value = valorparam
+            'Me.txtMaxID.Text = linea
             '        Case "SCNRPATH"
             '            Me.TxtScnrPath.Text = valorparam
             '    End Select

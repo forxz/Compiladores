@@ -46,3 +46,15 @@ C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.vbproj
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.exe
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.pdb
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.xml
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.exe.config
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.exe
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.xml
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.pdb
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.Form1.resources
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.Form2.resources
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.Resources.resources
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.Parametros.resources
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.exe
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.pdb
+C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.xml
