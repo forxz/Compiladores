@@ -82,6 +82,7 @@ void obtoken()
 				   {
 					   token = nullTok;
 					   while (ch = obtch())  if (ch == 10 || ch == ' ' || ch == ')' || ch == ']' || ch == ',')  break;
+					   break;
 				   }
 		   }
        }
@@ -93,19 +94,35 @@ void obtoken()
 			while (ch = obtch()) if (ch == 10) break; 
 			break;
 		case '/':
-			if (obtch() == '*')  while (ch = obtch()) if (ch == '*' && obtch() == '\'') break;
+			ch = obtch();
+			if (ch == '*')  while (ch = obtch()) if (ch == '*' && (ch = obtch()) == '\'') break;
 			else token = divideTok;
 			break;
 		case '>':
-			if (obtch() == '=') token = moreETok;
+			ch = obtch();
+			if (ch == '=')
+			{
+				token = moreETok;
+				ch = obtch();
+			}
 			else token = moreTok;
 			break;
 		case '<':
-			if (obtch() == '=') token = lessETok;
+			ch = obtch();
+			if (ch == '=')
+			{
+				token = lessETok;
+				ch = obtch();
+			}
 			else token = lessTok;
 			break;
 		case '=':
-			if (obtch() == '=') token = equalTok;
+			ch = obtch();
+			if (ch == '=')
+			{
+				token = equalTok;
+				ch = obtch();
+			}
 			else token = assigTok;
 			break;
 		case '\'':
@@ -118,6 +135,7 @@ void obtoken()
 				{
 					charT = c;
 					token = charTok;
+					ch = obtch();
 					break;
 				}
 			}
@@ -139,6 +157,7 @@ void obtoken()
 					{
 						variable[i] = '\0';
 						token = stringTok;
+						ch = obtch();
 						break;
 					}
 					else
@@ -147,6 +166,7 @@ void obtoken()
 						i++;
 					}
 			}
+
 			break;
 		default:
 			token = espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
