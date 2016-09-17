@@ -12,7 +12,7 @@
             STR = System.IO.File.OpenText(Abrir.FileName)
             RichTextBox1.Text = STR.ReadToEnd()
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message, "Error al leer archivo", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -138,8 +138,13 @@
     End Sub
 
     Private Sub AbrirVentanaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirVentanaToolStripMenuItem.Click
-        Dim forma As New Form2
-        forma.Show()
+        Dim loPSI As New ProcessStartInfo
+        Dim loProceso As New Process
+        loPSI.FileName = "Ayuda.pdf"
+        Try
+            loProceso = Process.Start(loPSI)
+        Catch Exp As Exception
+        End Try
     End Sub
 
     Private Sub ToolStripButton14_Click(sender As Object, e As EventArgs) Handles ToolStripButton14.Click
