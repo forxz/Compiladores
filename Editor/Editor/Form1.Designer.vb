@@ -77,25 +77,25 @@ Partial Class Form1
         'AbrirToolStripMenuItem
         '
         Me.AbrirToolStripMenuItem.Name = "AbrirToolStripMenuItem"
-        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AbrirToolStripMenuItem.Text = "Abrir"
         '
         'NuevoToolStripMenuItem
         '
         Me.NuevoToolStripMenuItem.Name = "NuevoToolStripMenuItem"
-        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.NuevoToolStripMenuItem.Text = "Nuevo"
         '
         'GuardarToolStripMenuItem
         '
         Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GuardarToolStripMenuItem.Text = "Guardar"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'EdicionToolStripMenuItem
@@ -103,7 +103,7 @@ Partial Class Form1
         Me.EdicionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeshacerToolStripMenuItem, Me.RehacerToolStripMenuItem, Me.CortarToolStripMenuItem, Me.CopiarToolStripMenuItem, Me.PegarToolStripMenuItem, Me.SeleccionarTodoToolStripMenuItem, Me.LimpiarTexoToolStripMenuItem})
         Me.EdicionToolStripMenuItem.Name = "EdicionToolStripMenuItem"
         Me.EdicionToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
-        Me.EdicionToolStripMenuItem.Text = "Edicion"
+        Me.EdicionToolStripMenuItem.Text = "Edición"
         '
         'DeshacerToolStripMenuItem
         '
@@ -170,14 +170,14 @@ Partial Class Form1
         'LeemeToolStripMenuItem
         '
         Me.LeemeToolStripMenuItem.Name = "LeemeToolStripMenuItem"
-        Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
-        Me.LeemeToolStripMenuItem.Text = "Leeme"
+        Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LeemeToolStripMenuItem.Text = "Léeme"
         '
         'ParametrosToolStripMenuItem
         '
         Me.ParametrosToolStripMenuItem.Name = "ParametrosToolStripMenuItem"
         Me.ParametrosToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
-        Me.ParametrosToolStripMenuItem.Text = "Parametros"
+        Me.ParametrosToolStripMenuItem.Text = "Parámetros"
         '
         'ToolStrip1
         '
