@@ -6,11 +6,24 @@
 #include "lexico.h"
 
 //error: por el momento todo error es fatal          
- int error(int no)
-{ 
- printf ("\n^ Error %d: Este numero es demasiado grande",no);
- fclose(fp);//cerrar el programa fuente
- exit(1); //estoy en modo de pánico...cualquier error es fatal
+ int error(int no){
+	 switch (no)
+	 {
+
+	 case 30:
+		 printf("\n^ Error %d: Este numero es demasiado grande", no);
+		 break;
+	 case 40:
+		 printf("\n^ Error %d: La cadena es demasiado grande", no);
+		 break;
+	 default:
+		 printf("\n^ Error %d: Desconocido", no);
+		 break;
+	 }
+	
+	fclose(fp);			//cerrar el programa fuente
+	exit(1);			//estoy en modo de pánico...cualquier error es fatal
+
 }
 
 //inicializar_espec
@@ -19,7 +32,7 @@ void inicializar_espec()
 {
   int i;
   for (i=0;i<=254;++i) 
-    espec[i]=nullTok;
+    espec[i]=nulo;
 
   espec[10]=enterTok;
   espec[33]=denialTok;
@@ -48,7 +61,7 @@ void inicializar_espec()
 void imprime_token()
 {
 
-	char *token_string[] = { "mainTok", "intTok", "floatTok", "boolTok", "charTok", "stringTok", "fileTok", 
+	char *token_string[] = { "nulo", "mainTok", "intTok", "floatTok", "boolTok", "charTok", "stringTok", "fileTok", 
 							 "arrayTok", "ifTok", "elseTok", "switchTok", "caseTok", "breakTok", "trueTok", 
 							 "falseTok", "existTok", "whileTok", "forTok", "repeatTok", "untilTok", "andTok", 
 							 "orTok", "functionTok", "procedureTok", "returnTok", "refTok", "printTok", "readTok", 

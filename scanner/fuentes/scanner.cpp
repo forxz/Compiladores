@@ -8,12 +8,16 @@
 #include "lexico.h"
 #include "auxiliares.h"
 
-char linea[MAXLINEA];     //buffer de líneas 
+int MAXID;
+int MAXLINEA;
+int MAXDIGIT;
+int MAXSTRING;
+char linea[2000];			  //buffer de líneas 
 int ll;                   //contador de caracteres
 int offset;               //corrimiento en la lectura de los caracteres del programa fuente
 int fin_de_archivo;       //bandera de fin de archivo (obtch)   
 int ch;                   //último caracter leído
-char lex[MAXID+1];        //último lexeme leído ( +1 para colocar "\0")
+char lex[1000];			  //último lexeme leído ( +1 para colocar "\0")
 long int valor ;          //valor numérico de una lexeme correspondiene a un número
 int comentario = 0;		  //Bandera para comentarios
 int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
@@ -21,7 +25,7 @@ int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 //obtoken: obtiene el siguiente token del programa fuente                   
 void obtoken()
 {
- char lexid[MAXID+1]; //+1 para colocar el marcador "\0"
+ char lexid[1000]; //+1 para colocar el marcador "\0"
  char charT;
  int i,j, points;
  int ok=0;
@@ -33,7 +37,7 @@ void obtoken()
  if (isalpha(ch)) {
     lexid[0]=ch;
     i=1;
-    while ( isalpha( (ch=obtch()) ) ||  isdigit(ch)   ) 
+    while ( isalpha( (ch=obtch()) ) ||  isdigit(ch) ) 
       if (i<MAXID) lexid[i++]=ch;
     lexid[i]='\0';
   
@@ -160,7 +164,7 @@ void obtoken()
 			{
 				if (ch == 10 || ch == '\'')
 				{
-					token = nullTok;
+					token = nulo;
 					break;
 				}
 				else
@@ -173,8 +177,12 @@ void obtoken()
 					}
 					else
 					{
-						variable[i] = ch;
-						i++;
+						if (i + 1 <= MAXSTRING){
+							variable[i] = ch;
+							i++;
+						}
+						else
+							error(40); //La cadena es demasiado grande
 					}
 			}
 

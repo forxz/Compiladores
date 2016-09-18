@@ -7,8 +7,12 @@
 #include "auxiliares.h"
 #include "scanner.h"
 #include "lexico.h"
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
 
 FILE *fp; //apuntador a archivo conteniendo el programa fuente
+void obtenerParametros();
 
 //main: inicia el compilador...solo scanner
 int main(int argc, char *argv[]) {
@@ -30,6 +34,9 @@ int main(int argc, char *argv[]) {
 			fin_de_archivo = 0;
 			offset = -1; ll = 0;
 
+			//Leer parámetros
+			obtenerParametros();
+
 			//tokenizar el programa fuente
 			while (1) {
 				obtoken();        //en scanner.cpp
@@ -44,5 +51,36 @@ int main(int argc, char *argv[]) {
 }
 
 
+
+//Obtiene los parametros de archivo param.txt
+void obtenerParametros(){
+	FILE * paramFile;
+	char c;
+	int numParametro = 0, i;
+
+	if ((paramFile = fopen("C:\\Users\\Marvin\\Documents\\Compiladores\\scanner\\Debug\\param.txt", "r")) == NULL) //abrir el archivo de solo lectura
+		printf("\nNo se encontro el archivo de parametros");
+	else {
+
+		while ((c = getc(paramFile)) != EOF)
+			if (c == ';'){		// Si encuentra el separador
+				char numero[20] = "";
+				for (i = 0; (c = getc(paramFile)) != EOF && c != '\n'; i++)
+					if (isdigit(c))
+						numero[i] = c;
+
+				if (numParametro == 0){MAXLINEA = atoi(numero); numParametro++;}
+				else if (numParametro == 1){MAXDIGIT = atoi(numero); numParametro++;}
+				else if (numParametro == 2){MAXID = atoi(numero); numParametro++;}
+				else if (numParametro == 3){MAXSTRING = atoi(numero); numParametro++;}
+				
+			}
+
+		if (numParametro = 0)
+			printf("\nFalta definir parámetros.");
+		fclose(paramFile);
+				
+	}
+}
 
 
