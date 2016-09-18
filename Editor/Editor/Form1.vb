@@ -9,16 +9,16 @@ Public Class Form1
         Abrir.Filter = "Text(*.txt)|*.txt" 'Tipo de archivo a utilizar
         Abrir.CheckFileExists = True 'Comprueba que el archivo exista
         Abrir.Title = "Abrir documento"
-        Abrir.ShowDialog(Me) 'Muestra ventana para seleccionar el archivo a abrir
-        Try
-            Abrir.OpenFile()
-            STR = System.IO.File.OpenText(Abrir.FileName) 'Lee el archivo
-            RichTextBox1.Text = STR.ReadToEnd() 'Muestra el contenido del archivo en pantalla
-            STR.Close()
-            rutaArchivo = Abrir.FileName
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error al leer archivo", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        If Abrir.ShowDialog(Me) = DialogResult.OK Then 'Muestra ventana para seleccionar el archivo a abrir
+            Try        
+                STR = System.IO.File.OpenText(Abrir.FileName) 'Lee el archivo
+                RichTextBox1.Text = STR.ReadToEnd() 'Muestra el contenido del archivo en pantalla
+                STR.Close()
+                rutaArchivo = Abrir.FileName
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error al leer archivo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
     End Sub
 
     Private Sub NuevoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevoToolStripMenuItem.Click, NuevoDoc.Click
@@ -32,14 +32,18 @@ Public Class Form1
         GuardarComo.DefaultExt = "*.rtf" 'Tipo de archivo por defecto a guardar
         GuardarComo.Filter = "Text Files|*.txt" 'Tipo de archivos que se van a guardar
         GuardarComo.CheckPathExists = True 'Revisa si la ruta del archivo existe
-        GuardarComo.ShowDialog(Me) 'Muestra un cuadro de dialogo para asignarle nombre al archivo
-        Try
-            STW = System.IO.File.CreateText(GuardarComo.FileName)
-            STW.Write(RichTextBox1.Text)
-            STW.Flush()
-        Catch ex As Exception
+        If GuardarComo.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
 
-        End Try
+            'Muestra un cuadro de dialogo para asignarle nombre al archivo
+            Try
+                STW = System.IO.File.CreateText(GuardarComo.FileName)
+                STW.Write(RichTextBox1.Text)
+                STW.Flush()
+                MessageBox.Show("Guardado con éxito", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error al leer archivo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
     End Sub
 
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
@@ -75,8 +79,6 @@ Public Class Form1
     End Sub
 
     Private Sub FuenteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Fuente.Click
-        'Dim Forma2 As New Form2
-        'Forma2.Show()
         Try
             Dim fuente As FontDialog = New FontDialog
             fuente.Font = RichTextBox1.Font
@@ -84,7 +86,7 @@ Public Class Form1
                 RichTextBox1.Font = fuente.Font
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message, "Error al cambiar fuente", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -95,21 +97,27 @@ Public Class Form1
         Try
             RichTextBox1.BackColor = fondo.Color
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message, "Error al cambiar fondo", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         If rutaArchivo <> "" Then
             RichTextBox1.SaveFile(rutaArchivo, RichTextBoxStreamType.PlainText)
+            MessageBox.Show("Guardado con éxito", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
             Dim saveFile1 As New SaveFileDialog()
             saveFile1.DefaultExt = "*.rtf"
             saveFile1.Filter = "Text Files|*.txt"
             If (saveFile1.ShowDialog() = System.Windows.Forms.DialogResult.OK) _
                 And (saveFile1.FileName.Length) > 0 Then
-                RichTextBox1.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText)
-                rutaArchivo = saveFile1.FileName
+                Try
+                    RichTextBox1.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText)
+                    rutaArchivo = saveFile1.FileName
+                    MessageBox.Show("Guardado con éxito", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, "Error al guardar", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try                
             End If
         End If
     End Sub
@@ -120,7 +128,8 @@ Public Class Form1
         loPSI.FileName = "Ayuda.pdf"
         Try
             loProceso = Process.Start(loPSI)
-        Catch Exp As Exception
+        Catch Ex As Exception
+            MessageBox.Show(Ex.Message, "Error al abrir ayuda", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -132,6 +141,6 @@ Public Class Form1
 
     Private Sub ParametrosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ParametrosToolStripMenuItem.Click
         Dim ventanaParametros As New Parametros
-        ventanaParametros.Show()
+        ventanaParametros.ShowDialog(Me)
     End Sub
 End Class
