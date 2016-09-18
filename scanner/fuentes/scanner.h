@@ -7,5 +7,5 @@ extern int fin_de_archivo;   //bandera de fin de archivo (se usa en pl0.cpp y sc
 extern int ch;               //último caracter leído (se usa en pl0.cpp y scanner.cpp)
 extern char lex[MAXID+1];    //último lexeme leído ( +1 para colocar "\0")
 extern long int valor;       //valor numérico de una lexeme correspondiene a un número
-
+extern int comentario;		 //Bandera para comentarios
 void obtoken();

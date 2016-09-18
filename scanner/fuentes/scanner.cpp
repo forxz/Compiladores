@@ -15,7 +15,7 @@ int fin_de_archivo;       //bandera de fin de archivo (obtch)
 int ch;                   //último caracter leído
 char lex[MAXID+1];        //último lexeme leído ( +1 para colocar "\0")
 long int valor ;          //valor numérico de una lexeme correspondiene a un número
-
+int comentario = 0;		  //Bandera para comentarios
 int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 
 //obtoken: obtiene el siguiente token del programa fuente                   
@@ -92,11 +92,22 @@ void obtoken()
 		{
 		case '#':  // es un comentario de linea
 			while (ch = obtch()) if (ch == 10) break; 
+			comentario = 1;
 			break;
 		case '/':
 			ch = obtch();
-			if (ch == '*')  while (ch = obtch()) if (ch == '*' && (ch = obtch()) == '\'') break;
-			else token = divideTok;
+			if (ch == '*') {
+				comentario = 1;
+				while (ch = obtch())
+					if( ch == '*')
+						if (ch = obtch() == '\\'){
+							ch = obtch();
+							break;
+						}
+													
+			}
+			else 
+				token = divideTok;
 			break;
 		case '>':
 			ch = obtch();
