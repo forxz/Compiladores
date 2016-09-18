@@ -32,7 +32,7 @@ Public Class Form1
         GuardarComo.DefaultExt = "*.rtf" 'Tipo de archivo por defecto a guardar
         GuardarComo.Filter = "Text Files|*.txt" 'Tipo de archivos que se van a guardar
         GuardarComo.CheckPathExists = True 'Revisa si la ruta del archivo existe
-        If GuardarComo.ShowDialog(Me) Then 'Muestra un cuadro de dialogo para asignarle nombre al archivo
+        If GuardarComo.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then 'Muestra un cuadro de dialogo para asignarle nombre al archivo
             Try
                 STW = System.IO.File.CreateText(GuardarComo.FileName)
                 STW.Write(RichTextBox1.Text)
@@ -140,6 +140,6 @@ Public Class Form1
 
     Private Sub ParametrosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ParametrosToolStripMenuItem.Click
         Dim ventanaParametros As New Parametros
-        ventanaParametros.Show()
+        ventanaParametros.ShowDialog(Me)
     End Sub
 End Class
