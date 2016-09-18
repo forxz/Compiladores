@@ -77,25 +77,25 @@ Partial Class Form1
         'AbrirToolStripMenuItem
         '
         Me.AbrirToolStripMenuItem.Name = "AbrirToolStripMenuItem"
-        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.AbrirToolStripMenuItem.Text = "Abrir"
         '
         'NuevoToolStripMenuItem
         '
         Me.NuevoToolStripMenuItem.Name = "NuevoToolStripMenuItem"
-        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.NuevoToolStripMenuItem.Text = "Nuevo"
         '
         'GuardarToolStripMenuItem
         '
         Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.GuardarToolStripMenuItem.Text = "Guardar"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'EdicionToolStripMenuItem
@@ -157,7 +157,7 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'NuevaVentanaToolStripMenuItem
@@ -170,7 +170,7 @@ Partial Class Form1
         'LeemeToolStripMenuItem
         '
         Me.LeemeToolStripMenuItem.Name = "LeemeToolStripMenuItem"
-        Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.LeemeToolStripMenuItem.Text = "Leeme"
         '
         'ParametrosToolStripMenuItem

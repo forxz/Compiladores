@@ -58,3 +58,4 @@ C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Debug\Editor.vbproj.Gen
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.exe
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.pdb
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.xml
+C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Parametros.resources
