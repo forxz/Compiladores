@@ -33,10 +33,9 @@ Partial Class Parametros
         '
         'Button1
         '
-        Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Button1.Location = New System.Drawing.Point(87, 207)
+        Me.Button1.Location = New System.Drawing.Point(140, 226)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(97, 34)
+        Me.Button1.Size = New System.Drawing.Size(97, 23)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Guardar Cambios"
         Me.Button1.UseVisualStyleBackColor = True
@@ -44,7 +43,7 @@ Partial Class Parametros
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(31, 39)
+        Me.Label1.Location = New System.Drawing.Point(13, 13)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(61, 13)
         Me.Label1.TabIndex = 2
@@ -53,7 +52,7 @@ Partial Class Parametros
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(31, 103)
+        Me.Label2.Location = New System.Drawing.Point(13, 77)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(59, 13)
         Me.Label2.TabIndex = 3
@@ -62,7 +61,7 @@ Partial Class Parametros
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(31, 161)
+        Me.Label3.Location = New System.Drawing.Point(13, 135)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(41, 13)
         Me.Label3.TabIndex = 4
@@ -70,21 +69,21 @@ Partial Class Parametros
         '
         'txtMaxLinea
         '
-        Me.txtMaxLinea.Location = New System.Drawing.Point(126, 36)
+        Me.txtMaxLinea.Location = New System.Drawing.Point(108, 10)
         Me.txtMaxLinea.Name = "txtMaxLinea"
         Me.txtMaxLinea.Size = New System.Drawing.Size(129, 20)
         Me.txtMaxLinea.TabIndex = 5
         '
         'txtMaxDigit
         '
-        Me.txtMaxDigit.Location = New System.Drawing.Point(126, 96)
+        Me.txtMaxDigit.Location = New System.Drawing.Point(108, 70)
         Me.txtMaxDigit.Name = "txtMaxDigit"
         Me.txtMaxDigit.Size = New System.Drawing.Size(129, 20)
         Me.txtMaxDigit.TabIndex = 6
         '
         'txtMaxID
         '
-        Me.txtMaxID.Location = New System.Drawing.Point(126, 154)
+        Me.txtMaxID.Location = New System.Drawing.Point(108, 128)
         Me.txtMaxID.Name = "txtMaxID"
         Me.txtMaxID.Size = New System.Drawing.Size(129, 20)
         Me.txtMaxID.TabIndex = 7
@@ -93,7 +92,7 @@ Partial Class Parametros
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(282, 253)
+        Me.ClientSize = New System.Drawing.Size(284, 261)
         Me.Controls.Add(Me.txtMaxID)
         Me.Controls.Add(Me.txtMaxDigit)
         Me.Controls.Add(Me.txtMaxLinea)
@@ -101,11 +100,7 @@ Partial Class Parametros
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "Parametros"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Parametros"
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -103,7 +103,7 @@ Partial Class Form1
         Me.EdicionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeshacerToolStripMenuItem, Me.RehacerToolStripMenuItem, Me.CortarToolStripMenuItem, Me.CopiarToolStripMenuItem, Me.PegarToolStripMenuItem, Me.SeleccionarTodoToolStripMenuItem, Me.LimpiarTexoToolStripMenuItem})
         Me.EdicionToolStripMenuItem.Name = "EdicionToolStripMenuItem"
         Me.EdicionToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
-        Me.EdicionToolStripMenuItem.Text = "Edición"
+        Me.EdicionToolStripMenuItem.Text = "Edicion"
         '
         'DeshacerToolStripMenuItem
         '
@@ -157,7 +157,7 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'NuevaVentanaToolStripMenuItem
@@ -171,13 +171,13 @@ Partial Class Form1
         '
         Me.LeemeToolStripMenuItem.Name = "LeemeToolStripMenuItem"
         Me.LeemeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.LeemeToolStripMenuItem.Text = "Léeme"
+        Me.LeemeToolStripMenuItem.Text = "Leeme"
         '
         'ParametrosToolStripMenuItem
         '
         Me.ParametrosToolStripMenuItem.Name = "ParametrosToolStripMenuItem"
         Me.ParametrosToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
-        Me.ParametrosToolStripMenuItem.Text = "Parámetros"
+        Me.ParametrosToolStripMenuItem.Text = "Parametros"
         '
         'ToolStrip1
         '
