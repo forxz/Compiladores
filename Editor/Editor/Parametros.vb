@@ -23,6 +23,16 @@ Public Class Parametros
                 If linea.Length <> 0 Then
                     datos.Add(linea)
                     linea = linea.ToString.Split(";")(1)
+                    Me.txtMaxPal.Text = linea
+                End If
+
+            End If
+
+            linea = freader.ReadLine()
+            If Not linea Is Nothing Then
+                If linea.Length <> 0 Then
+                    datos.Add(linea)
+                    linea = linea.ToString.Split(";")(1)
                     Me.txtMaxDigit.Text = linea
                 End If
 
@@ -49,6 +59,8 @@ Public Class Parametros
             Dim fwriter As New StreamWriter(Application.StartupPath & "\param.txt")
             Dim linea As String
             linea = "MAXLINEA;" & txtMaxLinea.Text
+            fwriter.WriteLine(linea)
+            linea = "MAXPAL;" & txtMaxPal.Text
             fwriter.WriteLine(linea)
             linea = "MAXDIGIT;" & txtMaxDigit.Text
             fwriter.WriteLine(linea)
