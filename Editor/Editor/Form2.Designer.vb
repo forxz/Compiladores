@@ -32,10 +32,13 @@ Partial Class Form2
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(13, 13)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.HotTrack = True
+        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(801, 431)
+        Me.TabControl1.Size = New System.Drawing.Size(479, 365)
+        Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
@@ -44,31 +47,36 @@ Partial Class Form2
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(793, 405)
+        Me.TabPage1.Size = New System.Drawing.Size(471, 339)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Scanner"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
         'TokensRichTextBox
         '
+        Me.TokensRichTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TokensRichTextBox.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.TokensRichTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TokensRichTextBox.ForeColor = System.Drawing.Color.Red
-        Me.TokensRichTextBox.Location = New System.Drawing.Point(7, 4)
+        Me.TokensRichTextBox.Location = New System.Drawing.Point(6, 8)
+        Me.TokensRichTextBox.Margin = New System.Windows.Forms.Padding(5)
         Me.TokensRichTextBox.Name = "TokensRichTextBox"
         Me.TokensRichTextBox.ReadOnly = True
-        Me.TokensRichTextBox.Size = New System.Drawing.Size(782, 398)
+        Me.TokensRichTextBox.Size = New System.Drawing.Size(457, 323)
         Me.TokensRichTextBox.TabIndex = 0
         Me.TokensRichTextBox.Text = ""
+        Me.TokensRichTextBox.WordWrap = False
         '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(818, 447)
+        Me.ClientSize = New System.Drawing.Size(479, 365)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "Form2"
-        Me.Text = "Compilador"
+        Me.Text = "Resultados"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
