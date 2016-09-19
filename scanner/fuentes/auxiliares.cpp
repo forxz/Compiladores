@@ -61,13 +61,11 @@ void inicializar_espec()
 void imprime_token()
 {
 
-	char *token_string[] = { "nulo", "mainTok", "intTok", "floatTok", "boolTok", "charTok", "stringTok", "fileTok", 
-							 "arrayTok", "ifTok", "elseTok", "switchTok", "caseTok", "breakTok", "trueTok", 
-							 "falseTok", "existTok", "whileTok", "forTok", "repeatTok", "untilTok", "andTok", 
-							 "orTok", "functionTok", "procedureTok", "returnTok", "refTok", "printTok", "readTok", 
-							 "sortTok", "concatTok", "compareTok", "factorialTok", "averageTok", "powTok", "evenTok", 
-							 "substringTok", "openFileTok", "closeFileTok", "nullTok", "assigTok", "commaTok", "numberValTok", 
-							 "floatValTok", "boolValTok", "charValTok", "stringValTok", "fileValTok", "arrayValTok", "lessTok", 
+	char *token_string[] = { "nulo", "andTok", "arrayTok", "averageTok", "boolTok", "breakTok", "caseTok", "charTok", "closeFileTok", "compareTok",
+							"concatTok", "elseTok", "evenTok", "existTok", "factorialTok", "falseTok", "fileTok", "floatTok", "forTok", "functionTok",
+							"ifTok", "intTok", "mainTok", "nullTok", "openFileTok", "orTok", "powTok", "printTok", "procedureTok", "readTok", "refTok",
+							"repeatTok", "returnTok", "sortTok", "stringTok", "substringTok", "switchTok", "trueTok", "untilTok", "whileTok", "assigTok",
+							"commaTok", "numberValTok", "floatValTok", "boolValTok", "charValTok", "stringValTok", "fileValTok", "arrayValTok", "lessTok", 
 							 "moreTok", "bracketLTok", "bracketRTok", "cBracketLTok", "cBracketRTok", "parentLTok", "parentRTok",
 							 "colonTok", "semiColonTok", "plusTok", "minusTok", "multTok", "divideTok", "percentTok", "moreETok",
 							 "lessETok", "denialTok", "notEqualTok", "equalTok", "identTok", "enterTok" };

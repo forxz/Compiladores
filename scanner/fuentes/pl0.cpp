@@ -58,7 +58,7 @@ void obtenerParametros(){
 	char c;
 	int numParametro = 0, i;
 
-	if ((paramFile = fopen("C:\\Users\\Marvin\\Documents\\Compiladores\\scanner\\Debug\\param.txt", "r")) == NULL) //abrir el archivo de solo lectura
+	if ((paramFile = fopen("param.txt", "r")) == NULL) //abrir el archivo de solo lectura
 		printf("\nNo se encontro el archivo de parametros");
 	else {
 
