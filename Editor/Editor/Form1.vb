@@ -135,7 +135,7 @@ Public Class Form1
 
     Private Sub ScannerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerToolStripMenuItem.Click
         Dim ventanaComp As New Form2
-        ventanaComp.Show()
+        ventanaComp.ShowDialog()
     End Sub
 
     Private Sub ParametrosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ParametrosToolStripMenuItem.Click
