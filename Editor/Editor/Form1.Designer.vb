@@ -54,6 +54,7 @@ Partial Class Form1
         Me.Fuente = New System.Windows.Forms.ToolStripButton()
         Me.ColorFondo = New System.Windows.Forms.ToolStripButton()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.CopiarTexto = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -157,7 +158,7 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'NuevaVentanaToolStripMenuItem
@@ -181,7 +182,7 @@ Partial Class Form1
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoDoc, Me.AbrirDoc, Me.btnGuardar, Me.GuardarDoc, Me.CortarTexto, Me.PegarTexto, Me.Undo, Me.Redo, Me.Fuente, Me.ColorFondo})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoDoc, Me.AbrirDoc, Me.btnGuardar, Me.GuardarDoc, Me.CopiarTexto, Me.CortarTexto, Me.PegarTexto, Me.Undo, Me.Redo, Me.Fuente, Me.ColorFondo})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(916, 25)
@@ -292,6 +293,15 @@ Partial Class Form1
         Me.RichTextBox1.TabIndex = 2
         Me.RichTextBox1.Text = ""
         '
+        'CopiarTexto
+        '
+        Me.CopiarTexto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.CopiarTexto.Image = CType(resources.GetObject("CopiarTexto.Image"), System.Drawing.Image)
+        Me.CopiarTexto.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.CopiarTexto.Name = "CopiarTexto"
+        Me.CopiarTexto.Size = New System.Drawing.Size(23, 22)
+        Me.CopiarTexto.Text = "Copiar"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -344,5 +354,6 @@ End Sub
     Friend WithEvents CompilarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ScannerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ParametrosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CopiarTexto As System.Windows.Forms.ToolStripButton
 
 End Class

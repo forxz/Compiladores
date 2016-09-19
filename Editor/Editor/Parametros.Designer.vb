@@ -29,8 +29,9 @@ Partial Class Parametros
         Me.txtMaxLinea = New System.Windows.Forms.TextBox()
         Me.txtMaxDigit = New System.Windows.Forms.TextBox()
         Me.txtMaxID = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.txtMaxPal = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
@@ -55,11 +56,7 @@ Partial Class Parametros
         'Label2
         '
         Me.Label2.AutoSize = True
-<<<<<<< HEAD
-        Me.Label2.Location = New System.Drawing.Point(13, 124)
-=======
-        Me.Label2.Location = New System.Drawing.Point(30, 84)
->>>>>>> origin/Editor
+        Me.Label2.Location = New System.Drawing.Point(30, 113)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(59, 13)
         Me.Label2.TabIndex = 3
@@ -68,72 +65,63 @@ Partial Class Parametros
         'Label3
         '
         Me.Label3.AutoSize = True
-<<<<<<< HEAD
-        Me.Label3.Location = New System.Drawing.Point(13, 182)
-=======
-        Me.Label3.Location = New System.Drawing.Point(30, 138)
->>>>>>> origin/Editor
+        Me.Label3.Location = New System.Drawing.Point(0, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(41, 13)
-        Me.Label3.TabIndex = 4
-        Me.Label3.Text = "MAXID"
+        Me.Label3.Size = New System.Drawing.Size(0, 13)
+        Me.Label3.TabIndex = 5
         '
         'txtMaxLinea
         '
-        Me.txtMaxLinea.Location = New System.Drawing.Point(125, 24)
+        Me.txtMaxLinea.Location = New System.Drawing.Point(106, 27)
         Me.txtMaxLinea.Name = "txtMaxLinea"
-        Me.txtMaxLinea.Size = New System.Drawing.Size(129, 20)
-        Me.txtMaxLinea.TabIndex = 5
+        Me.txtMaxLinea.Size = New System.Drawing.Size(138, 20)
+        Me.txtMaxLinea.TabIndex = 4
         '
         'txtMaxDigit
         '
-<<<<<<< HEAD
-        Me.txtMaxDigit.Location = New System.Drawing.Point(108, 117)
-=======
-        Me.txtMaxDigit.Location = New System.Drawing.Point(125, 77)
->>>>>>> origin/Editor
+        Me.txtMaxDigit.Location = New System.Drawing.Point(106, 106)
         Me.txtMaxDigit.Name = "txtMaxDigit"
-        Me.txtMaxDigit.Size = New System.Drawing.Size(129, 20)
-        Me.txtMaxDigit.TabIndex = 6
+        Me.txtMaxDigit.Size = New System.Drawing.Size(138, 20)
+        Me.txtMaxDigit.TabIndex = 3
         '
         'txtMaxID
         '
-<<<<<<< HEAD
-        Me.txtMaxID.Location = New System.Drawing.Point(108, 175)
-=======
-        Me.txtMaxID.Location = New System.Drawing.Point(125, 131)
->>>>>>> origin/Editor
+        Me.txtMaxID.Location = New System.Drawing.Point(106, 149)
         Me.txtMaxID.Name = "txtMaxID"
-        Me.txtMaxID.Size = New System.Drawing.Size(129, 20)
-        Me.txtMaxID.TabIndex = 7
+        Me.txtMaxID.Size = New System.Drawing.Size(138, 20)
+        Me.txtMaxID.TabIndex = 2
+        '
+        'txtMaxPal
+        '
+        Me.txtMaxPal.Location = New System.Drawing.Point(106, 64)
+        Me.txtMaxPal.Name = "txtMaxPal"
+        Me.txtMaxPal.Size = New System.Drawing.Size(138, 20)
+        Me.txtMaxPal.TabIndex = 0
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(16, 71)
+        Me.Label4.Location = New System.Drawing.Point(33, 70)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(50, 13)
-        Me.Label4.TabIndex = 8
+        Me.Label4.TabIndex = 6
         Me.Label4.Text = "MAXPAL"
         '
-        'txtMaxPal
+        'Label5
         '
-        Me.txtMaxPal.Location = New System.Drawing.Point(108, 63)
-        Me.txtMaxPal.Name = "txtMaxPal"
-        Me.txtMaxPal.Size = New System.Drawing.Size(129, 20)
-        Me.txtMaxPal.TabIndex = 9
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(33, 155)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(41, 13)
+        Me.Label5.TabIndex = 7
+        Me.Label5.Text = "MAXID"
         '
         'Parametros
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-<<<<<<< HEAD
-        Me.ClientSize = New System.Drawing.Size(284, 261)
-        Me.Controls.Add(Me.txtMaxPal)
-        Me.Controls.Add(Me.Label4)
-=======
         Me.ClientSize = New System.Drawing.Size(281, 231)
->>>>>>> origin/Editor
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.txtMaxPal)
         Me.Controls.Add(Me.txtMaxID)
         Me.Controls.Add(Me.txtMaxDigit)
         Me.Controls.Add(Me.txtMaxLinea)
@@ -158,6 +146,7 @@ Partial Class Parametros
     Friend WithEvents txtMaxLinea As System.Windows.Forms.TextBox
     Friend WithEvents txtMaxDigit As System.Windows.Forms.TextBox
     Friend WithEvents txtMaxID As System.Windows.Forms.TextBox
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtMaxPal As System.Windows.Forms.TextBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
 End Class
