@@ -21,41 +21,50 @@ char lex[1000];			  //último lexeme leído ( +1 para colocar "\0")
 long int valor ;          //valor numérico de una lexeme correspondiene a un número
 int comentario = 0;		  //Bandera para comentarios
 int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
+int busquedaBinaria(char generada[], char original[]);
 
 //obtoken: obtiene el siguiente token del programa fuente                   
 void obtoken()
 {
+ int maxId = 10;
  char lexid[1000]; //+1 para colocar el marcador "\0"
  char charT;
- int i,j, points;
- int ok=0;
+ int i,j, points, mindex; // mindex sera usado para encontrar el punto medio en la busqueda binaria
+ bool reservada = false;
+ int binariaL = 0; // busqueda binaria posicion de lado izquierdo pos inicial 0
+ int binariaR = 38; // busqueda binaria posicion de lado derecho pos inicial 38 (total palabras reservadas)
 
  //quitar blancos, caracter de cambio de línea y tabuladores
  while (ch==' ' || ch=='\n' || ch=='\t') ch=obtch() ;
 
  //si la lexeme comienza con una letra, es identificador o palabra reservada
  if (isalpha(ch)) {
-    lexid[0]=ch;
-    i=1;
-    while ( isalpha( (ch=obtch()) ) ||  isdigit(ch) ) 
-      if (i<MAXID) lexid[i++]=ch;
-    lexid[i]='\0';
-  
-    //¿es identificador o palabra reservada?.buscar en la tabla de palabras reservadas
-	//una búsqueda lineal que tendrá que ser sustituída por otro tipo de búsqueda más efectiva. 
-	//...en esa nueva búsqueda desaparecerá el "break"
-    for (j=0;j<MAXPAL;++j) 
-        if (strcmp(lexid,lexpal[j])==0) {
-	       ok=1;
-	       break;
-        }
+	 lexid[0] = ch;
+	 i = 1;
+	 while (isalpha((ch = obtch())) || isdigit(ch))
+		 if (i < maxId) lexid[i++] = ch;
+	 lexid[i] = '\0';
 
-    if (ok==1) 
-       token=tokpal[j]; //es palabra reservada
-    else
-       token=identTok; //es identificador
- 
-    strcpy(lex,lexid); //copiar en lex
+
+	 //¿es identificador o palabra reservada?.buscar en la tabla de palabras reservadas
+	 // Busqueda binaria
+	 while (binariaL <= binariaR)
+	 {
+		 mindex = (binariaL + binariaR) / 2;
+		 if (strcmp(lexid, lexpal[mindex]) == 0)
+		 {
+			 reservada = true;
+			 break;
+		 }
+		 else
+			 if (busquedaBinaria(lexid, lexpal[mindex]) == 0)
+				 binariaR = mindex - 1;
+			 else 
+				 binariaL = mindex + 1;
+	 }
+
+	 if (reservada == true) token = tokpal[mindex]; //es palabra reservada
+	 else  token = identTok;  //es identificador
  }
  else //si comienza con un dígito...
     if (isdigit(ch)) 
@@ -192,6 +201,31 @@ void obtoken()
 			ch = obtch();
 			break;
 		}
+}
+
+//Se recorre la palabra para determinar cual es mayor y recorrerla segun su tamano
+//Se retorna 1 si la palabra que se encuentra en el arreglo original es menor y se busca por la derecha
+//Se retorna 0 si la palabra que se encuentra en el arreglo original es mayor y se busca por la izquierda
+int busquedaBinaria(char generada[], char original[])
+{
+	int lGenerada = strlen(generada);
+	int lOriginal = strlen(original);
+	int longitud = (lGenerada < lOriginal) ? lGenerada : lOriginal;
+	int inicio = 0, resultado = 2;
+
+	while (inicio < longitud)
+	{
+		if (generada[inicio] > original[inicio])
+			resultado = 1;
+		else
+			if (generada[inicio] < original[inicio])
+				resultado =  0;
+			else inicio++;
+
+			if (resultado != 2) break;
+	}
+
+	return resultado;
 }
 
 //obtch: obtiene el siguiente caracter del programa fuente
