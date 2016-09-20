@@ -71,6 +71,6 @@ void imprime_token()
 							 "moreTok", "bracketLTok", "bracketRTok", "cBracketLTok", "cBracketRTok", "parentLTok", "parentRTok",
 							 "colonTok", "semiColonTok", "plusTok", "minusTok", "multTok", "divideTok", "percentTok", "moreETok",
 							 "lessETok", "denialTok", "notEqualTok", "equalTok", "identTok", "enterTok" };
-	fprintf(tokensFile, "|%20s|\t\t->\t%s\n", lex ,token_string[token]);
+	fprintf(tokensFile, "\t\t%s\t\t\t\t\t-->\t\t%s\n", lex ,token_string[token]);
   
 }

@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 		if (fp == NULL)
 			printf("\nNo se encontro el programa fuente indicado");
 		else {
-			printf("\n\nCompilador de pl0 version 3.0/Solo scanner --- agosto de 2012 --- A2\n");
+			//printf("\n\nCompilador de pl0 version 3.0/Solo scanner --- agosto de 2012 --- A2\n");
 
 			if ((tokensFile = fopen("resultado.txt", "w")) == NULL)
 				printf("\nNo pudo escribir archivo resultado.");

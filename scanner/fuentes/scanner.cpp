@@ -267,7 +267,7 @@ int obtch()
  if (fin_de_archivo==1) {
 	fclose(fp);//cerrar el programa fuente
 	fclose(tokensFile);
-    printf("Analisis lexicografico finalizado.");
+    //printf("Analisis lexicografico finalizado.");
     exit(1); //salir...
  }
   
@@ -277,7 +277,7 @@ int obtch()
        fin_de_archivo=1; //se retrasa en un blanco la deteccion de EOF, porque obtoken lleva un caracter adelantado. si no, en 
 						 //algunos casos tendríamos problemas, por ejemplo: no se reconoceria el punto final del programa (...end.)
 
-    printf("\n%s",linea);
+    //printf("\n%s",linea);
     offset=-1;
  }
 
