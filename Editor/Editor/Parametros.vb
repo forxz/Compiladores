@@ -15,17 +15,6 @@ Public Class Parametros
                     linea = linea.ToString.Split(";")(1)
                     Me.txtMaxLinea.Text = linea
                 End If
-
-            End If
-
-            linea = freader.ReadLine()
-            If Not linea Is Nothing Then
-                If linea.Length <> 0 Then
-                    datos.Add(linea)
-                    linea = linea.ToString.Split(";")(1)
-                    Me.txtMaxPal.Text = linea
-                End If
-
             End If
 
             linea = freader.ReadLine()
@@ -35,7 +24,6 @@ Public Class Parametros
                     linea = linea.ToString.Split(";")(1)
                     Me.txtMaxDigit.Text = linea
                 End If
-
             End If
 
             linea = freader.ReadLine()
@@ -45,11 +33,20 @@ Public Class Parametros
                     linea = linea.ToString.Split(";")(1)
                     Me.txtMaxID.Text = linea
                 End If
-
             End If
+
+            linea = freader.ReadLine()
+            If Not linea Is Nothing Then
+                If linea.Length <> 0 Then
+                    datos.Add(linea)
+                    linea = linea.ToString.Split(";")(1)
+                    Me.txtMaxPal.Text = linea
+                End If
+            End If
+
             freader.Close()
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error de lectura", MessageBoxButtons.OK)
+            MessageBox.Show(ex.Message, "Error de lectura", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -59,17 +56,17 @@ Public Class Parametros
             Dim fwriter As New StreamWriter(Application.StartupPath & "\param.txt")
             Dim linea As String
             linea = "MAXLINEA;" & txtMaxLinea.Text
-            fwriter.WriteLine(linea)
-            linea = "MAXPAL;" & txtMaxPal.Text
-            fwriter.WriteLine(linea)
+            fwriter.WriteLine(linea)            
             linea = "MAXDIGIT;" & txtMaxDigit.Text
             fwriter.WriteLine(linea)
             linea = "MAXID;" & txtMaxID.Text
             fwriter.WriteLine(linea)
+            linea = "MAXSTRING;" & txtMaxPal.Text
+            fwriter.WriteLine(linea)
             fwriter.Close()
-            MessageBox.Show("Los parámetros se han actualizado correctamente", "", MessageBoxButtons.OK)
+            MessageBox.Show("Los parámetros se han actualizado correctamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error de escritura", MessageBoxButtons.OK)
+            MessageBox.Show(ex.Message, "Error de escritura", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 End Class

@@ -56,7 +56,7 @@ Partial Class Parametros
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(30, 113)
+        Me.Label2.Location = New System.Drawing.Point(30, 72)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(59, 13)
         Me.Label2.TabIndex = 3
@@ -79,21 +79,21 @@ Partial Class Parametros
         '
         'txtMaxDigit
         '
-        Me.txtMaxDigit.Location = New System.Drawing.Point(106, 106)
+        Me.txtMaxDigit.Location = New System.Drawing.Point(106, 65)
         Me.txtMaxDigit.Name = "txtMaxDigit"
         Me.txtMaxDigit.Size = New System.Drawing.Size(138, 20)
         Me.txtMaxDigit.TabIndex = 3
         '
         'txtMaxID
         '
-        Me.txtMaxID.Location = New System.Drawing.Point(106, 149)
+        Me.txtMaxID.Location = New System.Drawing.Point(106, 108)
         Me.txtMaxID.Name = "txtMaxID"
         Me.txtMaxID.Size = New System.Drawing.Size(138, 20)
         Me.txtMaxID.TabIndex = 2
         '
         'txtMaxPal
         '
-        Me.txtMaxPal.Location = New System.Drawing.Point(106, 64)
+        Me.txtMaxPal.Location = New System.Drawing.Point(106, 150)
         Me.txtMaxPal.Name = "txtMaxPal"
         Me.txtMaxPal.Size = New System.Drawing.Size(138, 20)
         Me.txtMaxPal.TabIndex = 0
@@ -101,16 +101,16 @@ Partial Class Parametros
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(33, 70)
+        Me.Label4.Location = New System.Drawing.Point(29, 153)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(50, 13)
+        Me.Label4.Size = New System.Drawing.Size(71, 13)
         Me.Label4.TabIndex = 6
-        Me.Label4.Text = "MAXPAL"
+        Me.Label4.Text = "MAXSTRING"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(33, 155)
+        Me.Label5.Location = New System.Drawing.Point(29, 111)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(41, 13)
         Me.Label5.TabIndex = 7

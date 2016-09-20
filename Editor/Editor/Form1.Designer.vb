@@ -47,6 +47,7 @@ Partial Class Form1
         Me.AbrirDoc = New System.Windows.Forms.ToolStripButton()
         Me.btnGuardar = New System.Windows.Forms.ToolStripButton()
         Me.GuardarDoc = New System.Windows.Forms.ToolStripButton()
+        Me.CopiarTexto = New System.Windows.Forms.ToolStripButton()
         Me.CortarTexto = New System.Windows.Forms.ToolStripButton()
         Me.PegarTexto = New System.Windows.Forms.ToolStripButton()
         Me.Undo = New System.Windows.Forms.ToolStripButton()
@@ -54,7 +55,6 @@ Partial Class Form1
         Me.Fuente = New System.Windows.Forms.ToolStripButton()
         Me.ColorFondo = New System.Windows.Forms.ToolStripButton()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.CopiarTexto = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -225,6 +225,15 @@ Partial Class Form1
         Me.GuardarDoc.Size = New System.Drawing.Size(23, 22)
         Me.GuardarDoc.Text = "Guardar Como"
         '
+        'CopiarTexto
+        '
+        Me.CopiarTexto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.CopiarTexto.Image = CType(resources.GetObject("CopiarTexto.Image"), System.Drawing.Image)
+        Me.CopiarTexto.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.CopiarTexto.Name = "CopiarTexto"
+        Me.CopiarTexto.Size = New System.Drawing.Size(23, 22)
+        Me.CopiarTexto.Text = "Copiar"
+        '
         'CortarTexto
         '
         Me.CortarTexto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -293,15 +302,6 @@ Partial Class Form1
         Me.RichTextBox1.TabIndex = 2
         Me.RichTextBox1.Text = ""
         '
-        'CopiarTexto
-        '
-        Me.CopiarTexto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopiarTexto.Image = CType(resources.GetObject("CopiarTexto.Image"), System.Drawing.Image)
-        Me.CopiarTexto.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopiarTexto.Name = "CopiarTexto"
-        Me.CopiarTexto.Size = New System.Drawing.Size(23, 22)
-        Me.CopiarTexto.Text = "Copiar"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -311,9 +311,10 @@ Partial Class Form1
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
-        Me.Text = "Editor"
+        Me.Text = "Simplex Editor"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout
