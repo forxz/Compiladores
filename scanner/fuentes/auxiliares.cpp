@@ -12,12 +12,15 @@
 	 {
 
 	 case 30:
+		 fprintf(tokensFile, "\n \t\t Error %d: El numero es demasiado grande", no);
 		 printf("\n^ Error %d: Este numero es demasiado grande", no);
 		 break;
 	 case 40:
+		 fprintf(tokensFile, "\n \t\t Error %d: La cadena es demasiado grande", no);
 		 printf("\n^ Error %d: La cadena es demasiado grande", no);
 		 break;
 	 default:
+		 fprintf(tokensFile, "\n^ \t\t Error %d: Desconocido", no);
 		 printf("\n^ Error %d: Desconocido", no);
 		 break;
 	 }

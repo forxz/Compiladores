@@ -19,6 +19,7 @@ int fin_de_archivo;       //bandera de fin de archivo (obtch)
 int ch;                   //último caracter leído
 char lex[1000];			  //último lexeme leído ( +1 para colocar "\0")
 long int valor ;          //valor numérico de una lexeme correspondiene a un número
+int numLine = 0;		  // numero de linea que se esta analizando.
 int comentario = 0;		  //Bandera para comentarios
 int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 int busquedaBinaria(char generada[], char original[]);
@@ -38,7 +39,8 @@ void obtoken()
  while (ch==' ' || ch=='\n' || ch=='\t') ch=obtch() ;
 
  //si la lexeme comienza con una letra, es identificador o palabra reservada
- if (isalpha(ch)) {
+ if (isalpha(ch)) 
+ {
 	 lexid[0] = ch;
 	 i = 1;
 	 while (isalpha((ch = obtch())) || isdigit(ch))
@@ -271,22 +273,21 @@ int obtch()
     exit(1); //salir...
  }
   
- if (offset==ll-1) {
+ if (offset==ll-1) 
+ {
     ll=getline(linea,MAXLINEA); //trae una línea del programa fuente al buffer de líneas
     if (ll==0) 	   
        fin_de_archivo=1; //se retrasa en un blanco la deteccion de EOF, porque obtoken lleva un caracter adelantado. si no, en 
 						 //algunos casos tendríamos problemas, por ejemplo: no se reconoceria el punto final del programa (...end.)
-
-    //printf("\n%s",linea);
     offset=-1;
  }
 
  ++offset;
 
- if ( (linea[offset]=='\0') || (fin_de_archivo==1) )   
-    return(' '); 
- else  
-    return(linea[offset]); //de esto depende si el lenguaje es sensitivo de mayúsculas o no.
+ if ((linea[offset] == '\0') || (fin_de_archivo == 1))
+	 return(' ');
+ else
+	 return(linea[offset]); //de esto depende si el lenguaje es sensitivo de mayúsculas o no.
 
 }
 
