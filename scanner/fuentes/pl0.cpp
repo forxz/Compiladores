@@ -12,6 +12,7 @@
 #include <stdlib.h>
 
 FILE *fp; //apuntador a archivo conteniendo el programa fuente
+FILE *tokensFile; // Archivo de tokens del programa generado por el scanner
 void obtenerParametros();
 
 //main: inicia el compilador...solo scanner
@@ -22,28 +23,35 @@ int main(int argc, char *argv[]) {
 		printf("\nNo se ha proporcionado el nombre del programa fuente (uso: scanner progfuente)");
 	else {
 		fp = fopen(argv[1], "r"); //abrir el fuente solo para lectura
+		
 		if (fp == NULL)
 			printf("\nNo se encontro el programa fuente indicado");
 		else {
 			printf("\n\nCompilador de pl0 version 3.0/Solo scanner --- agosto de 2012 --- A2\n");
-			//inicializacion de tokens de símbolos especiales (en auxiliares.cpp)
-			inicializar_espec();
 
-			//inicializacion de otras variables (en scanner.h)
-			ch = ' ';
-			fin_de_archivo = 0;
-			offset = -1; ll = 0;
+			if ((tokensFile = fopen("resultado.txt", "w")) == NULL)
+				printf("\nNo pudo escribir archivo resultado.");
+			else{
+				//inicializacion de tokens de símbolos especiales (en auxiliares.cpp)
+				inicializar_espec();
 
-			//Leer parámetros
-			obtenerParametros();
+				//inicializacion de otras variables (en scanner.h)
+				ch = ' ';
+				fin_de_archivo = 0;
+				offset = -1; ll = 0;
 
-			//tokenizar el programa fuente
-			while (1) {
-				obtoken();        //en scanner.cpp
-				if (!comentario)
-					imprime_token();  //en auxiliares.cpp
-				else
-					comentario = 0;
+				//Leer parámetros
+				obtenerParametros();
+
+				//tokenizar el programa fuente
+				while (1) {
+					obtoken();        //en scanner.cpp
+					if (!comentario)
+						imprime_token();  //en auxiliares.cpp
+					else
+						comentario = 0;
+				}
+
 			}
 		}
 	}

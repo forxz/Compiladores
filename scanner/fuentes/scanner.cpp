@@ -27,12 +27,12 @@ int busquedaBinaria(char generada[], char original[]);
 void obtoken()
 {
  int maxId = 10;
- char lexid[1000]; //+1 para colocar el marcador "\0"
+ char lexid[1000];			//+1 para colocar el marcador "\0"
  char charT;
- int i,j, points, mindex; // mindex sera usado para encontrar el punto medio en la busqueda binaria
+ int i,j, points, mindex;	// mindex sera usado para encontrar el punto medio en la busqueda binaria
  bool reservada = false;
- int binariaL = 0; // busqueda binaria posicion de lado izquierdo pos inicial 0
- int binariaR = 38; // busqueda binaria posicion de lado derecho pos inicial 38 (total palabras reservadas)
+ int binariaL = 0;			// busqueda binaria posicion de lado izquierdo pos inicial 0
+ int binariaR = 38;			// busqueda binaria posicion de lado derecho pos inicial 38 (total palabras reservadas)
 
  //quitar blancos, caracter de cambio de línea y tabuladores
  while (ch==' ' || ch=='\n' || ch=='\t') ch=obtch() ;
@@ -44,7 +44,7 @@ void obtoken()
 	 while (isalpha((ch = obtch())) || isdigit(ch))
 		 if (i < maxId) lexid[i++] = ch;
 	 lexid[i] = '\0';
-
+	 strcpy(lex, lexid);
 
 	 //¿es identificador o palabra reservada?.buscar en la tabla de palabras reservadas
 	 // Busqueda binaria
@@ -74,26 +74,30 @@ void obtoken()
 	   points = 0;
        while (ch=obtch())
 	   {
-		   if (isdigit(ch)) j++;
+		   if (isdigit(ch)) { 
+			   lexid[j] = ch;
+			   j++; 
+		   }
 		   else
 		   {
-			   if (ch == '.') points++;
+			   if (ch == '.') { lexid[j] = ch; points++; j++; }
 			   else
 				   if (ch == ' ' || ch == 10 || ch == ')' || ch == ']' || ch == ',')
 				   {
-					   if (j <= MAXDIGIT)
+					   if ((j - points) <= MAXDIGIT)
 					   {
-						   lexid[i] = '\0';
+						   lexid[j] = '\0';
+						   strcpy(lex, lexid);
 						   if (points == 0) token = numberValTok; // es un numero
 						   else if (points == 1) token = floatValTok; // es un flotante
-						   else token = nullTok;
+						   else token = nulo;
 						   break;
 					   }
 					   else error(30); //este número es demasiado grande
 				   }
 				   else
 				   {
-					   token = nullTok;
+					   token = nulo;
 					   while (ch = obtch())  if (ch == 10 || ch == ' ' || ch == ')' || ch == ']' || ch == ',')  break;
 					   break;
 				   }
@@ -119,44 +123,69 @@ void obtoken()
 						}
 													
 			}
-			else 
+			else{
 				token = divideTok;
+				lex[0] = ch;
+				lex[1] = '\0';
+			}
 			break;
 		case '>':
+			lex[0] = ch;
 			ch = obtch();
 			if (ch == '=')
 			{
 				token = moreETok;
+				lex[1] = ch;
+				lex[2] = '\0';
 				ch = obtch();
 			}
-			else token = moreTok;
+			else{
+				token = moreTok;				
+				lex[1] = '\0';
+			}				
 			break;
 		case '<':
+			lex[0] = ch;
 			ch = obtch();
 			if (ch == '=')
 			{
+				lex[1] = ch;
+				lex[2] = '\0';
 				token = lessETok;
 				ch = obtch();
 			}
-			else token = lessTok;
+			else {
+				token = lessTok;
+				lex[1] = '\0';
+			}
 			break;
 		case '=':
+			lex[0] = ch;
 			ch = obtch();
 			if (ch == '=')
 			{
+				lex[1] = ch;
+				lex[2] = '\0';
 				token = equalTok;
 				ch = obtch();
 			}
-			else token = assigTok;
+			else {
+				lex[1] = '\0';
+				token = assigTok;
+			}
 			break;
 		case '\'':
+			lex[0] = ch;
 			ch = obtch();
+			lex[1] = ch;
 			if (ch != ' ' && ch != 10 && ch != '\'')
 			{
 				char c = ch;
 				ch = obtch();
 				if (ch == '\'')
 				{
+					lex[2] = ch;
+					lex[3] = '\0';
 					charT = c;
 					token = charTok;
 					ch = obtch();
@@ -164,7 +193,7 @@ void obtoken()
 				}
 			}
 
-			token = nullTok;
+			token = nulo;
 			break;
 		case '"':
 			char variable[1000];
@@ -180,6 +209,7 @@ void obtoken()
 					if (ch == '"')
 					{
 						variable[i] = '\0';
+						strcpy(lex, variable);
 						token = stringTok;
 						ch = obtch();
 						break;
@@ -197,6 +227,8 @@ void obtoken()
 
 			break;
 		default:
+			lex[0] = ch;
+			lex[1] = '\0';
 			token = espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
 			ch = obtch();
 			break;
@@ -234,6 +266,7 @@ int obtch()
 
  if (fin_de_archivo==1) {
 	fclose(fp);//cerrar el programa fuente
+	fclose(tokensFile);
     printf("Analisis lexicografico finalizado.");
     exit(1); //salir...
  }

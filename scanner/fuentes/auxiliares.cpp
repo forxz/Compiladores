@@ -4,6 +4,7 @@
 #include "pl0.h"
 #include "auxiliares.h"
 #include "lexico.h"
+#include "scanner.h"
 
 //error: por el momento todo error es fatal          
  int error(int no){
@@ -22,6 +23,7 @@
 	 }
 	
 	fclose(fp);			//cerrar el programa fuente
+	fclose(tokensFile);
 	exit(1);			//estoy en modo de pánico...cualquier error es fatal
 
 }
@@ -69,6 +71,6 @@ void imprime_token()
 							 "moreTok", "bracketLTok", "bracketRTok", "cBracketLTok", "cBracketRTok", "parentLTok", "parentRTok",
 							 "colonTok", "semiColonTok", "plusTok", "minusTok", "multTok", "divideTok", "percentTok", "moreETok",
 							 "lessETok", "denialTok", "notEqualTok", "equalTok", "identTok", "enterTok" };
- printf("(%10s) \n",token_string[token]);
+	fprintf(tokensFile, "|%20s|\t\t->\t%s\n", lex ,token_string[token]);
   
 }
