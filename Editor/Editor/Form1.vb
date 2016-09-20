@@ -131,6 +131,7 @@ Public Class Form1
 
     Private Sub ScannerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerToolStripMenuItem.Click
         Dim ventanaComp As New Form2
+        ventanaComp.rutaCodigoFuente = rutaArchivo
         ventanaComp.ShowDialog()
     End Sub
 
