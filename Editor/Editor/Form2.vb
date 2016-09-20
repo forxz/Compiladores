@@ -27,7 +27,7 @@
         p.StartInfo.FileName = "scanner.exe"
         p.StartInfo.Arguments = Chr(34) + rutaCodigoFuente
         p.Start()
-        salida = p.StandardOutput.ReadToEnd        
+        'salida = p.StandardOutput.ReadToEnd        
         p.WaitForExit()
         'Cargar resultados de archivo de texto del scanner, parser, etc cuando sea el momento
 
