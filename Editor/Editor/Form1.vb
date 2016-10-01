@@ -3,6 +3,7 @@ Imports System.Text.RegularExpressions
 
 Public Class Form1
     Dim rutaArchivo$ = ""
+    Dim Numero As Integer
     Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click, AbrirDoc.Click
         Dim Abrir As New OpenFileDialog()
         Dim STR As System.IO.StreamReader
@@ -142,5 +143,30 @@ Public Class Form1
 
     Private Sub CopiarTexto_Click(sender As Object, e As EventArgs) Handles CopiarTexto.Click
         RichTextBox1.Copy()
+    End Sub
+
+    Private Sub PictureBox1_Paint(sender As Object, e As PaintEventArgs) Handles PictureBox1.Paint
+        Numero = 0
+
+        Dim Altura As Integer = RichTextBox1.GetPositionFromCharIndex(0).Y
+
+        If RichTextBox1.Lines.Length > 0 Then
+            For i = 0 To RichTextBox1.Lines.Length - 1
+                e.Graphics.DrawString(i + 1, RichTextBox1.Font, Brushes.Red, PictureBox1.Width - (e.Graphics.MeasureString(i + 1, RichTextBox1.Font).Width + 10), Altura)
+                Numero += RichTextBox1.Lines(i).Length + 1
+                Altura = RichTextBox1.GetPositionFromCharIndex(Numero).Y
+            Next
+        Else
+            e.Graphics.DrawString(1, RichTextBox1.Font, Brushes.Red, PictureBox1.Width - (e.Graphics.MeasureString(1, RichTextBox1.Font).Width + 10), Altura)
+        End If
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        PictureBox1.Refresh()
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Timer1.Interval = 10
+        Timer1.Start()
     End Sub
 End Class
