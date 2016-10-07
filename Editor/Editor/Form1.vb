@@ -4,6 +4,14 @@ Imports System.Text.RegularExpressions
 Public Class Form1
     Dim rutaArchivo$ = ""
     Dim Numero As Integer
+    Dim Claves = {"and", "array", "average", "bool", "break", "case", "char", "closeFile",
+                  "compare", "concat", "else", "even", "exist", "factorial", "false", "file",
+                  "float", "for", "function", "if", "int", "main", "null", "openFile",
+                  "or", "pow", "print", "procedure", "read", "ref", "repeat", "return",
+                  "sort", "string", "substring", "switch", "true", "until", "while"} 'PALABRAS CLAVE.
+
+    Private Declare Function LockWindowUpdate Lib "user32" (ByVal hWnd As Integer) As Integer 'BLOQUEA AL REPINTADO DEL TEXTO PARA EVITAR PARPADEO
+
     Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click, AbrirDoc.Click
         Dim Abrir As New OpenFileDialog()
         Dim STR As System.IO.StreamReader
@@ -168,5 +176,32 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer1.Interval = 10
         Timer1.Start()
+    End Sub
+
+    Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
+        Try
+            LockWindowUpdate(RichTextBox1.Handle.ToInt32)
+
+            RichTextBox1.SelectionStart = 0
+            RichTextBox1.SelectionLength = RichTextBox1.TextLength
+            RichTextBox1.SelectionColor = RichTextBox1.ForeColor
+
+            For Each Clave In Claves
+                Dim Index As Integer = 0
+
+                While Index <= RichTextBox1.Text.LastIndexOf(Clave)
+                    RichTextBox1.Find(Clave, Index, RichTextBox1.TextLength, RichTextBoxFinds.WholeWord)
+                    RichTextBox1.SelectionColor = Color.Blue
+                    Index = RichTextBox1.Text.IndexOf(Clave, Index) + 1
+                End While
+            Next
+
+            RichTextBox1.SelectionStart = RichTextBox1.TextLength
+            RichTextBox1.SelectionColor = RichTextBox1.ForeColor
+
+            LockWindowUpdate(0)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 End Class
