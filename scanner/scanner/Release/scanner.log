@@ -1,5 +1,5 @@
-﻿Build started 2016/09/20 1:58:13 PM.
-     1>Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 2016/10/08 10:40:33 AM.
+     1>Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\lexico.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp
          auxiliares.cpp
@@ -26,8 +26,8 @@
          Generating code
          Finished generating code
          scanner.vcxproj -> C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Release\scanner.exe
-     1>Done Building Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.52
+Time Elapsed 00:00:00.63

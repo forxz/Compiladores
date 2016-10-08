@@ -67,7 +67,7 @@ void imprime_token()
 {
 
 	char *token_string[] = { "nulo", "andTok", "arrayTok", "averageTok", "boolTok", "breakTok", "caseTok", "charTok", "closeFileTok", "compareTok",
-							"concatTok", "elseTok", "evenTok", "existTok", "factorialTok", "falseTok", "fileTok", "floatTok", "forTok", "functionTok",
+							"concatTok", "condTok", "doTok", "elseTok", "evenTok", "factorialTok", "falseTok", "fileTok", "floatTok", "forTok", "functionTok",
 							"ifTok", "intTok", "mainTok", "nullTok", "openFileTok", "orTok", "powTok", "printTok", "procedureTok", "readTok", "refTok",
 							"repeatTok", "returnTok", "sortTok", "stringTok", "substringTok", "switchTok", "trueTok", "untilTok", "whileTok", "assigTok",
 							"commaTok", "numberValTok", "floatValTok", "boolValTok", "charValTok", "stringValTok", "fileValTok", "arrayValTok", "lessTok", 
