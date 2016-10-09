@@ -22,3 +22,15 @@ C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Release\Editor.vbproj.G
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Release\Editor.exe
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Release\Editor.xml
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\obj\Release\Editor.pdb
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.exe.config
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.exe
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.xml
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.pdb
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.exe
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.pdb
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.xml
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Form1.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Form2.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Resources.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Parametros.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.vbproj.GenerateResource.Cache

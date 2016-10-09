@@ -5,7 +5,7 @@ Public Class Form1
     Dim rutaArchivo$ = ""
     Dim Numero As Integer
     Dim Claves = {"and", "array", "average", "bool", "break", "case", "char", "closeFile",
-                  "compare", "concat", "else", "even", "exist", "factorial", "false", "file",
+                  "compare", "concat", "cond", "do", "default", "else", "even", "factorial", "false", "file",
                   "float", "for", "function", "if", "int", "main", "null", "openFile",
                   "or", "pow", "print", "procedure", "read", "ref", "repeat", "return",
                   "sort", "string", "substring", "switch", "true", "until", "while"} 'PALABRAS CLAVE.
