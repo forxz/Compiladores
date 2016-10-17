@@ -5,6 +5,7 @@ extern int MAXID;
 extern int MAXLINEA;
 extern int MAXDIGIT;
 extern int MAXSTRING;
+extern int MAXIT;
 
 extern char linea[2000];		 //buffer de líneas
 extern int	ll;               //contador de caracteres

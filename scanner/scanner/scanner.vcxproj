@@ -67,6 +67,7 @@
     <ClCompile Include="..\fuentes\lexico.cpp" />
     <ClCompile Include="..\fuentes\pl0.cpp" />
     <ClCompile Include="..\fuentes\scanner.cpp" />
+    <ClCompile Include="..\fuentes\tds.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\fuentes\auxiliares.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="..\fuentes\parametros.h" />
     <ClInclude Include="..\fuentes\pl0.h" />
     <ClInclude Include="..\fuentes\scanner.h" />
+    <ClInclude Include="..\fuentes\tds.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

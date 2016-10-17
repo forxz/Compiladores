@@ -27,6 +27,9 @@
     <ClCompile Include="..\fuentes\auxiliares.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\fuentes\tds.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\fuentes\parametros.h">
@@ -42,6 +45,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\fuentes\auxiliares.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fuentes\tds.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
