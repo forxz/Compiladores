@@ -1,19 +1,31 @@
 #include "scanner.h"
 
 //tipos de objetos
-enum objeto { INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION }; //definidos aquí en el encabezado
+enum objeto { INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION, File, Array}; //definidos aquí en el encabezado
 
-typedef struct 
+struct arrayType
 {
-	char *nombre;
+	int length;
+	objeto type;
+};
+
+struct parameters
+{
+	int length;
+	objeto type[10];
+};
+
+struct registro
+{
+	char *name;
+	arrayType arrayT;
+	parameters params;
 	enum objeto tipo;
-	int index; // posicion donde se almaceno el objeto
-} registro;
+	struct registro *next;
+};
 
 //tabla de símbolos
-extern registro *tabla;
-extern int it; //índice para recorrer la tabla
+extern registro *tablads;
 
-void InitTDS();
 void Poner(enum objeto k);
 int Posicion();
