@@ -57,19 +57,3 @@ int estadisticas()
 	printf("***  No se detectaron errores ***");
 	return(0);
 }
-
-//imprime_token: transforma de enumerado a string. no aparecerá más en el compilador
-void imprime_token()
-{
-
-	char *token_string[] = { "nulo", "andTok", "arrayTok", "averageTok", "boolTok", "breakTok", "caseTok", "charTok", "closeFileTok", "compareTok",
-							"concatTok", "condTok", "defaultTok", "doTok", "elseTok", "evenTok", "factorialTok", "falseTok", "fileTok", "floatTok", "forTok", "functionTok",
-							"ifTok", "intTok", "mainTok", "nullTok", "openFileTok", "orTok", "powTok", "printTok", "procedureTok", "readTok", "refTok",
-							"repeatTok", "returnTok", "sortTok", "stringTok", "substringTok", "switchTok", "trueTok", "untilTok", "whileTok", "assigTok",
-							"commaTok", "numberValTok", "floatValTok", "boolValTok", "charValTok", "stringValTok", "fileValTok", "arrayValTok", "lessTok", 
-							 "moreTok", "bracketLTok", "bracketRTok", "cBracketLTok", "cBracketRTok", "parentLTok", "parentRTok",
-							 "colonTok", "semiColonTok", "plusTok", "minusTok", "multTok", "divideTok", "percentTok", "moreETok",
-							 "lessETok", "denialTok", "notEqualTok", "equalTok", "identTok", "enterTok" };
-	fprintf(tokensFile, "\t\t%s\t\t\t\t\t-->\t\t%s\n", lex ,token_string[token]);
-  
-}

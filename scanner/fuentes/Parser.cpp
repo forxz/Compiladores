@@ -1,4 +1,5 @@
-#include "stdlib.h""
+#include <stdio.h>
+#include "stdlib.h"
 #include "parser.h"
 #include "scanner.h"
 #include "auxiliares.h"
@@ -35,7 +36,8 @@ void Program()
 		if (token == cBracketLTok){
 			obtoken();
 			if (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
-				|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok || token == substringTok || token == compareTok || token == printTok){
+				|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok || token == substringTok || token == compareTok || token == printTok
+				|| IsType() || token == arrayTok){
 
 				// Guardar index de tabla de simbolos
 				Block();
@@ -126,9 +128,10 @@ void Function_Declaration()
 			obtoken();
 			if (token == parentLTok){
 				obtoken();
-				if (token == refTok || IsType || token==arrayTok){
+				if (token == refTok || IsType() || token==arrayTok){
 					Param_Declaration();
 					while (token == commaTok){
+						obtoken();
 						Param_Declaration();
 					}
 				}
@@ -311,10 +314,10 @@ void Type()
 void Block()
 {
 	if (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
-		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok || token == substringTok || token == compareTok || token == printTok){
+		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok 
+		|| token == substringTok || token == compareTok || token == printTok || IsType() || token == arrayTok){
 		Instruction();
-	}
-	else obtoken();
+	};
 }
 
 void Instruction()
@@ -324,9 +327,9 @@ void Instruction()
 		// case Type 
 
 	case intTok: boolTok : charTok :
-	stringTok : fileTok : floatTok :
+	stringTok : fileTok : floatTok : arrayTok:
 
-				Assignation();
+				Variable_Declaration();
 		break;
 
 	case identTok:
@@ -412,7 +415,8 @@ void Assignation()
 
 void Expression()
 {
-	if (token == boolValTok || token == compareTok || token == evenTok){
+	if (token == boolValTok || token == compareTok || token == evenTok || token == numberValTok || token == factorialTok 
+		|| token == floatValTok || token == powTok || token == averageTok){
 		Bool_Expression();
 	}
 	else if (token == stringValTok || token == substringTok

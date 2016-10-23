@@ -25,8 +25,19 @@ int comentario = 0;		  //Bandera para comentarios
 int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 int busquedaBinaria(char generada[], char original[]);
 
-//obtoken: obtiene el siguiente token del programa fuente                   
+//obtoken: obtiene el siguiente token del programa fuente
+
 void obtoken()
+{
+	obtokenAux();
+	while(comentario == 1)
+	{
+		comentario = 0;
+		obtokenAux();
+	}
+}
+
+void obtokenAux()
 {
  int maxId = 10;
  char lexid[1000];			//+1 para colocar el marcador "\0"
