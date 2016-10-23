@@ -3,14 +3,19 @@
 #include <stdlib.h>
 #include "pl0.h"
 #include "auxiliares.h"
+#include "tds.h"
 #include "mensajes_de_error.h"
 #include "lexico.h"
 #include "scanner.h"
 
+
 //error: por el momento todo error es fatal          
- int error(int no){
-	 fclose(fp);
+int error(int no){
 	 printf("\n^ error %d: %s\n", no, mensaje_de_error[no]);
+	 fprintf(tokensFile, "\n^ error %d: %s\n", no, mensaje_de_error[no]);
+	 Clear();
+	 fclose(fp);
+	 fclose(tokensFile);
 	 exit(1); //por el momento...cualquier error es fatal!
 
 }
@@ -44,6 +49,13 @@ void inicializar_espec()
   espec[125]=cBracketRTok;
   
 
+}
+
+int estadisticas()
+{
+	printf("\n\n***   Estadisticas globales   ***\n");
+	printf("***  No se detectaron errores ***");
+	return(0);
 }
 
 //imprime_token: transforma de enumerado a string. no aparecerá más en el compilador

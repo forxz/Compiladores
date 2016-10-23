@@ -7,6 +7,8 @@
 #include "auxiliares.h"
 #include "scanner.h"
 #include "lexico.h"
+#include "Parser.h"
+#include "tds.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -42,16 +44,19 @@ int main(int argc, char *argv[]) {
 
 				//Leer parámetros
 				obtenerParametros();
+				
+				tds_it, tds_gobal, tds_local = 0; //inicializamos el índice sobre la tds (it en tds.h)
+				obtoken();
 
-				//tokenizar el programa fuente
-				while (1) {
-					obtoken();        //en scanner.cpp
-					if (!comentario)
-						imprime_token();  //en auxiliares.cpp
-					else
-						comentario = 0;
-				}
+				Program();
 
+				//si llegamos a este punto, no se han detectado errores sintácticos en el programa fuente (estadisticas en auxiliares.cpp)
+				estadisticas();
+
+				Clear(); // limpiando tabla de simbolos
+				//cerrar el programa fuente
+				fclose(fp);
+				fclose(tokensFile);
 			}
 		}
 	}

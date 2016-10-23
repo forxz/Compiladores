@@ -77,16 +77,12 @@ registro GlobalSearch()
 	return auxB;
 }
 
-//posicion: encontrar en la tds al identificador para ver si ya fue declarado y si su uso es semánticamente legal
-//búsqueda en reversa...¿porqué en reversa?
-int Posicion()
+void Clear()
 {
-	//int i;
-//	strcpy(tabla[0].nombre, lex);
-//	i = it;
-//
-	//while ((strcmp(tabla[i].nombre, lex)) != 0)
-//		--i;
-
-//	return(i);
+	registro *aux;
+	while (tablads != NULL){
+		aux = tablads;
+		tablads = tablads->next;
+		free(aux);
+	}
 }
