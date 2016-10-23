@@ -73,6 +73,7 @@
   <ItemGroup>
     <ClInclude Include="..\fuentes\auxiliares.h" />
     <ClInclude Include="..\fuentes\lexico.h" />
+    <ClInclude Include="..\fuentes\mensajes_de_error.h" />
     <ClInclude Include="..\fuentes\parametros.h" />
     <ClInclude Include="..\fuentes\Parser.h" />
     <ClInclude Include="..\fuentes\pl0.h" />

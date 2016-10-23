@@ -56,5 +56,8 @@
     <ClInclude Include="..\fuentes\Parser.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\fuentes\mensajes_de_error.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
