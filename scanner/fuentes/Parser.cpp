@@ -121,22 +121,137 @@ void Variable_Declaration()
 
 void Function_Declaration()
 {
-
+	if (token == functionTok){
+		obtoken();
+		if (token == identTok){
+			obtoken();
+			if (token == parentLTok){
+				obtoken();
+				if (token == refTok || IsType || token==arrayTok){
+					Param_Declaration();
+					while (token == commaTok){
+						Param_Declaration();
+					}
+				}
+				if (token == parentRTok){
+					obtoken();
+					if (token == colonTok){
+						obtoken();
+						if (IsType){
+							obtoken();
+						}
+						else error(35); //Se esperaba tipo de retorno de la función
+					}
+					else error(18); //Se esperaba :
+				}
+				else error(17); //Se esperaba )
+			}
+			else error(16); //Se esperaba (
+		}
+		else error(7); //Se esperaba identificador
+	}
+	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
 void Procedure_Declaration()
 {
-
+	if (token == procedureTok){
+		obtoken();
+		if (token == identTok){
+			obtoken();
+			if (token == parentLTok){
+				obtoken();
+				if (token == refTok || IsType || token == arrayTok){
+					Param_Declaration();
+					while (token == commaTok){
+						obtoken();
+					}
+				}
+				if (token == parentRTok){
+					obtoken();
+				}
+				else error(17); //Se esperaba )
+			}
+			else error(16); //Se esperaba (
+		}
+		else error(7); //Se esperaba identificador
+	}
+	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
 void Function_Definition()
 {
-
+	if (token == functionTok){
+		obtoken();
+		if (token == identTok){
+			obtoken();
+			if (token == parentLTok){
+				obtoken();
+				if (token == refTok || IsType || token == arrayTok){
+					Param_Declaration();
+				}
+				if (token == parentRTok){
+					obtoken();
+					if (token == colonTok){
+						obtoken();
+						if (IsType){
+							obtoken();
+							if (token == cBracketLTok){
+								obtoken();
+								Block();
+								if (token == cBracketRTok){
+									obtoken();
+								}
+								else error(9); //Se esperaba }
+							}
+							else error(8); //Se esperaba {
+						}
+						else error(35); //Se esperaba tipo de retorno de la función
+					}
+					else error(18); //Se esperaba :
+				}
+				else error(17); //Se esperaba )
+			}
+			else error(16); //Se esperaba (
+		}
+		else error(7); //Se esperaba identificador
+	}
+	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
 void Procedure_Definition()
 {
-
+	if (token == procedureTok){
+		obtoken();
+		if (token == identTok){
+			obtoken();
+			if (token == parentLTok){
+				obtoken();
+				if (token == refTok || IsType || token == arrayTok){
+					Param_Declaration();
+					while (token == commaTok){
+						obtoken();
+					}
+				}
+				if (token == parentRTok){
+					obtoken();
+					if (token == cBracketLTok){
+						obtoken();
+						Block();
+						if (token == cBracketRTok){
+							obtoken();
+						}
+						else error(9); //falta }
+					}
+					else error(8); //falta {
+				}
+				else error(17); //falta )
+			}
+			else error(16); //falta (
+		}
+		else error(7); //falta identificador
+	}
+	else error(1);//falta procedure
 }
 
 void Param_Declaration()
@@ -373,12 +488,26 @@ void String_Expression()
 
 void Char_Expression()
 {
-
+	if (token == charValTok){
+		//verificar que este declarado
+		obtoken();
+	}
+	else if (token == identTok){
+		//verificar tabla de simbolos
 }
 
 void Float_Expression()
 {
-
+	if (token == floatValTok){
+		//verificar que este declarado
+		obtoken();
+	}
+	else if (token == powTok || token == averageTok){
+		Float_Fuction();
+	}
+	else if (token == identTok){
+		//verificar tabla de simbolos
+	}
 }
 
 void Float_Fuction()
@@ -435,7 +564,13 @@ void Bool_Function()
 
 void Subroutine_Call()
 {
-
+	if (token == identTok){
+		obtoken();
+		if (token == parentLTok){
+			obtoken();
+			if (token==refTok || token==identTok )
+		}// falta (
+	}// falta identificador
 }
 
 void Aritmethic_Expression()
