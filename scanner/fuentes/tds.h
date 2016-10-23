@@ -20,12 +20,18 @@ struct registro
 	char *name;
 	arrayType arrayT;
 	parameters params;
+	int index;
 	enum objeto tipo;
 	struct registro *next;
 };
 
 //tabla de símbolos
 extern registro *tablads;
+extern int tds_it; // indice de la tabla de simbolos
+extern int tds_gobal; // posicion de la tabla de simbolos donde finaliza la declaracion de funciones y variables globales
+extern int tds_local; // posicion donde inicia el bloque de una funcion o procedimiento
 
-void Poner(enum objeto k);
+void SetTable(enum objeto k);
+registro LocalSearch();
+registro GlobalSearch();
 int Posicion();

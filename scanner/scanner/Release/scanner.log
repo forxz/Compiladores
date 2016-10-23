@@ -1,4 +1,4 @@
-﻿Build started 2016/10/22 3:05:01 PM.
+﻿Build started 2016/10/22 6:29:53 PM.
      1>Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
@@ -21,7 +21,7 @@
      1>..\fuentes\scanner.cpp(215): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
          tds.cpp
-     1>..\fuentes\tds.cpp(15): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>..\fuentes\tds.cpp(34): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Release\scanner.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Release\scanner.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Release\scanner.lib" /MACHINE:X86 /SAFESEH Release\auxiliares.obj
@@ -37,4 +37,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.74
+Time Elapsed 00:00:00.99
