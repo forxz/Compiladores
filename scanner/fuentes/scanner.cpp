@@ -13,7 +13,6 @@ int MAXID;
 int MAXLINEA;
 int MAXDIGIT;
 int MAXSTRING;
-int MAXIT;
 char linea[2000];			  //buffer de líneas 
 int ll;                   //contador de caracteres
 int offset;               //corrimiento en la lectura de los caracteres del programa fuente
