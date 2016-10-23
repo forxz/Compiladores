@@ -72,30 +72,28 @@ void Variable_Declaration()
 			if (token == lessTok)
 			{
 				obtoken();
-				if (IsType)
+				Type();
+				if (token == moreTok)
 				{
 					obtoken();
-					if (token == moreTok)
+					if (token == bracketLTok)
 					{
 						obtoken();
-						if (token == bracketLTok)
+						if (token == numberValTok)
 						{
 							obtoken();
-							if (token == numberValTok)
+							if (token == bracketRTok)
 							{
+								// guardar en la tabla de simbolos
 								obtoken();
-								if (token == bracketRTok)
-								{
-									obtoken();
-								}
-								else error(15);
 							}
-							else error(24);
+							else error(15);
 						}
-						else error(14);
+						else error(24);
 					}
-					else error(13);
+					else error(14);
 				}
+				else error(13);
 			}
 			else error(12);
 		}
@@ -103,27 +101,21 @@ void Variable_Declaration()
 	}
 	else
 	{
-		if (IsType())
+		Type();
+		do
 		{
-			obtoken();
-			do
+			if (token == identTok)
 			{
-				if (token == identTok)
+				obtoken();
+				if (token == assigTok)
 				{
 					obtoken();
-					if (token == equalTok)
-					{
-						obtoken();
-						if (IsExpression())
-						{
-							obtoken();
-						}
-						else error(53);
-					}
+					Expression();
 				}
-				else error(7);
-			} while (token == commaTok);
-		}
+				// guardar en la tabla de simbolos
+			}
+			else error(7);
+		} while (token == commaTok);
 	}
 }
 
@@ -151,21 +143,17 @@ void Param_Declaration()
 {
 	if (token == arrayTok)
 	{
-		obtoken();
 		Array_Param();
 	}
 	else
 	{
 		if (token == refTok) obtoken();
-		if (IsType())
+		Type();
+		if (token == identTok)
 		{
 			obtoken();
-			if (token == identTok)
-			{
-				obtoken();
-			}
-			else error(7);
 		}
+		else error(7);
 	}
 }
 
@@ -180,7 +168,7 @@ void Array_Param()
 			if (token == lessTok)
 			{
 				obtoken();
-				if (IsType)
+				if (IsType())
 				{
 					obtoken();
 					if (token == moreTok)
@@ -194,6 +182,7 @@ void Array_Param()
 		}
 		else error(7);
 	}
+	else error(55);
 }
 
 void Type()
@@ -211,6 +200,7 @@ void Block()
 		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok || token == substringTok || token == compareTok || token == printTok){
 		Instruction();
 	}
+	else obtoken();
 }
 
 void Instruction()
@@ -273,6 +263,9 @@ void Instruction()
 	case printTok:
 		Print();
 		break;
+	default:
+		error(56);
+		break;
 	}
 }
 
@@ -284,25 +277,17 @@ void Assignation()
 		obtoken();
 		if (token == bracketLTok){
 			obtoken();
-			if (token == numberValTok || token == factorialTok || token == identTok)
-				// Buscar en tds y verificar de que tipo es el identificador
-				if (true){
-				Integer_Expression();
-				}
-				else
-					error(30); // Se esperaba expresión entera
-			else
-				error(30); // Se esperaba expresión entera			
+			Integer_Expression();
+			if (token == bracketRTok)
+			{
+				obtoken();
+			}
+			else error(15);		
 		}
 
 		if (token == assigTok){
 			obtoken();
-			if (token == numberValTok || token == factorialTok || token == boolValTok || token == compareTok || token == evenTok ||
-				token == stringValTok || token == substringTok || token == concatTok || token == readTok || token == charValTok ||
-				token == floatValTok || token == powTok || token == averageTok || token == identTok){
-
-				Expression();
-			}
+			Expression();
 		}
 		else
 			error(10); // Se esperaba '='
@@ -334,7 +319,7 @@ void Expression()
 
 	}
 	else
-		error(47); // Se esperaba una expresion
+		error(53); // Se esperaba una expresion
 }
 
 void Integer_Expression()
@@ -363,11 +348,8 @@ void Bool_Expression()
 		Bool_Function();
 	}
 	else if (token == minusTok || token == numberValTok || token == factorialTok
-		|| token == floatValTok || token == powTok || token == averageTok){
+		|| token == floatValTok || token == powTok || token == averageTok || token == identTok){
 		Numeric_Expression();
-	}
-	else if (token == identTok){
-		// Verificar tabla de simbolos para saber si es llamada o variable
 	}
 	else
 		error(34); // Se esperaba expresión booleana
@@ -511,41 +493,38 @@ void If()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsBoolExpression())
+			Bool_Expression();
+			if (token == parentRTok)
 			{
 				obtoken();
-				if (token == parentRTok)
+				if (token == cBracketLTok)
 				{
 					obtoken();
-					if (token == cBracketLTok)
+					Block();
+					if (token == cBracketRTok)
 					{
 						obtoken();
-						Block();
-						if (token == cBracketRTok)
+						if (token == elseTok)
 						{
 							obtoken();
-							if (token == elseTok)
+							if (token == cBracketLTok)
 							{
 								obtoken();
-								if (token == cBracketLTok)
-								{
-									obtoken();
-									Block();
-									if (token != cBracketRTok) error(9);
-									else obtoken();
-								}
+								Block();
+								if (token != cBracketRTok) error(9);
+								else obtoken();
 							}
 						}
-						else error(9);
 					}
-					else error(8);
+					else error(9);
 				}
-				else error(17);
+				else error(8);
 			}
-			else error(34);
+			else error(17);;
 		}
 		else error(16);
 	}
+	else error(57);
 }
 
 void Switch()
@@ -589,8 +568,8 @@ void Switch()
 			else error(7);
 		}
 		else error(16);
-
-	}
+	} 
+	else error(57);
 }
 
 void SwitchAux()
@@ -626,30 +605,27 @@ void While()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsBoolExpression())
+			Bool_Expression();
+			if (token == parentRTok)
 			{
 				obtoken();
-				if (token == parentRTok)
+				if (token == cBracketLTok)
 				{
 					obtoken();
-					if (token == cBracketLTok)
+					Block();
+					if (token == cBracketRTok)
 					{
 						obtoken();
-						Block();
-						if (token == cBracketRTok)
-						{
-							obtoken();
-						}
-						else error(9);
 					}
-					else error(8);
+					else error(9);
 				}
-				else error(17);
+				else error(8);
 			}
-			else error(7);
+			else error(17);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void For()
@@ -663,7 +639,7 @@ void For()
 			if (token == identTok)
 			{
 				obtoken();
-				if (token == equalTok)
+				if (token == assigTok)
 				{
 					obtoken();
 					Integer_Expression();
@@ -703,6 +679,7 @@ void For()
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Repeat()
@@ -738,6 +715,7 @@ void Repeat()
 		}
 		else error(8);
 	}
+	else  error(57);
 }
 
 void Average()
@@ -761,6 +739,7 @@ void Average()
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void CloseFile()
@@ -780,10 +759,11 @@ void CloseFile()
 				}
 				else error(17);
 			}
-			else error(34);
+			else error(7);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Compare()
@@ -794,27 +774,22 @@ void Compare()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsStringExpression())
+			String_Expression();
+			if (token == commaTok)
 			{
 				obtoken();
-				if (token == commaTok)
+				String_Expression();
+				if (token == parentRTok)
 				{
 					obtoken();
-					if (IsStringExpression())
-					{
-						if (token == parentRTok)
-						{
-							obtoken();
-						}
-						else error(17);
-					}
-					else error(34);
 				}
+				else error(17);
 			}
-			else error(34);
+			else error(11);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Concat()
@@ -825,27 +800,22 @@ void Concat()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsStringExpression())
+			String_Expression();
+			if (token == commaTok)
 			{
 				obtoken();
-				if (token == commaTok)
+				String_Expression();
+				if (token == parentRTok)
 				{
 					obtoken();
-					if (IsStringExpression())
-					{
-						if (token == parentRTok)
-						{
-							obtoken();
-						}
-						else error(17);
-					}
-					else error(34);
 				}
+				else error(17);
 			}
-			else error(34);
+			else error(11);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Even()
@@ -856,19 +826,16 @@ void Even()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsIntegerExpression())
+			Integer_Expression();
+			if (token == parentRTok)
 			{
 				obtoken();
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
 			}
-			else error(30);
+			else error(17);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Factorial()
@@ -879,19 +846,16 @@ void Factorial()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsIntegerExpression())
+			Integer_Expression();
+			if (token == parentRTok)
 			{
 				obtoken();
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
 			}
-			else error(34);
+			else error(17);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void OpenFile()
@@ -902,19 +866,16 @@ void OpenFile()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsStringExpression())
+			String_Expression();
+			if (token == parentRTok)
 			{
 				obtoken();
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
 			}
-			else error(34);
+			else error(17);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Pow()
@@ -925,27 +886,22 @@ void Pow()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsIntegerExpression())
+			Integer_Expression();
+			if (token == commaTok)
 			{
 				obtoken();
-				if (token == commaTok)
+				Integer_Expression();
+				if (token == parentRTok)
 				{
 					obtoken();
-					if (IsIntegerExpression())
-					{
-						if (token == parentRTok)
-						{
-							obtoken();
-						}
-						else error(17);
-					}
-					else error(30);
 				}
+				else error(17);
 			}
-			else error(30);
+			else error(11);
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Substring()
@@ -962,26 +918,18 @@ void Substring()
 				if (token == commaTok)
 				{
 					obtoken();
-					if (IsIntegerExpression())
+					Integer_Expression();
+					if (token == commaTok)
 					{
 						obtoken();
-						if (token == commaTok)
+						Integer_Expression();
+						if (token == parentRTok)
 						{
 							obtoken();
-							if (IsIntegerExpression())
-							{
-								obtoken();
-								if (token == parentRTok)
-								{
-									obtoken();
-								}
-								else error(17);
-							}
-							else error(30);
 						}
-						else error(11);
+						else error(17);
 					}
-					else error(30);
+					else error(11);
 				}
 				else error(11);
 			}
@@ -989,6 +937,7 @@ void Substring()
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Print()
@@ -1022,6 +971,7 @@ void Print()
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Read()
@@ -1045,6 +995,7 @@ void Read()
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Sort()
@@ -1068,6 +1019,7 @@ void Sort()
 		}
 		else error(16);
 	}
+	else  error(57);
 }
 
 void Cond()
@@ -1083,10 +1035,11 @@ void Cond()
 				CondAux();
 			} while (token == doTok);
 			if (token != cBracketRTok) error(9);
-			obtoken();
+			else obtoken();
 		} 
 		else error(8);
 	}
+	else  error(57);
 }
 
 void CondAux()
@@ -1097,24 +1050,20 @@ void CondAux()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (IsBoolExpression())
+			Bool_Expression();
+			if (token == parentRTok)
 			{
 				obtoken();
-				if (token == parentRTok)
+				if (token == cBracketLTok)
 				{
 					obtoken();
-					if (token == cBracketLTok)
-					{
-						obtoken();
-						Block();
-						if (token != cBracketRTok) error(9);
-						else obtoken();
-					}
-					else error(8);
+					Block();
+					if (token != cBracketRTok) error(9);
+					else obtoken();
 				}
-				else error(17);
+				else error(8);
 			}
-			else error(34);
+			else error(17);
 		}
 		else error(16);
 	}
@@ -1145,12 +1094,13 @@ void Relational_Expression(){
 
 	if (token == moreTok || token == lessTok || token == moreETok
 		|| token == lessETok || token == equalTok || token == notEqualTok){
+		obtoken();
 		Aritmethic_Expression();
 	}
-
 }
 
-bool  isNumeric_Expression(){
+bool  isNumeric_Expression()
+{
 	return true;
 }
 

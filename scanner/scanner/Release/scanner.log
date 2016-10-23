@@ -1,4 +1,4 @@
-﻿Build started 2016/10/23 11:21:41 AM.
+﻿Build started 2016/10/23 1:04:12 PM.
      1>Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
@@ -6,13 +6,11 @@
          lexico.cpp
          Parser.cpp
      1>..\fuentes\Parser.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-     1>..\fuentes\Parser.cpp(75): warning C4551: function call missing argument list
-     1>..\fuentes\Parser.cpp(183): warning C4551: function call missing argument list
-     1>..\fuentes\Parser.cpp(223): warning C4102: 'floatTok' : unreferenced label
-     1>..\fuentes\Parser.cpp(223): warning C4102: 'fileTok' : unreferenced label
-     1>..\fuentes\Parser.cpp(223): warning C4102: 'stringTok' : unreferenced label
-     1>..\fuentes\Parser.cpp(222): warning C4102: 'charTok' : unreferenced label
-     1>..\fuentes\Parser.cpp(222): warning C4102: 'boolTok' : unreferenced label
+     1>..\fuentes\Parser.cpp(213): warning C4102: 'floatTok' : unreferenced label
+     1>..\fuentes\Parser.cpp(213): warning C4102: 'fileTok' : unreferenced label
+     1>..\fuentes\Parser.cpp(213): warning C4102: 'stringTok' : unreferenced label
+     1>..\fuentes\Parser.cpp(212): warning C4102: 'charTok' : unreferenced label
+     1>..\fuentes\Parser.cpp(212): warning C4102: 'boolTok' : unreferenced label
          pl0.cpp
      1>..\fuentes\pl0.cpp(25): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
@@ -44,4 +42,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.30
+Time Elapsed 00:00:01.28
