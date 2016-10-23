@@ -7,14 +7,14 @@
 
 //Funciones Auxiliares
 
-bool isNumeric_Expression();
+bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression();
 
 //funciones internas al parser
 void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
 Param_Declaration(), Array_Param(), Type(), Block(), Instruction(), Assignation(), Expression(), Integer_Expression(), Bool_Expression(), 
 String_Expression(), Char_Expression(), Float_Expression(), Float_Fuction(), Integer_Function(), String_Function(), Bool_Function(), 
-Subroutine_Call(), Aritmethic_Expression(), Term(), Factor(), If(), Switch(), While(), For(), Repeat(), Average(), CloseFile(), Compare(), 
-Concat(), Even(), Factorial(), OpenFile(), Pow(), Substring(), Print(), Read(), Sort(), Cond(), Numeric_Expression(), Conjunction_Expression(), Relational_Expression();
+Subroutine_Call(), Aritmethic_Expression(), Term(), Factor(), If(), Switch(), SwitchAux(), While(), For(), Repeat(), Average(), CloseFile(), Compare(),
+Concat(), Even(), Factorial(), OpenFile(), Pow(), Substring(), Print(), Read(), Sort(), Cond(), CondAux(), Numeric_Expression(), Conjunction_Expression(), Relational_Expression();
 
 void Program()
 {
@@ -519,6 +519,7 @@ void If()
 					obtoken();
 					if (token == cBracketLTok)
 					{
+						obtoken();
 						Block();
 						if (token == cBracketRTok)
 						{
@@ -528,6 +529,7 @@ void If()
 								obtoken();
 								if (token == cBracketLTok)
 								{
+									obtoken();
 									Block();
 									if (token != cBracketRTok) error(9);
 									else obtoken();
@@ -569,6 +571,7 @@ void Switch()
 						} while (token == caseTok);
 						if (token == defaultTok)
 						{
+							obtoken();
 							Block();
 						}
 
@@ -600,6 +603,7 @@ void SwitchAux()
 			obtoken();
 			if (token == colonTok)
 			{
+				obtoken();
 				Block();
 				if (token == breakTok)
 				{
@@ -650,12 +654,90 @@ void While()
 
 void For()
 {
+	if (token == forTok)
+	{
+		obtoken();
+		if (token == parentLTok)
+		{
+			obtoken();
+			if (token == identTok)
+			{
+				obtoken();
+				if (token == equalTok)
+				{
+					obtoken();
+					Integer_Expression();
+				}
 
+				if (token == semiColonTok)
+				{
+					obtoken();
+					Bool_Expression();
+					if (token == semiColonTok)
+					{
+						obtoken();
+						Assignation();
+						if (token == parentRTok)
+						{
+							obtoken();
+							if (token == cBracketLTok)
+							{
+								obtoken();
+								Block();
+								if (token == cBracketRTok)
+								{
+									obtoken();
+								}
+								else error(9);
+							}
+							else error(8);
+						}
+						else error(17);
+					}
+					else error(19);
+						
+				}
+				else error(19);
+			}
+			else error(7);
+		}
+		else error(16);
+	}
 }
 
 void Repeat()
 {
-
+	if (token == repeatTok)
+	{
+		obtoken();
+		if (token == cBracketLTok)
+		{
+			obtoken();
+			Block();
+			if (token == cBracketRTok)
+			{
+				obtoken();
+				if (token == untilTok)
+				{
+					obtoken();
+					if (token == parentLTok)
+					{
+						obtoken();
+						Bool_Expression();
+						if (token == parentRTok)
+						{
+							obtoken();
+						}
+						else error(17);
+					}
+					else error(16);
+				}
+				else error(41);
+			}
+			else error(9);
+		}
+		else error(8);
+	}
 }
 
 void Average()
@@ -783,7 +865,7 @@ void Even()
 				}
 				else error(17);
 			}
-			else error(34);
+			else error(30);
 		}
 		else error(16);
 	}
@@ -857,10 +939,10 @@ void Pow()
 						}
 						else error(17);
 					}
-					else error(34);
+					else error(30);
 				}
 			}
-			else error(34);
+			else error(30);
 		}
 		else error(16);
 	}
@@ -911,17 +993,81 @@ void Substring()
 
 void Print()
 {
+	if (token == printTok)
+	{
+		obtoken();
+		if (token == parentLTok)
+		{
+			obtoken();
+			if (token == identTok)
+			{
+				obtoken();
+				if (token == commaTok)
+				{
+					obtoken();
+					if (token == identTok)
+					{
+						obtoken();
+					}
+					else error(7);
+				}
 
+				if (token == parentRTok)
+				{
+					obtoken();
+				}
+				else error(17);
+			}
+			else error(7);
+		}
+		else error(16);
+	}
 }
 
 void Read()
 {
+	if (token == readTok)
+	{
+		obtoken();
+		if (token == parentLTok)
+		{
+			obtoken();
+			if (token == identTok)
+			{
+				obtoken();
+			}
 
+			if (token == parentRTok)
+			{
+				obtoken();
+			}
+			else error(17);
+		}
+		else error(16);
+	}
 }
 
 void Sort()
 {
-
+	if (token == sortTok)
+	{
+		obtoken();
+		if (token == parentLTok)
+		{
+			obtoken();
+			if (token == identTok)
+			{
+				obtoken();
+				if (token == parentRTok)
+				{
+					obtoken();
+				}
+				else error(17);
+			}
+			else error(7);
+		}
+		else error(16);
+	}
 }
 
 void Cond()
@@ -959,6 +1105,7 @@ void CondAux()
 					obtoken();
 					if (token == cBracketLTok)
 					{
+						obtoken();
 						Block();
 						if (token != cBracketRTok) error(9);
 						else obtoken();
@@ -1002,6 +1149,7 @@ void Relational_Expression(){
 	}
 
 }
+
 bool  isNumeric_Expression(){
 	return true;
 }
