@@ -3,31 +3,15 @@
 #include <stdlib.h>
 #include "pl0.h"
 #include "auxiliares.h"
+#include "mensajes_de_error.h"
 #include "lexico.h"
 #include "scanner.h"
 
 //error: por el momento todo error es fatal          
  int error(int no){
-	 switch (no)
-	 {
-
-	 case 30:
-		 fprintf(tokensFile, "\n \t\t Error %d: El numero es demasiado grande", no);
-		 printf("\n^ Error %d: Este numero es demasiado grande", no);
-		 break;
-	 case 40:
-		 fprintf(tokensFile, "\n \t\t Error %d: La cadena es demasiado grande", no);
-		 printf("\n^ Error %d: La cadena es demasiado grande", no);
-		 break;
-	 default:
-		 fprintf(tokensFile, "\n^ \t\t Error %d: Desconocido", no);
-		 printf("\n^ Error %d: Desconocido", no);
-		 break;
-	 }
-	
-	fclose(fp);			//cerrar el programa fuente
-	fclose(tokensFile);
-	exit(1);			//estoy en modo de pánico...cualquier error es fatal
+	 fclose(fp);
+	 printf("\n^ error %d: %s\n", no, mensaje_de_error[no]);
+	 exit(1); //por el momento...cualquier error es fatal!
 
 }
 
