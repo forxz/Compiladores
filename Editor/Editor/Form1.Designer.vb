@@ -58,9 +58,16 @@ Partial Class Form1
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ScannerParserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Codigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Linea = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Columna = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -154,7 +161,7 @@ Partial Class Form1
         '
         'CompilarToolStripMenuItem
         '
-        Me.CompilarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem})
+        Me.CompilarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem, Me.ScannerParserToolStripMenuItem})
         Me.CompilarToolStripMenuItem.Name = "CompilarToolStripMenuItem"
         Me.CompilarToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.CompilarToolStripMenuItem.Text = "Compilar"
@@ -162,7 +169,7 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'NuevaVentanaToolStripMenuItem
@@ -322,12 +329,52 @@ Partial Class Form1
         'Timer1
         '
         '
+        'ScannerParserToolStripMenuItem
+        '
+        Me.ScannerParserToolStripMenuItem.Name = "ScannerParserToolStripMenuItem"
+        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerParserToolStripMenuItem.Text = "Parser"
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AllowUserToOrderColumns = True
+        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Codigo, Me.Descripcion, Me.Linea, Me.Columna})
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 371)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(916, 150)
+        Me.DataGridView1.TabIndex = 4
+        '
+        'Codigo
+        '
+        Me.Codigo.HeaderText = "Codigo"
+        Me.Codigo.Name = "Codigo"
+        '
+        'Descripcion
+        '
+        Me.Descripcion.HeaderText = "Descripcion"
+        Me.Descripcion.Name = "Descripcion"
+        '
+        'Linea
+        '
+        Me.Linea.HeaderText = "Linea"
+        Me.Linea.Name = "Linea"
+        '
+        'Columna
+        '
+        Me.Columna.HeaderText = "Columna"
+        Me.Columna.Name = "Columna"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(916, 521)
+        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.ToolStrip1)
@@ -342,6 +389,7 @@ Partial Class Form1
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -380,5 +428,11 @@ End Sub
     Friend WithEvents CopiarTexto As System.Windows.Forms.ToolStripButton
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents ScannerParserToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents Codigo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Descripcion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Linea As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Columna As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

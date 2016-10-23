@@ -176,6 +176,8 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer1.Interval = 10
         Timer1.Start()
+
+        DataGridView1.Hide()
     End Sub
 
     Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
@@ -203,5 +205,9 @@ Public Class Form1
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+    End Sub
+
+    Private Sub ScannerParserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerParserToolStripMenuItem.Click
+        DataGridView1.Show()
     End Sub
 End Class
