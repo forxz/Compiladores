@@ -136,7 +136,7 @@ void Function_Declaration()
 					obtoken();
 					if (token == colonTok){
 						obtoken();
-						if (IsType){
+						if (IsType()){
 							obtoken();
 						}
 						else error(35); //Se esperaba tipo de retorno de la función
@@ -455,8 +455,7 @@ void Bool_Expression()
 	else if (token == compareTok || token == evenTok){
 		Bool_Function();
 	}
-	else if (token == minusTok || token == numberValTok || token == factorialTok
-		|| token == floatValTok || token == powTok || token == averageTok || token == identTok){
+	else if (isNumeric_Expression()){
 		Numeric_Expression();
 	}
 	else
@@ -1269,7 +1268,7 @@ void Relational_Expression(){
 
 bool  isNumeric_Expression()
 {
-	return true;
+	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok; 
 }
 
 bool IsBoolExpression()
@@ -1279,22 +1278,23 @@ bool IsBoolExpression()
 
 bool IsFactor()
 {
-	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok; // faltan cosas 
+	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok;
 }
 
 bool IsIntegerExpression()
 {
-	return true;
+	return token == numberValTok || token == factorialTok || token == identTok;
 }
 
 bool IsStringExpression()
 {
-	return true;
+	return token == stringValTok || token == substringTok || token == concatTok || token == readTok || token == identTok;
 }
 
 bool IsExpression()
 {
-	return true;
+	return token == boolValTok || token == compareTok || token == evenTok || token == stringValTok || token == substringTok
+		|| token == concatTok || token == readTok || token == charValTok || token == identTok;
 }
 
 bool IsType()
