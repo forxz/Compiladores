@@ -412,10 +412,7 @@ void Assignation()
 
 void Expression()
 {
-	if (token == numberValTok || token == factorialTok){
-		Integer_Expression();
-	}
-	else if (token == boolValTok || token == compareTok || token == evenTok){
+	if (token == boolValTok || token == compareTok || token == evenTok){
 		Bool_Expression();
 	}
 	else if (token == stringValTok || token == substringTok
@@ -424,9 +421,6 @@ void Expression()
 	}
 	else if (token == charValTok){
 		Char_Expression();
-	}
-	else if (token == floatValTok || token == powTok || token == averageTok){
-		Float_Expression();
 	}
 	else if (token == identTok){
 		// Buscar en tds y verificar de que tipo es el identificador
