@@ -12,7 +12,7 @@ bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression
 //funciones internas al parser
 void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
 Param_Declaration(), Array_Param(), Type(), Block(), Instruction(), Assignation(), Expression(), Integer_Expression(), Bool_Expression(), 
-String_Expression(), Char_Expression(), Float_Expression(), Float_Fuction(), Integer_Function(), String_Function(), Bool_Function(), 
+String_Expression(), Char_Expression(), Float_Expression(), Float_Function(), Integer_Function(), String_Function(), Bool_Function(), 
 Subroutine_Call(), Aritmethic_Expression(), Term(), Factor(), If(), Switch(), SwitchAux(), While(), For(), Repeat(), Average(), CloseFile(), Compare(),
 Concat(), Even(), Factorial(), OpenFile(), Pow(), Substring(), Print(), Read(), Sort(), Cond(), CondAux(), Numeric_Expression(), Conjunction_Expression(), Relational_Expression();
 
@@ -494,6 +494,8 @@ void Char_Expression()
 	}
 	else if (token == identTok){
 		//verificar tabla de simbolos
+	}
+
 }
 
 void Float_Expression()
@@ -503,14 +505,14 @@ void Float_Expression()
 		obtoken();
 	}
 	else if (token == powTok || token == averageTok){
-		Float_Fuction();
+		Float_Function();
 	}
 	else if (token == identTok){
 		//verificar tabla de simbolos
 	}
 }
 
-void Float_Fuction()
+void Float_Function()
 {
 	if (token == powTok)
 	{
@@ -568,9 +570,47 @@ void Subroutine_Call()
 		obtoken();
 		if (token == parentLTok){
 			obtoken();
-			if (token==refTok || token==identTok )
-		}// falta (
-	}// falta identificador
+
+			if (token == refTok || IsExpression){
+				if (token == refTok){
+					obtoken();
+					if (token == identTok){
+						obtoken();
+						//validar ident en la tabla de simbolos
+					}
+
+				}
+				else 
+					Expression();
+
+				while (token == commaTok){
+					if (token == refTok || IsExpression){
+						if (token == refTok){
+							obtoken();
+							if (token == identTok){
+								obtoken();
+								//validar ident en la TDS
+							}
+							else error(7); // falta identificador
+
+						}
+						else Expression();
+					}
+				}
+				if (token == parentRTok){
+					obtoken();
+				}
+				else error(17);//Se esperaba )
+			}
+			if (token == parentRTok){
+				obtoken();
+			}
+			else error(17); //Se esperaba )
+
+		}
+		else error(16); // falta (
+	}
+	else error(7); // falta identificador
 }
 
 void Aritmethic_Expression()
