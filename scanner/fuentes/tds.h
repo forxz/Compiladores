@@ -31,7 +31,7 @@ extern int tds_it; // indice de la tabla de simbolos
 extern int tds_gobal; // posicion de la tabla de simbolos donde finaliza la declaracion de funciones y variables globales
 extern int tds_local; // posicion donde inicia el bloque de una funcion o procedimiento
 
-void SetTable(enum objeto k);
+void SetTable(enum objeto k), Clear();
 registro LocalSearch();
 registro GlobalSearch();
 int Posicion();

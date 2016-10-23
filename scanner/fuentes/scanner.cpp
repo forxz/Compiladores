@@ -6,6 +6,7 @@
 #include "scanner.h"
 #include "pl0.h"
 #include "lexico.h"
+#include "tds.h"
 #include "auxiliares.h"
 
 int MAXID;
@@ -268,6 +269,7 @@ int obtch()
 { 
 
  if (fin_de_archivo==1) {
+	Clear();
 	fclose(fp);//cerrar el programa fuente
 	fclose(tokensFile);
     //printf("Analisis lexicografico finalizado.");

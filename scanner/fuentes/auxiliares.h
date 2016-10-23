@@ -1,2 +1,2 @@
-int error(int no);
+int error(int no), estadisticas();
 void inicializar_espec(),imprime_token();
