@@ -35,7 +35,7 @@ void Program()
 		obtoken();
 		if (token == cBracketLTok){
 			obtoken();
-			if (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
+			while(token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
 				|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok || token == substringTok || token == compareTok || token == printTok
 				|| IsType() || token == arrayTok){
 
@@ -612,7 +612,7 @@ void Subroutine_Call()
 void Aritmethic_Expression()
 {
 	Term();
-	obtoken();
+	//obtoken();
 
 	while (token == plusTok || token == minusTok){
 		Term();
@@ -621,10 +621,10 @@ void Aritmethic_Expression()
 
 void Term()
 {
-	if (token == minusTok || token == numberValTok || token == factorialTok || token == identTok){
+	if (token == minusTok || token == numberValTok || token == factorialTok || token == identTok || token == floatValTok
+		|| token == powTok || token == averageTok){
 		// verificar que ident sea float o integer
 		Factor();
-		obtoken();
 		while (token == multTok || token == divideTok || token == percentTok){
 			Factor();
 		}
@@ -645,10 +645,10 @@ void Factor()
 	else if (token == identTok){
 		// si es de tipo int o float
 		if (true){
-
+			obtoken();
 		}
 		else{
-
+			obtoken();
 		}
 	}
 	else{
@@ -1119,26 +1119,22 @@ void Print()
 		if (token == parentLTok)
 		{
 			obtoken();
-			if (token == identTok)
+			Expression();
+			if (token == commaTok)
 			{
 				obtoken();
-				if (token == commaTok)
-				{
-					obtoken();
-					if (token == identTok)
-					{
-						obtoken();
-					}
-					else error(7);
-				}
-
-				if (token == parentRTok)
+				if (token == identTok)
 				{
 					obtoken();
 				}
-				else error(17);
+				else error(7);
 			}
-			else error(7);
+
+			if (token == parentRTok)
+			{
+				obtoken();
+			}
+			else error(17);
 		}
 		else error(16);
 	}

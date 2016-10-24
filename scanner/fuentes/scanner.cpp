@@ -201,7 +201,7 @@ void obtokenAux()
 					lex[2] = ch;
 					lex[3] = '\0';
 					charT = c;
-					token = charTok;
+					token = charValTok;
 					ch = obtch();
 					break;
 				}
@@ -224,7 +224,7 @@ void obtokenAux()
 					{
 						variable[i] = '\0';
 						strcpy(lex, variable);
-						token = stringTok;
+						token = stringValTok;
 						ch = obtch();
 						break;
 					}

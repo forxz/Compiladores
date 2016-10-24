@@ -1,16 +1,36 @@
-﻿Compilación iniciada a las 19/09/2016 10:25:05 p.m..
-     1>Proyecto "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" en el nodo 2 (Build destinos).
+﻿Build started 2016/10/23 8:39:10 PM.
+     1>Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
+         tds.cpp
+         scanner.cpp
+         pl0.cpp
+         Parser.cpp
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(166): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(192): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(199): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(232): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(330): warning C4102: 'arrayTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(330): warning C4102: 'floatTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(330): warning C4102: 'fileTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(330): warning C4102: 'stringTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(329): warning C4102: 'charTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(329): warning C4102: 'boolTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(570): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(583): warning C4551: function call missing argument list
+         lexico.cpp
          auxiliares.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.lib" /MACHINE:X86 Debug\auxiliares.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Debug\scanner.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Debug\scanner.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Debug\scanner.lib" /MACHINE:X86 Debug\auxiliares.obj
          Debug\lexico.obj
+         Debug\Parser.obj
          Debug\pl0.obj
          Debug\scanner.obj
-         scanner.vcxproj -> C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe
-     1>Compilación del proyecto terminada "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" (Build destinos).
+         Debug\tds.obj
+         scanner.vcxproj -> C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\Debug\scanner.exe
+     1>Done Building Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild target(s)).
 
-Compilación correcta.
+Build succeeded.
 
-Tiempo transcurrido 00:00:01.20
+Time Elapsed 00:00:00.83
