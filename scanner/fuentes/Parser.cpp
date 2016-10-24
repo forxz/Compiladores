@@ -53,6 +53,7 @@ void Program()
 						Function_Definition();
 					else
 						Procedure_Definition();
+
 				}
 			}
 			else
@@ -224,12 +225,15 @@ void Function_Definition()
 							{
 								Block();
 							}
-							obtoken();
-							Expression();
-							if (token == cBracketRTok){
+							if (token == returnTok)
+							{
 								obtoken();
+								Expression();
+								if (token == cBracketRTok){
+									obtoken();
+								}
+								else error(9); //Se esperaba }	
 							}
-							else error(9); //Se esperaba }								
 						}
 						else error(8); //Se esperaba {
 					}
