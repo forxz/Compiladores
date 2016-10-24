@@ -11,11 +11,14 @@
 
 //error: por el momento todo error es fatal          
 int error(int no){
+	if ((errorsFile = fopen("error.txt", "w")) == NULL)
+		printf("\nNo pudo escribir archivo errores.");
+
 	 printf("\n^ error %d: %s\n", no, mensaje_de_error[no]);
-	 fprintf(tokensFile, "\n^ error %d: %s\n", no, mensaje_de_error[no]);
+	 fprintf(errorsFile, "%d,%s,%d,%d\n", no, mensaje_de_error[no], 0, 0);
 	 Clear();
 	 fclose(fp);
-	 fclose(tokensFile);
+	 fclose(errorsFile);
 	 exit(1); //por el momento...cualquier error es fatal!
 
 }
