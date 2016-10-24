@@ -13,13 +13,13 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-FILE *fp; //apuntador a archivo conteniendo el programa fuente
-FILE *tokensFile; // Archivo de tokens del programa generado por el scanner
+FILE *fp = NULL; //apuntador a archivo conteniendo el programa fuente
+FILE *tokensFile = NULL; // Archivo de tokens del programa generado por el scanner
 void obtenerParametros();
 
 //main: inicia el compilador...solo scanner
 int main(int argc, char *argv[]) {
-
+	
 	//verificar si hay archivo fuente
 	if (argc != 2)
 		printf("\nNo se ha proporcionado el nombre del programa fuente (uso: scanner progfuente)");
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 				//Leer parámetros
 				obtenerParametros();
 				
-				tds_it, tds_gobal, tds_local = 0; //inicializamos el índice sobre la tds (it en tds.h)
+				tds_it = tds_gobal = tds_local = 0; //inicializamos el índice sobre la tds (it en tds.h)
 				obtoken();
 
 				Program();

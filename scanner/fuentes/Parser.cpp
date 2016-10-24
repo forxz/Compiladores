@@ -107,7 +107,7 @@ void Variable_Declaration()
 										integertok,
 										currentObject
 									};
-									SetTable(Array, name);
+									SetTable(ARRAY, name);
 									tablads->arrayT = arrayT;
 									obtoken();
 								}
@@ -436,6 +436,8 @@ void Block()
 
 void Instruction()
 {
+	char *name = "";
+	registro *localExist = NULL;
 	switch (token){
 
 		// case Type 
@@ -447,13 +449,24 @@ void Instruction()
 		break;
 
 	case identTok:
-		//consultar tds
-		if (true){ // Si es variable Assignation
 
+		// consultar tds				
+		name = nametok;
+		localExist = LocalSearch();	
+		if (localExist != NULL)
+		{
+			if (localExist->tipo == INTEGER || localExist->tipo == FLOAT || localExist->tipo == STRING || localExist->tipo == CHAR 
+				|| localExist->tipo == BOOL || localExist->tipo == File || localExist->tipo == ARRAY){ // Si es variable Assignation
+				Assignation();
+			}
+			else if (localExist->tipo == FUNCTION || localExist->tipo == PROCEDURE){ // Si es function o procedure llamar a Subroutine_Call
+				Subroutine_Call();
+			}		
 		}
-		else{ // Si es function o procedure llamar a Subroutine_Call
-			Subroutine_Call();
+		else{
+			error(2); // Variable no declarada
 		}
+		
 		break;
 	case ifTok:
 		If();
@@ -542,7 +555,15 @@ void Expression()
 	}
 	else if (token == identTok){
 		// Buscar en tds y verificar de que tipo es el identificador
+		char *name = nametok;
+		registro *localExist = GeneralSearch();
+		if (localExist == NULL)
+		{
 
+		}
+		else{
+			error(2); // Variable no declarada
+		}
 	}
 	else
 		error(53); // Se esperaba una expresion
