@@ -19,6 +19,7 @@ int offset;               //corrimiento en la lectura de los caracteres del prog
 int fin_de_archivo;       //bandera de fin de archivo (obtch)   
 int ch;                   //último caracter leído
 char lex[1000];			  //último lexeme leído ( +1 para colocar "\0")
+char nametok[];
 long int valor ;          //valor numérico de una lexeme correspondiene a un número
 int numLine = 0;		  // numero de linea que se esta analizando.
 int comentario = 0;		  //Bandera para comentarios
@@ -78,7 +79,11 @@ void obtokenAux()
 	 }
 
 	 if (reservada == true) token = tokpal[mindex]; //es palabra reservada
-	 else  token = identTok;  //es identificador
+	 else
+	 {
+		 token = identTok;  //es identificador
+		 strcpy(nametok, lexid);
+	 }
  }
  else //si comienza con un dígito...
     if (isdigit(ch)) 
