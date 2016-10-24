@@ -2,11 +2,12 @@
 #include "stdlib.h"
 #include "parser.h"
 #include "scanner.h"
+#include "tds.h"
 #include "auxiliares.h"
 #include "lexico.h"
 
+objeto currentObject;
 //Funciones Auxiliares
-
 bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression();
 
 //funciones internas al parser
@@ -32,6 +33,8 @@ void Program()
 	}
 
 	if (token == mainTok){
+		tds_gobal = tds_it;
+		tds_local = tds_it;
 		obtoken();
 		if (token == cBracketLTok){
 			obtoken();
@@ -44,12 +47,14 @@ void Program()
 
 			}
 			if (token == cBracketRTok){
-
+				obtoken();
+				tds_it = tds_local;
 				while (token == functionTok || token == procedureTok){
 					if (token == functionTok)
 						Function_Definition();
 					else
 						Procedure_Definition();
+					tds_it = tds_local;
 				}
 			}
 			else
@@ -69,34 +74,47 @@ void Variable_Declaration()
 		obtoken();
 		if (token == identTok)
 		{
-			obtoken();
-			if (token == lessTok)
+			registro *localExist = LocalSearch();
+			if (localExist == NULL)
 			{
+				char *name = nametok;
 				obtoken();
-				Type();
-				if (token == moreTok)
+				if (token == lessTok)
 				{
 					obtoken();
-					if (token == bracketLTok)
+					Type();
+					if (token == moreTok)
 					{
 						obtoken();
-						if (token == numberValTok)
+						if (token == bracketLTok)
 						{
 							obtoken();
-							if (token == bracketRTok)
+							if (token == numberValTok)
 							{
-								// guardar en la tabla de simbolos
 								obtoken();
+								if (token == bracketRTok)
+								{
+									arrayType arrayT;
+									arrayT =
+									{
+										integertok,
+										currentObject
+									};
+									SetTable(Array, name);
+									tablads->arrayT = arrayT;
+									obtoken();
+								}
+								else error(15);
 							}
-							else error(15);
+							else error(24);
 						}
-						else error(24);
+						else error(14);
 					}
-					else error(14);
+					else error(13);
 				}
-				else error(13);
+				else error(12);
 			}
-			else error(12);
+			else error(3);
 		}
 		else error(7);
 	}
@@ -107,13 +125,20 @@ void Variable_Declaration()
 		{
 			if (token == identTok)
 			{
-				obtoken();
-				if (token == assigTok)
+				char *name = nametok;
+				registro *localExist = LocalSearch();
+				if (localExist == NULL)
 				{
 					obtoken();
-					Expression();
+					if (token == assigTok)
+					{
+						obtoken();
+						Expression();
+					}
+
+					SetTable(currentObject, name);
 				}
-				// guardar en la tabla de simbolos
+				else error(3);
 			}
 			else error(7);
 		} while (token == commaTok);
@@ -191,24 +216,34 @@ void Function_Definition()
 				obtoken();
 				if (token == refTok || IsType || token == arrayTok){
 					Param_Declaration();
+					while (token == commaTok)
+					{
+						obtoken();
+						Param_Declaration();
+					}
 				}
 				if (token == parentRTok){
 					obtoken();
 					if (token == colonTok){
 						obtoken();
-						if (IsType){
+						Type();
+						if (token == cBracketLTok){
 							obtoken();
-							if (token == cBracketLTok){
-								obtoken();
+							while (token != returnTok)
+							{
 								Block();
+							}
+							if (token == returnTok)
+							{
+								obtoken();
+								Expression();
 								if (token == cBracketRTok){
 									obtoken();
 								}
-								else error(9); //Se esperaba }
+								else error(9); //Se esperaba }	
 							}
-							else error(8); //Se esperaba {
 						}
-						else error(35); //Se esperaba tipo de retorno de la función
+						else error(8); //Se esperaba {
 					}
 					else error(18); //Se esperaba :
 				}
@@ -327,8 +362,8 @@ void Instruction()
 		// case Type 
 
 	case intTok: boolTok : charTok :
-	stringTok : fileTok : floatTok : arrayTok:
-
+	stringTok : fileTok : floatTok : 
+	case arrayTok:
 				Variable_Declaration();
 		break;
 
@@ -1299,5 +1334,13 @@ bool IsExpression()
 
 bool IsType()
 {
-	return (token == intTok || token == boolTok || token == charTok || token == stringTok || token == fileTok || token == floatTok);
+	if (token == intTok) currentObject = INTEGER;
+	else if (token == boolTok) currentObject = BOOL;
+	else if (token == charTok) currentObject = CHAR;
+	else if (token == stringTok) currentObject = STRING;
+	else if (token == fileTok) currentObject = File;
+	else if (token == floatTok) currentObject = FLOAT;
+	else return false;
+	
+	return true;
 }

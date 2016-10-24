@@ -1,12 +1,16 @@
 int c  	# Variable global
-function sumar(int n1, int n2) : int $
+int h
+function sumar(int n1, int n2) : int
 
 main {
 	int a =3.1
-	int b = 512312321321312312312 
+	int b = 512312
+	array zapato<int>[5]
+	array zapato1<int>[5]
+	int k
 /*qwerty ====== COMentario de bloque
 zaq***********\
-	c = sumar(a, b)
+	#c = sumar(a, b)
 	if (c<0){
 		print("El numero es negativo")
 	}else{
@@ -15,5 +19,7 @@ zaq***********\
 }
 
 function sumar(int n1, int n2) : int {
-	return n1+n2
+	int c =3
+	return 2
 }
+int

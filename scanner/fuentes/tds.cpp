@@ -1,4 +1,5 @@
 //tds: la tabla de símbolos
+#include "stdio.h"
 #include <string.h>
 #include <stdlib.h>
 #include "tds.h"
@@ -12,7 +13,7 @@ int tds_gobal; // posicion de la tabla de simbolos donde finaliza la declaracion
 int tds_local; // posicion donde inicia el bloque de una funcion o procedimiento
 
 //SetTable: poner un objeto: INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION en la tds
-void SetTable(enum objeto k)
+void SetTable(enum objeto k, char name[])
 {
 	if (tablads != NULL)
 	{
@@ -27,25 +28,45 @@ void SetTable(enum objeto k)
 		}
 	}
 
-	++tds_it;
+	tds_it++;
 	nuevo = (struct registro *)malloc(sizeof(struct registro));
 	nuevo->tipo = k;
 	nuevo->index = tds_it;
-	strcpy(nuevo->name, lex);
+	strcpy(nuevo->name, name);
 	nuevo->next = tablads;
 	tablads = nuevo;
 }
 
-registro LocalSearch()
+registro* GeneralSearch()
 {
-	registro auxB;
+	registro *auxB = NULL;
+	if (tablads != NULL)
+	{
+		registro *auxA = tablads;
+		while (auxA != NULL && auxA->index < tds_it)
+		{
+			if (strcmp(auxA->name, nametok) == 0){
+				auxB = auxA;
+				break;
+			}
+
+			auxA = auxA->next;
+		}
+	}
+
+	return auxB;
+}
+
+registro* LocalSearch()
+{
+	registro *auxB = NULL;
 	if (tablads != NULL)
 	{
 		registro *auxA = tablads;
 		while (auxA != NULL && auxA->index > tds_local)
 		{
-			if (strcmp(auxA->name, lex) == 0){
-				auxB = *auxA;
+			if (strcmp(auxA->name, nametok) == 0){
+				auxB = auxA;
 				break;
 			}
 
@@ -56,17 +77,17 @@ registro LocalSearch()
 	return auxB;
 }
 
-registro GlobalSearch()
+registro* GlobalSearch()
 {
-	registro auxB;
+	registro *auxB = NULL;
 	if (tablads != NULL)
 	{
 		registro *auxA = tablads;
 		while (auxA != NULL)
 		{
-			if (strcmp(auxA->name, lex) == 0 && auxA->index <= tds_gobal)
+			if (strcmp(auxA->name, nametok) == 0 && auxA->index <= tds_gobal)
 			{
-				auxB = *auxA;
+				auxB = auxA;
 				break;
 			}
 
