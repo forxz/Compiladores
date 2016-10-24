@@ -11,11 +11,11 @@
 
 //error: por el momento todo error es fatal          
 int error(int no){
-	if ((errorsFile = fopen("error.txt", "w")) == NULL)
+	if ((errorsFile = fopen("errores.txt", "w")) == NULL)
 		printf("\nNo pudo escribir archivo errores.");
 
 	 printf("\n^ error %d: %s\n", no, mensaje_de_error[no]);
-	 fprintf(errorsFile, "%d,%s,%d,%d\n", no, mensaje_de_error[no], 0, 0);
+	 fprintf(errorsFile, "%d,%s,%d,%d\n", no, mensaje_de_error[no], numLine, offset);
 	 Clear();
 	 fclose(fp);
 	 fclose(errorsFile);
@@ -56,6 +56,10 @@ void inicializar_espec()
 
 int estadisticas()
 {
+	if ((errorsFile = fopen("errores.txt", "w")) == NULL)
+		printf("\nNo pudo escribir archivo errores.");
+	fclose(errorsFile);
+
 	printf("\n\n***   Estadisticas globales   ***\n");
 	printf("***  No se detectaron errores ***");
 	return(0);
