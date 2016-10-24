@@ -107,7 +107,7 @@ void obtokenAux()
 						   else token = nulo;
 						   break;
 					   }
-					   else error(30); //este número es demasiado grande
+					   else error(71); //este número es demasiado grande
 				   }
 				   else
 				   {
@@ -235,7 +235,7 @@ void obtokenAux()
 							i++;
 						}
 						else
-							error(40); //La cadena es demasiado grande
+							error(72); //La cadena es demasiado grande
 					}
 			}
 
