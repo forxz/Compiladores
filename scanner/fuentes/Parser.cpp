@@ -403,7 +403,7 @@ void Array_Param()
 					obtoken();
 					if (token == moreTok)
 					{
-						currentObject = Array;
+						currentObject = ARRAY;
 						obtoken();
 					}
 					else error(13);
