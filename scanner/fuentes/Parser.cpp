@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "stdlib.h"
 #include "parser.h"
 #include "scanner.h"
@@ -46,6 +47,11 @@ void Program()
 				Block();
 
 			}
+
+			if (token == procedureTok || token == functionTok)
+			{
+				error(57);
+			}
 			if (token == cBracketRTok){
 				obtoken();
 				tds_it = tds_local;
@@ -77,7 +83,8 @@ void Variable_Declaration()
 			registro *localExist = LocalSearch();
 			if (localExist == NULL)
 			{
-				char *name = nametok;
+				char name[100];
+				strcpy(name, nametok);
 				obtoken();
 				if (token == lessTok)
 				{
@@ -125,10 +132,11 @@ void Variable_Declaration()
 		{
 			if (token == identTok)
 			{
-				char *name = nametok;
 				registro *localExist = LocalSearch();
 				if (localExist == NULL)
 				{
+					char name[100];
+					strcpy(name, nametok);
 					obtoken();
 					if (token == assigTok)
 					{
@@ -150,30 +158,47 @@ void Function_Declaration()
 	if (token == functionTok){
 		obtoken();
 		if (token == identTok){
-			obtoken();
-			if (token == parentLTok){
+			registro *localExist = LocalSearch();
+			if (localExist == NULL)
+			{
+				char name[100];
+				strcpy(name, nametok);
 				obtoken();
-				if (token == refTok || IsType() || token==arrayTok){
-					Param_Declaration();
-					while (token == commaTok){
-						obtoken();
-						Param_Declaration();
-					}
-				}
-				if (token == parentRTok){
+				if (token == parentLTok){
 					obtoken();
-					if (token == colonTok){
-						obtoken();
-						if (IsType()){
+					objeto listaParametros[10]; // lista de tipos que recibira la funcion
+					int index = 0;
+					if (token == refTok || IsType() || token == arrayTok){
+						Param_Declaration();
+						listaParametros[index] = currentObject;
+						while (token == commaTok){
+							index++;
 							obtoken();
+							Param_Declaration();
+							listaParametros[index] = currentObject;
 						}
-						else error(35); //Se esperaba tipo de retorno de la función
 					}
-					else error(18); //Se esperaba :
+					if (token == parentRTok){
+						obtoken();
+						if (token == colonTok){
+							obtoken();
+							Type();
+							SetTable(DEC_FUNCTION, name);
+							parameters param =
+							{
+								index,
+								*listaParametros,
+								currentObject
+							};
+							tablads->params = param;
+						}
+						else error(18); //Se esperaba :
+					}
+					else error(17); //Se esperaba )
 				}
-				else error(17); //Se esperaba )
+				else error(16); //Se esperaba (
 			}
-			else error(16); //Se esperaba (
+			else error(3);// variable ya declarada
 		}
 		else error(7); //Se esperaba identificador
 	}
@@ -185,21 +210,42 @@ void Procedure_Declaration()
 	if (token == procedureTok){
 		obtoken();
 		if (token == identTok){
-			obtoken();
-			if (token == parentLTok){
+			registro *localExist = LocalSearch();
+			if (localExist == NULL)
+			{
+				char name[100];
+				strcpy(name, nametok);
 				obtoken();
-				if (token == refTok || IsType || token == arrayTok){
-					Param_Declaration();
-					while (token == commaTok){
-						obtoken();
-					}
-				}
-				if (token == parentRTok){
+				if (token == parentLTok){
+					objeto listaParametros[10]; // lista de tipos que recibira la funcion
+					int index = 0;
 					obtoken();
+					if (token == refTok || IsType() || token == arrayTok){
+						Param_Declaration();
+						listaParametros[index] = currentObject;
+						while (token == commaTok){
+							obtoken();
+							Param_Declaration();
+							index++;
+							listaParametros[index] = currentObject;
+						}
+					}
+					if (token == parentRTok){
+						obtoken();
+						SetTable(DEC_PROCEDURE, name);
+						parameters param =
+						{
+							index,
+							*listaParametros,
+							BOOL
+						};
+						tablads->params = param;
+					}
+					else error(17); //Se esperaba )
 				}
-				else error(17); //Se esperaba )
+				else error(16); //Se esperaba 
 			}
-			else error(16); //Se esperaba (
+			else error(3); // variable ya declarada
 		}
 		else error(7); //Se esperaba identificador
 	}
@@ -211,45 +257,75 @@ void Function_Definition()
 	if (token == functionTok){
 		obtoken();
 		if (token == identTok){
-			obtoken();
-			if (token == parentLTok){
-				obtoken();
-				if (token == refTok || IsType || token == arrayTok){
-					Param_Declaration();
-					while (token == commaTok)
-					{
-						obtoken();
-						Param_Declaration();
-					}
-				}
-				if (token == parentRTok){
+			registro *globalExist = GlobalSearch();
+			if (globalExist != NULL)
+			{
+				registro *localExist = LocalSearch();
+				if (localExist == NULL)
+				{
+					char functionName[100];
+					strcpy(functionName, nametok);
 					obtoken();
-					if (token == colonTok){
+					if (token == parentLTok){
+						objeto listaParametros[10]; // lista de tipos que recibira la funcion
+						int index = 0;
 						obtoken();
-						Type();
-						if (token == cBracketLTok){
-							obtoken();
-							while (token != returnTok)
-							{
-								Block();
-							}
-							if (token == returnTok)
+						if (token == refTok || IsType() || token == arrayTok){
+							Param_Declaration();
+							listaParametros[index] = currentObject;
+							while (token == commaTok)
 							{
 								obtoken();
-								Expression();
-								if (token == cBracketRTok){
-									obtoken();
-								}
-								else error(9); //Se esperaba }	
+								Param_Declaration();
+								index++;
+								listaParametros[index] = currentObject;
 							}
 						}
-						else error(8); //Se esperaba {
+						if (token == parentRTok){
+							obtoken();
+							if (token == colonTok){
+								obtoken();
+								Type();
+								if (token == cBracketLTok){
+									obtoken();
+									// verificando si la funcion es valida
+									SetTable(FUNCTION, functionName);
+									parameters param =
+									{
+										index,
+										*listaParametros,
+										currentObject
+									};
+									if (ValidParameters(globalExist->params, param))
+									{
+										tablads->params = param;
+										while (token != returnTok)
+										{
+											Block();
+										}
+										if (token == returnTok)
+										{
+											obtoken();
+											Expression();
+											if (token == cBracketRTok){
+												obtoken();
+											}
+											else error(9); //Se esperaba }	
+										}
+									}
+									else error(6); // funcion no declarada por error de paramtros
+								}
+								else error(8); //Se esperaba {
+							}
+							else error(18); //Se esperaba :
+						}
+						else error(17); //Se esperaba )
 					}
-					else error(18); //Se esperaba :
+					else error(16); //Se esperaba (
 				}
-				else error(17); //Se esperaba )
+				else error(5);//funcion o procedimiento ya declarado
 			}
-			else error(16); //Se esperaba (
+			else error(6); // funcion o procedimiento no declarado
 		}
 		else error(7); //Se esperaba identificador
 	}
@@ -268,6 +344,7 @@ void Procedure_Definition()
 					Param_Declaration();
 					while (token == commaTok){
 						obtoken();
+						Param_Declaration();
 					}
 				}
 				if (token == parentRTok){
@@ -277,6 +354,7 @@ void Procedure_Definition()
 						Block();
 						if (token == cBracketRTok){
 							obtoken();
+							tds_local++;
 						}
 						else error(9); //falta }
 					}
@@ -325,6 +403,7 @@ void Array_Param()
 					obtoken();
 					if (token == moreTok)
 					{
+						currentObject = Array;
 						obtoken();
 					}
 					else error(13);
@@ -352,7 +431,7 @@ void Block()
 		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok 
 		|| token == substringTok || token == compareTok || token == printTok || IsType() || token == arrayTok){
 		Instruction();
-	};
+	}
 }
 
 void Instruction()

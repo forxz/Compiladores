@@ -13,6 +13,7 @@ struct parameters
 {
 	int length;
 	objeto type[10];
+	objeto returnT;
 };
 
 struct registro
@@ -36,3 +37,4 @@ registro* LocalSearch();
 registro* GlobalSearch();
 registro* GeneralSearch();
 int Posicion();
+bool ValidParameters(parameters global, parameters local);

@@ -19,7 +19,7 @@ void SetTable(enum objeto k, char name[])
 	{
 		int index = tablads->index;
 		registro *aux;
-		while (index > tds_it)
+		while (index >= tds_it)
 		{
 			aux = tablads;
 			tablads = tablads->next;
@@ -28,13 +28,13 @@ void SetTable(enum objeto k, char name[])
 		}
 	}
 
-	tds_it++;
 	nuevo = (struct registro *)malloc(sizeof(struct registro));
 	nuevo->tipo = k;
 	nuevo->index = tds_it;
 	strcpy(nuevo->name, name);
 	nuevo->next = tablads;
 	tablads = nuevo;
+	tds_it++;
 }
 
 registro* GeneralSearch()
@@ -63,7 +63,7 @@ registro* LocalSearch()
 	if (tablads != NULL)
 	{
 		registro *auxA = tablads;
-		while (auxA != NULL && auxA->index > tds_local)
+		while (auxA != NULL && auxA->index >= tds_local)
 		{
 			if (strcmp(auxA->name, nametok) == 0){
 				auxB = auxA;
@@ -96,6 +96,22 @@ registro* GlobalSearch()
 	}
 
 	return auxB;
+}
+
+bool ValidParameters(parameters global, parameters local)
+{
+	int index = global.length;
+	int i = 0;
+	bool valid = true;
+	while (i <= index)
+	{
+		printf("el indice es %d\n", i);
+		valid = global.type[i] == local.type[i];
+		if (!valid)  break;
+		i++;
+	}
+
+	return valid && global.length == local.length && global.returnT == local.returnT;
 }
 
 void Clear()
