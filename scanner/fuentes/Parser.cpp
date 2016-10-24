@@ -220,16 +220,16 @@ void Function_Definition()
 						Type();
 						if (token == cBracketLTok){
 							obtoken();
-							if (token == returnTok)
+							while (token != returnTok);
 							{
-								obtoken();
 								Block();
-								if (token == cBracketRTok){
-									obtoken();
-								}
-								else error(9); //Se esperaba }
 							}
-							else error(58);
+							obtoken();
+							Expression();
+							if (token == cBracketRTok){
+								obtoken();
+							}
+							else error(9); //Se esperaba }								
 						}
 						else error(8); //Se esperaba {
 					}
