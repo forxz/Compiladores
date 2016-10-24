@@ -1,10 +1,13 @@
 int c  	# Variable global
+int h
 function sumar(int n1, int n2) : int
 
 main {
 	int a =3.1
 	int b = 512312
-	int d
+	array zapato<int>[5]
+	array zapato1<int>[5]
+	int k
 /*qwerty ====== COMentario de bloque
 zaq***********\
 	#c = sumar(a, b)
@@ -16,5 +19,7 @@ zaq***********\
 }
 
 function sumar(int n1, int n2) : int {
-	return n1+n2
+	int c =3
+	return 2
 }
+int

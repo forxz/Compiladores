@@ -33,5 +33,6 @@ extern int tds_local; // posicion donde inicia el bloque de una funcion o proced
 
 void SetTable(enum objeto k, char name[]), Clear();
 registro* LocalSearch();
-registro GlobalSearch();
+registro* GlobalSearch();
+registro* GeneralSearch();
 int Posicion();

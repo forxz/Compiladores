@@ -22,7 +22,7 @@ char lex[1000];			  //último lexeme leído ( +1 para colocar "\0")
 char nametok[];
 long int valor ;          //valor numérico de una lexeme correspondiene a un número
 int numLine = 0;		  // numero de linea que se esta analizando.
-int comentario = 0;		  //Bandera para comentarios
+int comentario = 0, integertok;		  //Bandera para comentarios
 int obtch(),getline(char s[],int lim); //funciones internas a scanner.cpp
 int busquedaBinaria(char generada[], char original[]);
 
@@ -107,7 +107,10 @@ void obtokenAux()
 					   {
 						   lexid[j] = '\0';
 						   strcpy(lex, lexid);
-						   if (points == 0) token = numberValTok; // es un numero
+						   if (points == 0){
+							   token = numberValTok; // es un numero
+							   integertok = atoi(lexid);
+						   }
 						   else if (points == 1) token = floatValTok; // es un flotante
 						   else token = nulo;
 						   break;

@@ -19,7 +19,6 @@ Concat(), Even(), Factorial(), OpenFile(), Pow(), Substring(), Print(), Read(), 
 
 void Program()
 {
-	tds_local = 0;
 	while (token == arrayTok || token == intTok || token == boolTok || token == charTok
 		|| token == stringTok || token == fileTok || token == floatTok){
 		Variable_Declaration();
@@ -35,6 +34,7 @@ void Program()
 
 	if (token == mainTok){
 		tds_gobal = tds_it;
+		tds_local = tds_it;
 		obtoken();
 		if (token == cBracketLTok){
 			obtoken();
@@ -48,12 +48,13 @@ void Program()
 			}
 			if (token == cBracketRTok){
 				obtoken();
+				tds_it = tds_local;
 				while (token == functionTok || token == procedureTok){
 					if (token == functionTok)
 						Function_Definition();
 					else
 						Procedure_Definition();
-
+					tds_it = tds_local;
 				}
 			}
 			else
@@ -74,9 +75,9 @@ void Variable_Declaration()
 		if (token == identTok)
 		{
 			registro *localExist = LocalSearch();
-			if (localExist != NULL)
+			if (localExist == NULL)
 			{
-				char *name = lex;
+				char *name = nametok;
 				obtoken();
 				if (token == lessTok)
 				{
@@ -93,7 +94,14 @@ void Variable_Declaration()
 								obtoken();
 								if (token == bracketRTok)
 								{
+									arrayType arrayT;
+									arrayT =
+									{
+										integertok,
+										currentObject
+									};
 									SetTable(Array, name);
+									tablads->arrayT = arrayT;
 									obtoken();
 								}
 								else error(15);
@@ -221,7 +229,7 @@ void Function_Definition()
 						Type();
 						if (token == cBracketLTok){
 							obtoken();
-							while (token != returnTok);
+							while (token != returnTok)
 							{
 								Block();
 							}
@@ -354,8 +362,8 @@ void Instruction()
 		// case Type 
 
 	case intTok: boolTok : charTok :
-	stringTok : fileTok : floatTok : arrayTok:
-
+	stringTok : fileTok : floatTok : 
+	case arrayTok:
 				Variable_Declaration();
 		break;
 
