@@ -360,10 +360,12 @@ void Procedure_Definition()
 						obtoken();
 						if (token == refTok || IsType || token == arrayTok){
 							Param_Declaration();
+							AddObject();
 							listaParametros[index] = currentObject;
 							while (token == commaTok){
 								obtoken();
 								Param_Declaration();
+								AddObject();
 								index++;
 								listaParametros[index] = currentObject;
 							}

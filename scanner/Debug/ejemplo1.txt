@@ -19,7 +19,7 @@ zaq***********\
 }
 
 function sumar(int n1, int n2) : int {
-	int n
+	int n1
 	int h
 	return 2
 }
