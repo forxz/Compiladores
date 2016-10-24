@@ -105,10 +105,9 @@ bool ValidParameters(parameters global, parameters local)
 	bool valid = true;
 	while (i <= index)
 	{
-		printf("el indice es %d\n", i);
 		valid = global.type[i] == local.type[i];
-		if (!valid)  break;
 		i++;
+		if (!valid)  break;
 	}
 
 	return valid && global.length == local.length && global.returnT == local.returnT;

@@ -1,4 +1,4 @@
-﻿Build started 2016/10/24 12:59:44 AM.
+﻿Build started 2016/10/24 3:50:48 PM.
      1>Project "C:\Users\oswaldoernesto\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
@@ -6,16 +6,14 @@
          scanner.cpp
          pl0.cpp
          Parser.cpp
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(191): warning C4551: function call missing argument list
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(217): warning C4551: function call missing argument list
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(267): warning C4551: function call missing argument list
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(365): warning C4102: 'floatTok' : unreferenced label
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(365): warning C4102: 'fileTok' : unreferenced label
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(365): warning C4102: 'stringTok' : unreferenced label
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(364): warning C4102: 'charTok' : unreferenced label
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(364): warning C4102: 'boolTok' : unreferenced label
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(605): warning C4551: function call missing argument list
-     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(618): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(361): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(484): warning C4102: 'floatTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(484): warning C4102: 'fileTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(484): warning C4102: 'stringTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(483): warning C4102: 'charTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(483): warning C4102: 'boolTok' : unreferenced label
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(724): warning C4551: function call missing argument list
+     1>c:\users\oswaldoernesto\documents\github\compiladores\scanner\fuentes\parser.cpp(737): warning C4551: function call missing argument list
          lexico.cpp
          auxiliares.cpp
          Generating Code...
@@ -31,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.73
+Time Elapsed 00:00:00.69

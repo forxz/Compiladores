@@ -12,7 +12,7 @@ struct arrayType
 struct parameters
 {
 	int length;
-	objeto type[10];
+	objeto *type;
 	objeto returnT;
 };
 
