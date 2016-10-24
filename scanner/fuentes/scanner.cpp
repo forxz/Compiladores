@@ -13,7 +13,7 @@ int MAXID;
 int MAXLINEA;
 int MAXDIGIT;
 int MAXSTRING;
-char linea[2000];			  //buffer de líneas 
+char linea[2000];		  //buffer de líneas 
 int ll;                   //contador de caracteres
 int offset;               //corrimiento en la lectura de los caracteres del programa fuente
 int fin_de_archivo;       //bandera de fin de archivo (obtch)   
@@ -107,7 +107,7 @@ void obtokenAux()
 						   else token = nulo;
 						   break;
 					   }
-					   else error(30); //este número es demasiado grande
+					   else error(71); // El numero es demasiado grande
 				   }
 				   else
 				   {
@@ -235,7 +235,7 @@ void obtokenAux()
 							i++;
 						}
 						else
-							error(40); //La cadena es demasiado grande
+							error(72); //La cadena es demasiado grande
 					}
 			}
 
