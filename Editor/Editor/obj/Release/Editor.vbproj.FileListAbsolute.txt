@@ -34,3 +34,15 @@ C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Edit
 C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Resources.resources
 C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Parametros.resources
 C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.vbproj.GenerateResource.Cache
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.exe.config
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.exe
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.xml
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.pdb
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.exe
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.pdb
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Release\Editor.xml
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Form1.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Form2.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Resources.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.Parametros.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Release\Editor.vbproj.GenerateResource.Cache

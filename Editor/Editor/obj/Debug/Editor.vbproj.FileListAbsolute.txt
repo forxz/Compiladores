@@ -59,3 +59,15 @@ C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.exe
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.pdb
 C:\Users\Marvin\Documents\Compiladores\Editor\Editor\bin\Debug\Editor.xml
 C:\Users\PC9\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Parametros.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.exe.config
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.exe
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.xml
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.pdb
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.exe
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.pdb
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.xml
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Form1.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Form2.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Resources.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Parametros.resources
+C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache

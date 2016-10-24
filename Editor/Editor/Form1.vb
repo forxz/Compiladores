@@ -181,6 +181,8 @@ Public Class Form1
     End Sub
 
     Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
+        DataGridView1.Hide()
+        DataGridView1.ClearSelection()
         Try
             LockWindowUpdate(RichTextBox1.Handle.ToInt32)
 
@@ -209,5 +211,21 @@ Public Class Form1
 
     Private Sub ScannerParserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerParserToolStripMenuItem.Click
         DataGridView1.Show()
+        Try
+            Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
+            Dim texto As String = ""
+            Dim count As Integer = 4
+            Dim split As String() = Nothing
+            While (Not texto Is Nothing)
+                texto = leer.ReadLine()
+                If (Not texto Is Nothing) Then
+                    split = texto.Split(New Char() {","}, count)
+                    DataGridView1.Rows.Add(split(0), split(1), split(2))
+                End If
+            End While
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
     End Sub
 End Class
