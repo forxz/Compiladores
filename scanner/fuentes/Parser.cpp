@@ -181,12 +181,12 @@ void Function_Declaration()
 					if (token == refTok || IsType() || token == arrayTok){
 						Param_Declaration();
 						listaParametros[index] = currentObject;
-						index++;
-						while (token == commaTok){							
+						while (token == commaTok){			
+							index++;
 							obtoken();
 							Param_Declaration();
 							listaParametros[index] = currentObject;
-							index++;
+							
 						}
 					}
 					if (token == parentRTok){
@@ -232,12 +232,13 @@ void Procedure_Declaration()
 					if (token == refTok || IsType() || token == arrayTok){
 						Param_Declaration();
 						listaParametros[index] = currentObject;
-						index++;
+						
 						while (token == commaTok){
+							index++;
 							obtoken();
 							Param_Declaration();							
 							listaParametros[index] = currentObject;
-							index++;
+							
 						}
 					}
 					if (token == parentRTok){
@@ -878,9 +879,9 @@ void Subroutine_Call()
 					}
 				}
 				// Verificar parametros
-				if (index < reg->params.length)
+				if ((index-1) < reg->params.length)
 					error(44); // La función esperaba mas parametros
-				else if (index > reg->params.length)
+				else if ((index-1) > reg->params.length)
 					error(45); // Se superó el número de parametros esperados la función
 
 				//if (token == parentRTok){
