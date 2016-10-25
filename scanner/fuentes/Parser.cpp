@@ -12,7 +12,7 @@ objeto currentValueType;
 registro *paramDeclaration = NULL;
 int definitions;
 //Funciones Auxiliares
-bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
+bool isBlock(), isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
 
 //funciones internas al parser
 void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
@@ -1598,6 +1598,16 @@ void Relational_Expression(){
 		Aritmethic_Expression();
 		currentValueType = BOOL;
 	}
+}
+
+
+// Funciones auxiliares
+
+bool isBlock(){
+	
+	return (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || 
+		token == repeatTok || token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || 
+		token == powTok || token == substringTok || token == compareTok || token == printTok );
 }
 
 bool  isNumeric_Expression()
