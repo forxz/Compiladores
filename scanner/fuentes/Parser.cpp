@@ -36,12 +36,11 @@ void Program()
 	}
 
 	if (token == mainTok){
-		tds_gobal = tds_it;
-		tds_local = tds_it;
+		tds_gobal = tds_it;			// Se gurada el indice de la tds donde comienzan las variables gloables 
+		tds_local = tds_it;			// Se gurada el indice de la tds donde comienzan las variables locales (ambito)
 		obtoken();
 		if (token == cBracketLTok){
-			obtoken();
-			// Guardar index de tabla de simbolos
+			obtoken();			
 			Block();		
 
 			if (token == procedureTok || token == functionTok)
@@ -50,13 +49,13 @@ void Program()
 			}
 			if (token == cBracketRTok){
 				obtoken();
-				tds_it = tds_local;
+				tds_it = tds_local; // Se guarda el indice antes de entrar a otro bloque anidado
 				while (token == functionTok || token == procedureTok){
 					if (token == functionTok)
 						Function_Definition();
 					else
 						Procedure_Definition();
-					tds_it = tds_local;
+					tds_it = tds_local; // Se restaura el indice de la tds
 				}
 			}
 			else
@@ -192,7 +191,7 @@ void Function_Declaration()
 				}
 				else error(16); //Se esperaba (
 			}
-			else error(3);// variable ya declarada
+			else error(5);// Función o procedimiento ya declarado
 		}
 		else error(7); //Se esperaba identificador
 	}
@@ -226,7 +225,7 @@ void Procedure_Declaration()
 					}
 					if (token == parentRTok){
 						obtoken();
-						SetTable(DEC_PROCEDURE, name);
+						SetTable(DEC_FUNCTION, name);
 						parameters param;
 						param.length = index;
 						param.returnT = BOOL;
@@ -371,7 +370,7 @@ void Procedure_Definition()
 							param.type = listaParametros;
 							if (ValidParameters(globalExist->params, param))
 							{
-								SetTable(FUNCTION, functionName);
+								SetTable(DEC_PROCEDURE, functionName);
 								tablads->params = param;
 								obtoken();
 								if (token == cBracketLTok){
@@ -494,7 +493,7 @@ void Instruction()
 			if (isVariable(localExist->tipo)){ // Si es variable Assignation
 				Assignation();
 			}
-			else if (localExist->tipo == FUNCTION || localExist->tipo == PROCEDURE){ // Si es function o procedure llamar a Subroutine_Call
+			else if (localExist->tipo == DEC_FUNCTION || localExist->tipo == DEC_PROCEDURE){ // Si es function o procedure llamar a Subroutine_Call
 				Subroutine_Call();
 			}		
 		}
@@ -552,7 +551,7 @@ void Assignation()
 {
 	if (token == identTok){
 		//Verificar que este en tabla de simbolos
-		registro * reg = GlobalSearch();
+		registro * reg = GeneralSearch();
 		if (reg != NULL){
 			if (!isVariable(reg->tipo))
 				error(2); // Variable no declarada
@@ -595,9 +594,7 @@ void Expression()
 		Char_Expression();
 	}
 	else if (token == identTok){
-		// FAlTA AGREGAR
-		// Buscar en tds y verificar de que tipo es el identificador
-		char *name = nametok;
+		// Buscar en tds y verificar de que tipo es el identificador		
 		registro *localExist = GeneralSearch();
 		if (localExist != NULL)
 		{
@@ -631,6 +628,14 @@ void Integer_Expression()
 	}
 	else if (token == identTok){
 		// Verificar tabla de simbolos para saber si es llamada o variable
+		registro *localExist = GeneralSearch();
+		if (localExist != NULL)
+		{
+			if (localExist->tipo != INTEGER && localExist->params.returnT != INTEGER){
+				error(30); // Se esperaba expresión entera
+			}
+		}
+
 	}
 	else
 		error(30); // Se esperaba expresión entera
@@ -663,6 +668,13 @@ void String_Expression()
 	}
 	else if (token == identTok){
 		// Verificar tabla de simbolos para saber si es llamada o variable
+		registro *localExist = GeneralSearch();
+		if (localExist != NULL)
+		{
+			if (localExist->tipo != STRING && localExist->params.returnT != STRING){
+				error(32); // Se esperaba expresión cadena
+			}
+		}
 	}
 	else
 		error(32); // Se esperaba expresión cadena	
@@ -676,8 +688,16 @@ void Char_Expression()
 	}
 	else if (token == identTok){
 		//verificar tabla de simbolos
+		registro *localExist = GeneralSearch();
+		if (localExist != NULL)
+		{
+			if (localExist->tipo != CHAR && localExist->params.returnT != CHAR){
+				error(31); // Se esperaba expresión caracter
+			}
+		}
 	}
-
+	else
+		error(31); // Se esperaba expresión caracter
 }
 
 void Float_Expression()
@@ -691,7 +711,16 @@ void Float_Expression()
 	}
 	else if (token == identTok){
 		//verificar tabla de simbolos
+		registro *localExist = GeneralSearch();
+		if (localExist != NULL)
+		{
+			if (localExist->tipo != FLOAT && localExist->params.returnT != FLOAT){
+				error(33); // Se esperaba expresión flotante
+			}
+		}
 	}
+	else
+		error(33); // Se esperaba expresión flotante
 }
 
 void Float_Function()
@@ -753,20 +782,22 @@ void Subroutine_Call()
 		if (token == parentLTok){
 			obtoken();
 
-			if (token == refTok || IsExpression){
+			if (token == refTok || IsExpression()){
 				if (token == refTok){
 					obtoken();
 					if (token == identTok){
 						obtoken();
 						//validar ident en la tabla de simbolos
+						registro *localExist = GlobalSearch();
+						if (localExist == NULL)						
+							error(6); // Función o procedimiento no declarado
 					}
-
 				}
 				else 
 					Expression();
 
 				while (token == commaTok){
-					if (token == refTok || IsExpression){
+					if (token == refTok || IsExpression()){
 						if (token == refTok){
 							obtoken();
 							if (token == identTok){
@@ -798,7 +829,6 @@ void Subroutine_Call()
 void Aritmethic_Expression()
 {
 	Term();
-	//obtoken();
 
 	while (token == plusTok || token == minusTok){
 		Term();
@@ -838,12 +868,19 @@ void Factor()
 	}
 	else if (token == identTok){
 		// si es de tipo int o float
-		if (true){
-			obtoken();
+		registro *localExist = GeneralSearch();
+		if (localExist != NULL)
+		{
+			if (localExist->tipo == INTEGER || localExist->params.returnT == INTEGER){
+				Integer_Expression();
+			}
+			else{
+				Float_Expression();
+			}
+
 		}
-		else{
-			obtoken();
-		}
+		else
+			error(2); // Variable no declarada
 	}
 	else{
 		error(48); // Se esperaba expresion numerica
