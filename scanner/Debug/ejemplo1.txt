@@ -10,10 +10,10 @@ main {
 	array zapato<int>[5]
 	array zapato1<int>[5]
 	int k
-	#a = 1
+
 /*qwerty ====== COMentario de bloque
 zaq***********\
-	#a = sumar(1,2)
+	c = sumar(1,2)
 	if (true)
 	{
 		print("El numero es negativo")

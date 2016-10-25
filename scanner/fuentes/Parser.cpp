@@ -181,11 +181,12 @@ void Function_Declaration()
 					if (token == refTok || IsType() || token == arrayTok){
 						Param_Declaration();
 						listaParametros[index] = currentObject;
-						while (token == commaTok){
-							index++;
+						index++;
+						while (token == commaTok){							
 							obtoken();
 							Param_Declaration();
 							listaParametros[index] = currentObject;
+							index++;
 						}
 					}
 					if (token == parentRTok){
@@ -231,11 +232,12 @@ void Procedure_Declaration()
 					if (token == refTok || IsType() || token == arrayTok){
 						Param_Declaration();
 						listaParametros[index] = currentObject;
+						index++;
 						while (token == commaTok){
 							obtoken();
-							Param_Declaration();
-							index++;
+							Param_Declaration();							
 							listaParametros[index] = currentObject;
+							index++;
 						}
 					}
 					if (token == parentRTok){
@@ -848,6 +850,7 @@ void Subroutine_Call()
 				}
 
 				while (token == commaTok){
+					obtoken();
 					if (token == refTok || IsExpression()){
 						if (token == refTok){
 							obtoken();
@@ -880,10 +883,10 @@ void Subroutine_Call()
 				else if (index > reg->params.length)
 					error(45); // Se superó el número de parametros esperados la función
 
-				if (token == parentRTok){
-					obtoken();
-				}
-				else error(17);//Se esperaba )
+				//if (token == parentRTok){
+				//	obtoken();
+				//}
+				//else error(17);//Se esperaba )
 			}
 			if (token == parentRTok){
 				obtoken();
@@ -1597,8 +1600,8 @@ bool IsStringExpression()
 
 bool IsExpression()
 {
-	return token == boolValTok || token == compareTok || token == evenTok || token == stringValTok || token == substringTok
-		|| token == concatTok || token == readTok || token == charValTok || token == identTok;
+	return  token == stringValTok || token == substringTok || token == concatTok || token == readTok 
+		|| token == charValTok || token == identTok || IsBoolExpression();
 }
 
 bool IsType()
