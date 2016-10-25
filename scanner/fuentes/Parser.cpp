@@ -11,7 +11,7 @@ objeto currentObject;
 registro *paramDeclaration = NULL;
 int definitions;
 //Funciones Auxiliares
-bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression();
+bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
 
 //funciones internas al parser
 void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
@@ -43,14 +43,8 @@ void Program()
 		obtoken();
 		if (token == cBracketLTok){
 			obtoken();
-			while(token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
-				|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok || token == substringTok || token == compareTok || token == printTok
-				|| IsType() || token == arrayTok){
-
-				// Guardar index de tabla de simbolos
-				Block();
-
-			}
+			// Guardar index de tabla de simbolos
+			Block();		
 
 			if (token == procedureTok || token == functionTok)
 			{
@@ -480,7 +474,7 @@ void Type()
 
 void Block()
 {
-	if (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
+	while (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
 		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok 
 		|| token == substringTok || token == compareTok || token == printTok || IsType() || token == arrayTok){
 		Instruction();
@@ -508,8 +502,7 @@ void Instruction()
 		localExist = LocalSearch();	
 		if (localExist != NULL)
 		{
-			if (localExist->tipo == INTEGER || localExist->tipo == FLOAT || localExist->tipo == STRING || localExist->tipo == CHAR 
-				|| localExist->tipo == BOOL || localExist->tipo == File || localExist->tipo == ARRAY){ // Si es variable Assignation
+			if (isVariable(localExist->tipo)){ // Si es variable Assignation
 				Assignation();
 			}
 			else if (localExist->tipo == FUNCTION || localExist->tipo == PROCEDURE){ // Si es function o procedure llamar a Subroutine_Call
@@ -570,7 +563,13 @@ void Assignation()
 {
 	if (token == identTok){
 		//Verificar que este en tabla de simbolos
-
+		registro * reg = GlobalSearch();
+		if (reg != NULL){
+			if (!isVariable(reg->tipo))
+				error(2); // Variable no declarada
+		}
+		else
+			error(2); // Variable no declarada
 		obtoken();
 		if (token == bracketLTok){
 			obtoken();
@@ -607,12 +606,22 @@ void Expression()
 		Char_Expression();
 	}
 	else if (token == identTok){
+		// FAlTA AGREGAR
 		// Buscar en tds y verificar de que tipo es el identificador
 		char *name = nametok;
 		registro *localExist = GeneralSearch();
-		if (localExist == NULL)
+		if (localExist != NULL)
 		{
-
+			if (localExist->tipo == INTEGER || localExist->params.returnT == INTEGER ||
+				localExist->tipo == FLOAT || localExist->params.returnT == FLOAT)
+				Bool_Expression();
+			else if (localExist->tipo == STRING || localExist->params.returnT == STRING)
+				String_Expression();
+			else if (localExist->tipo == CHAR || localExist->params.returnT == CHAR)
+				Char_Expression();
+			else{
+				error(53); // Se esperaba expresión
+			}
 		}
 		else{
 			error(2); // Variable no declarada
@@ -812,6 +821,14 @@ void Term()
 	if (token == minusTok || token == numberValTok || token == factorialTok || token == identTok || token == floatValTok
 		|| token == powTok || token == averageTok){
 		// verificar que ident sea float o integer
+
+		registro *localExist = GeneralSearch();
+		if (localExist != NULL)
+		{
+			if (localExist->tipo != INTEGER && localExist->params.returnT != INTEGER &&
+				localExist->tipo != FLOAT && localExist->params.returnT != FLOAT)
+				error(54); // Se esperaba expresion numerica
+		}
 		Factor();
 		while (token == multTok || token == divideTok || token == percentTok){
 			Factor();
@@ -1495,4 +1512,11 @@ bool IsType()
 	else if (token == floatTok) currentObject = FLOAT;
 	else return false;
 	return true;
+}
+
+bool isVariable(objeto type){
+
+	return type == INTEGER || type == FLOAT || type == STRING || type == CHAR
+		|| type == BOOL || type == File || type == ARRAY;
+
 }

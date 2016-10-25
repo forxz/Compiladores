@@ -301,6 +301,7 @@ int obtch()
        fin_de_archivo=1; //se retrasa en un blanco la deteccion de EOF, porque obtoken lleva un caracter adelantado. si no, en 
 						 //algunos casos tendríamos problemas, por ejemplo: no se reconoceria el punto final del programa (...end.)
     offset=-1;
+	numLine++;
  }
 
  ++offset;

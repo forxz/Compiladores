@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 FILE *fp = NULL; //apuntador a archivo conteniendo el programa fuente
-FILE *tokensFile = NULL; // Archivo de tokens del programa generado por el scanner
+FILE *tokensFile = NULL, *errorsFile = NULL; // Archivo de tokens del programa generado por el scanner
 void obtenerParametros();
 
 //main: inicia el compilador...solo scanner
