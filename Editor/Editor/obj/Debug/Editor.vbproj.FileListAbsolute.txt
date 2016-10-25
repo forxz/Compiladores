@@ -71,3 +71,15 @@ C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Form2
 C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Resources.resources
 C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Parametros.resources
 C:\Users\DELL\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.exe.config
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.exe
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.xml
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.pdb
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.exe
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.pdb
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\bin\Debug\Editor.xml
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Form1.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Form2.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Resources.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.Parametros.resources
+C:\Users\Elsy Funes\Documents\GitHub\Compiladores\Editor\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache

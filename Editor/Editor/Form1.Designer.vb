@@ -40,6 +40,7 @@ Partial Class Form1
         Me.LimpiarTexoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CompilarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScannerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ScannerParserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaVentanaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LeemeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ParametrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -58,7 +59,6 @@ Partial Class Form1
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ScannerParserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Codigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -169,8 +169,14 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
+        '
+        'ScannerParserToolStripMenuItem
+        '
+        Me.ScannerParserToolStripMenuItem.Name = "ScannerParserToolStripMenuItem"
+        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.ScannerParserToolStripMenuItem.Text = "Parser"
         '
         'NuevaVentanaToolStripMenuItem
         '
@@ -328,12 +334,6 @@ Partial Class Form1
         '
         'Timer1
         '
-        '
-        'ScannerParserToolStripMenuItem
-        '
-        Me.ScannerParserToolStripMenuItem.Name = "ScannerParserToolStripMenuItem"
-        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ScannerParserToolStripMenuItem.Text = "Parser"
         '
         'DataGridView1
         '

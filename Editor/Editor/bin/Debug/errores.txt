@@ -1,5 +1,5 @@
-hola,como,estas
-bien,y,vos
-yo,digo,que,bien
-jaja,jajaja,jajaja,jajaja
-bababa,bababa,bababa,bababa,bababa
+hola,como,1,2
+bien,y,2,2
+yo,digo,3,2
+jaja,jajaja,4,2
+bababa,bababa,5,2

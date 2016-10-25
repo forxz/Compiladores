@@ -9,6 +9,7 @@ Public Class Form1
                   "float", "for", "function", "if", "int", "main", "null", "openFile",
                   "or", "pow", "print", "procedure", "read", "ref", "repeat", "return",
                   "sort", "string", "substring", "switch", "true", "until", "while"} 'PALABRAS CLAVE.
+    Dim active_color As Boolean = True
 
     Private Declare Function LockWindowUpdate Lib "user32" (ByVal hWnd As Integer) As Integer 'BLOQUEA AL REPINTADO DEL TEXTO PARA EVITAR PARPADEO
 
@@ -181,51 +182,117 @@ Public Class Form1
     End Sub
 
     Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
+      
+
+        Dim posicion As Integer
+
+        posicion = RichTextBox1.SelectionStart
+        ' MessageBox.Show(posicion.ToString)
         DataGridView1.Hide()
         DataGridView1.ClearSelection()
+        'posicion = Cursor.
         Try
             LockWindowUpdate(RichTextBox1.Handle.ToInt32)
 
             RichTextBox1.SelectionStart = 0
             RichTextBox1.SelectionLength = RichTextBox1.TextLength
-            RichTextBox1.SelectionColor = RichTextBox1.ForeColor
+            If (active_color = True) Then
+                RichTextBox1.SelectionColor = RichTextBox1.ForeColor
+                For Each Clave In Claves
+                    Dim Index As Integer = 0
 
-            For Each Clave In Claves
-                Dim Index As Integer = 0
+                    While Index <= RichTextBox1.Text.LastIndexOf(Clave)
+                        RichTextBox1.Find(Clave, Index, RichTextBox1.TextLength, RichTextBoxFinds.MatchCase)
+                        RichTextBox1.SelectionColor = Color.Blue
+                        Index = RichTextBox1.Text.IndexOf(Clave, Index) + 1
+                    End While
 
-                While Index <= RichTextBox1.Text.LastIndexOf(Clave)
-                    RichTextBox1.Find(Clave, Index, RichTextBox1.TextLength, RichTextBoxFinds.WholeWord)
-                    RichTextBox1.SelectionColor = Color.Blue
-                    Index = RichTextBox1.Text.IndexOf(Clave, Index) + 1
-                End While
-            Next
+                Next
 
-            RichTextBox1.SelectionStart = RichTextBox1.TextLength
-            RichTextBox1.SelectionColor = RichTextBox1.ForeColor
-
+                RichTextBox1.SelectionStart = RichTextBox1.TextLength
+                RichTextBox1.SelectionColor = RichTextBox1.ForeColor
+            End If
+            active_color = True
             LockWindowUpdate(0)
+            RichTextBox1.SelectionStart = (posicion)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
     Private Sub ScannerParserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScannerParserToolStripMenuItem.Click
+        Dim p As New Process
+        'Dim salida As String
+
+        p.StartInfo.UseShellExecute = False
+        p.StartInfo.RedirectStandardOutput = True
+        p.StartInfo.RedirectStandardError = True
+        p.StartInfo.FileName = "scanner.exe"
+        p.StartInfo.Arguments = Chr(34) + rutaArchivo
+        p.Start()
+        'salida = p.StandardOutput.ReadToEnd        
+        p.WaitForExit()
+        'Cargar resultados de archivo de texto del scanner, parser
+
         DataGridView1.Show()
         Try
             Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
             Dim texto As String = ""
-            Dim count As Integer = 4
+            Dim count As Integer = 5
             Dim split As String() = Nothing
             While (Not texto Is Nothing)
                 texto = leer.ReadLine()
                 If (Not texto Is Nothing) Then
+                    active_color = False
                     split = texto.Split(New Char() {","}, count)
-                    DataGridView1.Rows.Add(split(0), split(1), split(2))
+                    DataGridView1.Rows.Add(split(0), split(1), split(2), split(3))
                 End If
             End While
+            leer.Close()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
+
+    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        Dim current As Integer = DataGridView1.CurrentRow.Index
+        Try
+            If DataGridView1.Item(0, current).Value <> "" Then
+
+                Dim selec As String = DataGridView1.CurrentCell.Value
+                SelectLine(RichTextBox1, Val(selec))
+                RichTextBox1.SelectionColor = Color.Yellow
+                'MessageBox.Show("marca")
+                RichTextBox1.DeselectAll()
+            End If
+        Catch ex As Exception
+            MessageBox.Show("La linea que desea seleccionarse está en blanco o no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        End Try
+
+    End Sub
+
+    Public Sub SelectLine(ByVal RichTextBox As RichTextBox, _
+          ByVal LineNumber As Integer, _
+          Optional ByVal FirstLineNumberIsZero _
+          As Boolean = False)
+
+        If FirstLineNumberIsZero = False Then
+            LineNumber = LineNumber - 1
+        End If
+
+        If LineNumber < 0 Then Exit Sub
+        If LineNumber > RichTextBox.Lines.Count Then Exit Sub
+
+        RichTextBox.HideSelection = False
+
+        Dim Start As Integer = RichTextBox.GetFirstCharIndexFromLine(LineNumber)
+        Dim length As Integer = RichTextBox.Lines(LineNumber).Length
+        RichTextBox.SelectionStart = Start
+        RichTextBox.SelectionLength = length
+        ''RichTextBox1.SelectionStart = 0
+        'RichTextBox1.SelectionLength = RichTextBox1.TextLength
+        'RichTextBox1.SelectionColor = RichTextBox1.ForeColor
+    End Sub
+
 End Class

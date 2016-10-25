@@ -19,7 +19,7 @@
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sReader As System.IO.StreamReader
         Dim p As New Process
-        Dim salida As String
+        'Dim salida As String
 
         p.StartInfo.UseShellExecute = False
         p.StartInfo.RedirectStandardOutput = True

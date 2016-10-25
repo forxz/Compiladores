@@ -1,20 +1,20 @@
-﻿Compilación iniciada a las 11/09/2016 09:40:47 a.m..
-     1>Proyecto "C:\Users\Marvin\Desktop\compiladores\CICLO0216\scanner\scanner\scanner.vcxproj" en el nodo 2 (Build destinos).
+﻿Compilación iniciada a las 24/10/2016 06:14:51 p.m..
+     1>Proyecto "C:\Users\Elsy Funes\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" en el nodo 2 (Rebuild destinos).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp
-         pl0.cpp
-         Generando código...
-         Compilando...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\lexico.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp
          scanner.cpp
+         pl0.cpp
+         lexico.cpp
+         auxiliares.cpp
          Generando código...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Marvin\Desktop\compiladores\CICLO0216\scanner\Debug\scanner.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Marvin\Desktop\compiladores\CICLO0216\scanner\Debug\scanner.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Marvin\Desktop\compiladores\CICLO0216\scanner\Debug\scanner.lib" /MACHINE:X86 Debug\auxiliares.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Elsy Funes\Documents\GitHub\Compiladores\scanner\Debug\scanner.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Elsy Funes\Documents\GitHub\Compiladores\scanner\Debug\scanner.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Elsy Funes\Documents\GitHub\Compiladores\scanner\Debug\scanner.lib" /MACHINE:X86 Debug\auxiliares.obj
          Debug\lexico.obj
          Debug\pl0.obj
          Debug\scanner.obj
-         scanner.vcxproj -> C:\Users\Marvin\Desktop\compiladores\CICLO0216\scanner\Debug\scanner.exe
-     1>Compilación del proyecto terminada "C:\Users\Marvin\Desktop\compiladores\CICLO0216\scanner\scanner\scanner.vcxproj" (Build destinos).
+         scanner.vcxproj -> C:\Users\Elsy Funes\Documents\GitHub\Compiladores\scanner\Debug\scanner.exe
+     1>Compilación del proyecto terminada "C:\Users\Elsy Funes\Documents\GitHub\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild destinos).
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:05.25
+Tiempo transcurrido 00:00:02.86

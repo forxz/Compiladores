@@ -1,19 +1,45 @@
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\DEBUG\SCANNER.EXE
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\DEBUG\SCANNER.ILK
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\DEBUG\SCANNER.PDB
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\SCANNER\DEBUG\AUXILIARES.OBJ
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\cl.command.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\CL.read.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\CL.write.1.tlog
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\SCANNER\DEBUG\LEXICO.OBJ
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\link.command.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\link.read.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\link.write.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\mt.command.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\mt.read.1.tlog
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\mt.write.1.tlog
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\SCANNER\DEBUG\PL0.OBJ
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\SCANNER\DEBUG\SCANNER.EXE.INTERMEDIATE.MANIFEST
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\SCANNER\DEBUG\SCANNER.OBJ
-C:\Users\Public\Documents\UCA\material_TLP_COMPILADORES\Compilador ver 3 - Visual C++ 2012\scanner\scanner\Debug\vc100.idb
-C:\USERS\PUBLIC\DOCUMENTS\UCA\MATERIAL_TLP_COMPILADORES\COMPILADOR VER 3 - VISUAL C++ 2012\SCANNER\SCANNER\DEBUG\VC100.PDB
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\scanner\debug\auxiliares.obj
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\scanner\debug\lexico.obj
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\scanner\debug\pl0.obj
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\scanner\debug\scanner.obj
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\scanner\debug\vc100.pdb
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\debug\scanner.ilk
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\debug\scanner.exe
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\scanner\debug\scanner.exe.intermediate.manifest
+c:\users\public\documents\uca\material_tlp_compiladores\compilador ver 3 - visual c++ 2012\scanner\debug\scanner.pdb
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\scanner\debug\vc120.pdb
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\scanner\debug\vc120.idb
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\scanner\debug\auxiliares.obj
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\scanner\debug\lexico.obj
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\scanner\debug\pl0.obj
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\scanner\debug\scanner.obj
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\debug\scanner.ilk
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\debug\scanner.exe
+c:\users\marvin\desktop\compiladores\ciclo0216\scanner\debug\scanner.pdb
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\auxiliares.obj
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\lexico.obj
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\pl0.obj
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.obj
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\cl.command.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\cl.read.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\cl.write.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\link.command.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\link.read.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\link.write.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\mt.command.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\mt.read.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\mt.write.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.exe.intermediate.manifest
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\vc100.idb
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\vc120.idb
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\vc100.pdb
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\vc120.pdb
+c:\users\elsy funes\documents\github\compiladores\scanner\debug\scanner.pdb
+c:\users\elsy funes\documents\github\compiladores\scanner\debug\scanner.exe
+c:\users\elsy funes\documents\github\compiladores\scanner\debug\scanner.ilk
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.tlog\cl.command.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.tlog\cl.read.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.tlog\cl.write.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.tlog\link.command.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.tlog\link.read.1.tlog
+c:\users\elsy funes\documents\github\compiladores\scanner\scanner\debug\scanner.tlog\link.write.1.tlog
