@@ -228,7 +228,7 @@ void Procedure_Declaration()
 					}
 					if (token == parentRTok){
 						obtoken();
-						SetTable(DEC_FUNCTION, name);
+						SetTable(DEC_PROCEDURE, name);
 						parameters param;
 						param.length = index;
 						param.returnT = BOOL;
