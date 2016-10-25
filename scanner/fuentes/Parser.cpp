@@ -584,7 +584,7 @@ void Assignation()
 		//Verificar que este en tabla de simbolos
 		registro * reg = GeneralSearch();
 		if (reg != NULL){
-			if (!isVariable(reg->tipo))
+			if (!isVariable(reg->tipo) || (reg->tipo == FUNCTION && !isVariable(reg->params.returnT)))
 				error(2); // Variable no declarada
 		}
 		else
