@@ -696,7 +696,6 @@ void Integer_Expression()
 
 void Bool_Expression()
 {
-	//printf("Bool Expression %d\n", token);
 	if (token == boolValTok || token == trueTok || token == falseTok){
 		// Verificar que este declarado
 		currentValueType = BOOL;
@@ -929,17 +928,17 @@ void Subroutine_Call()
 void Aritmethic_Expression()
 {
 	Term();
-
 	while (token == plusTok || token == minusTok){
+		obtoken();
 		Term();
 	}
 }
 
 void Term()
 {
-
 		Factor();
 		while (token == multTok || token == divideTok || token == percentTok){
+			obtoken();
 			Factor();
 		}
 }
@@ -1565,16 +1564,20 @@ void Numeric_Expression()
 {
 	Conjunction_Expression();
 
-	while (token == orTok)
+	while (token == orTok){
+		obtoken();
 		Conjunction_Expression();
+	}
 }
 
 
 void Conjunction_Expression(){
 	Relational_Expression();
 
-	while (token == andTok)
+	while (token == andTok){
+		obtoken();
 		Relational_Expression();
+	}
 }
 
 void Relational_Expression(){
