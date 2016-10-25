@@ -1596,7 +1596,7 @@ void Relational_Expression(){
 
 bool isBlock(){
 	
-	return (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || 
+	return (token == identTok || token == arrayTok || IsType() || token == ifTok || token == switchTok || token == whileTok || token == forTok ||
 		token == repeatTok || token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || 
 		token == powTok || token == substringTok || token == compareTok || token == printTok );
 }
