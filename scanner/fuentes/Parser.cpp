@@ -609,7 +609,7 @@ void Assignation()
 
 void Expression()
 {
-	if (token == boolValTok || token == compareTok || token == evenTok || token == numberValTok || token == factorialTok 
+	if (token == boolValTok || token == trueTok || token == falseTok || token == compareTok || token == evenTok || token == numberValTok || token == factorialTok
 		|| token == floatValTok || token == powTok || token == averageTok){
 		Bool_Expression();
 	}
@@ -690,7 +690,8 @@ void Integer_Expression()
 
 void Bool_Expression()
 {
-	if (token == boolValTok){
+	//printf("Bool Expression %d\n", token);
+	if (token == boolValTok || token == trueTok || token == falseTok){
 		// Verificar que este declarado
 		currentValueType = BOOL;
 		obtoken();
@@ -1602,7 +1603,7 @@ bool  isNumeric_Expression()
 
 bool IsBoolExpression()
 {
-	return (token == boolValTok || token == compareTok || token == evenTok ||  isNumeric_Expression());
+	return (token == boolValTok || token == trueTok || token == falseTok || token == compareTok || token == evenTok ||  isNumeric_Expression());
 }
 
 bool IsFactor()
