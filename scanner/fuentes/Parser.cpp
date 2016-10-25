@@ -504,12 +504,15 @@ void Instruction()
 
 		// case Type 
 
-	case intTok: boolTok : charTok :
-	stringTok : fileTok : floatTok : 
+	case intTok: 
+	case boolTok:
+	case charTok:
+	case stringTok:
+	case fileTok: 
+	case floatTok: 
 	case arrayTok:
 				Variable_Declaration();
 		break;
-
 	case identTok:
 
 		// consultar tds				
