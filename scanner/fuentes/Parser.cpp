@@ -789,24 +789,39 @@ void Bool_Function()
 
 void Subroutine_Call()
 {
+	int index = 0;	
+	registro *localExist = NULL;
+
 	if (token == identTok){
 		obtoken();
+		registro *reg = GlobalSearch();
+		if (reg == NULL)
+			error(6); // Función o procedimiento no declarado
+				
 		if (token == parentLTok){
 			obtoken();
-
 			if (token == refTok || IsExpression()){
 				if (token == refTok){
 					obtoken();
 					if (token == identTok){
 						obtoken();
 						//validar ident en la tabla de simbolos
-						registro *localExist = GlobalSearch();
-						if (localExist == NULL)						
-							error(6); // Función o procedimiento no declarado
+						localExist = GlobalSearch();
+						if (localExist == NULL)
+							error(2); // Variable no declarada
+						else{
+							if (isVariable(localExist->tipo)){ // Verificar si es variable 								
+								index++;
+							}
+							else
+								error(36); // Se esperaba parámetro por referencia							
+						}
 					}
 				}
-				else 
+				else{
 					Expression();
+					index++;
+				}
 
 				while (token == commaTok){
 					if (token == refTok || IsExpression()){
@@ -815,13 +830,32 @@ void Subroutine_Call()
 							if (token == identTok){
 								obtoken();
 								//validar ident en la TDS
+								localExist = GlobalSearch();
+								if (localExist == NULL)
+									error(2); // Variable no declarada
+								else{
+									if (isVariable(localExist->tipo)){ // Verificar si es variable 								
+										index++;
+									}
+									else
+										error(36); // Se esperaba parámetro por referencia	
+								}
 							}
 							else error(7); // falta identificador
 
 						}
-						else Expression();
+						else{
+							Expression();
+							index++;
+						}
 					}
 				}
+				// Verificar parametros
+				if (index < reg->params.length)
+					error(44); // La función esperaba mas parametros
+				else if (index > reg->params.length)
+					error(45); // Se superó el número de parametros esperados la función
+
 				if (token == parentRTok){
 					obtoken();
 				}
