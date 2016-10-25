@@ -12,7 +12,7 @@ objeto currentValueType;
 registro *paramDeclaration = NULL;
 int definitions;
 //Funciones Auxiliares
-bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
+bool isBlock(), isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
 
 //funciones internas al parser
 void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
@@ -309,7 +309,7 @@ void Function_Definition()
 										SetTable(FUNCTION, functionName);
 										tablads->params = param;
 										definitions++;
-										while (token != returnTok)
+										while (isBlock())
 										{
 											Block();
 										}
@@ -323,6 +323,9 @@ void Function_Definition()
 												obtoken();
 											}
 											else error(9); //Se esperaba }	
+										}
+										else{
+											error(58); // Se esperaba la palabra 'return'
 										}
 									}
 									else error(6); // funcion no declarada por error de parametros
@@ -397,7 +400,7 @@ void Procedure_Definition()
 								obtoken();
 								if (token == cBracketLTok){
 									obtoken();
-									while (token != cBracketRTok)
+									while (isBlock())
 									{
 										Block();
 									}
@@ -505,13 +508,13 @@ void Instruction()
 		// case Type 
 
 	case intTok: 
-	case boolTok:
-	case charTok:
-	case stringTok:
-	case fileTok: 
-	case floatTok: 
-	case arrayTok:
-				Variable_Declaration();
+	case boolTok : 
+	case charTok : 
+	case stringTok : 
+	case fileTok : 
+	case floatTok : 
+	case arrayTok :
+			Variable_Declaration();
 		break;
 	case identTok:
 
@@ -583,7 +586,7 @@ void Assignation()
 		//Verificar que este en tabla de simbolos
 		registro * reg = GeneralSearch();
 		if (reg != NULL){
-			if (!isVariable(reg->tipo))
+			if (!isVariable(reg->tipo) || (reg->tipo == FUNCTION && !isVariable(reg->params.returnT)))
 				error(2); // Variable no declarada
 		}
 		else
@@ -934,22 +937,11 @@ void Aritmethic_Expression()
 
 void Term()
 {
-	if (token == minusTok || token == numberValTok || token == factorialTok || token == identTok || token == floatValTok
-		|| token == powTok || token == averageTok){
-		// verificar que ident sea float o integer
 
-		registro *localExist = GeneralSearch();
-		if (localExist != NULL)
-		{
-			if (localExist->tipo != INTEGER && localExist->params.returnT != INTEGER &&
-				localExist->tipo != FLOAT && localExist->params.returnT != FLOAT)
-				error(54); // Se esperaba expresion numerica
-		}
 		Factor();
 		while (token == multTok || token == divideTok || token == percentTok){
 			Factor();
 		}
-	}
 }
 
 void Factor()
@@ -1597,6 +1589,16 @@ void Relational_Expression(){
 		Aritmethic_Expression();
 		currentValueType = BOOL;
 	}
+}
+
+
+// Funciones auxiliares
+
+bool isBlock(){
+	
+	return (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || 
+		token == repeatTok || token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || 
+		token == powTok || token == substringTok || token == compareTok || token == printTok );
 }
 
 bool  isNumeric_Expression()
