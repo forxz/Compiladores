@@ -309,7 +309,7 @@ void Function_Definition()
 										SetTable(FUNCTION, functionName);
 										tablads->params = param;
 										definitions++;
-										while (token != returnTok)
+										while (isBlock())
 										{
 											Block();
 										}
@@ -323,6 +323,9 @@ void Function_Definition()
 												obtoken();
 											}
 											else error(9); //Se esperaba }	
+										}
+										else{
+											error(58); // Se esperaba la palabra 'return'
 										}
 									}
 									else error(6); // funcion no declarada por error de parametros
@@ -397,7 +400,7 @@ void Procedure_Definition()
 								obtoken();
 								if (token == cBracketLTok){
 									obtoken();
-									while (token != cBracketRTok)
+									while (isBlock())
 									{
 										Block();
 									}
@@ -935,22 +938,11 @@ void Aritmethic_Expression()
 
 void Term()
 {
-	if (token == minusTok || token == numberValTok || token == factorialTok || token == identTok || token == floatValTok
-		|| token == powTok || token == averageTok){
-		// verificar que ident sea float o integer
 
-		registro *localExist = GeneralSearch();
-		if (localExist != NULL)
-		{
-			if (localExist->tipo != INTEGER && localExist->params.returnT != INTEGER &&
-				localExist->tipo != FLOAT && localExist->params.returnT != FLOAT)
-				error(54); // Se esperaba expresion numerica
-		}
 		Factor();
 		while (token == multTok || token == divideTok || token == percentTok){
 			Factor();
 		}
-	}
 }
 
 void Factor()
