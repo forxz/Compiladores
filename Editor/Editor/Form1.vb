@@ -224,34 +224,43 @@ Public Class Form1
         Dim p As New Process
         'Dim salida As String
 
-        p.StartInfo.UseShellExecute = False
-        p.StartInfo.RedirectStandardOutput = True
-        p.StartInfo.RedirectStandardError = True
-        p.StartInfo.FileName = "parser.exe"
-        p.StartInfo.Arguments = Chr(34) + rutaArchivo
-        p.Start()
-        'salida = p.StandardOutput.ReadToEnd        
-        p.WaitForExit()
-        'Cargar resultados de archivo de texto del scanner, parser
-        DataGridView1.Rows.Clear()
-        DataGridView1.Show()
-        Try
-            Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
-            Dim texto As String = ""
-            Dim count As Integer = 5
-            Dim split As String() = Nothing
-            While (Not texto Is Nothing)
-                texto = leer.ReadLine()
-                If (Not texto Is Nothing) Then
-                    active_color = False
-                    split = texto.Split(New Char() {","}, count)
-                    DataGridView1.Rows.Add(split(0), split(1), split(2), split(3))
-                End If
-            End While
-            leer.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        If (File.Exists("errores.txt")) Then
+            p.StartInfo.UseShellExecute = False
+            p.StartInfo.RedirectStandardOutput = True
+            p.StartInfo.RedirectStandardError = True
+            p.StartInfo.FileName = "parser.exe"
+            p.StartInfo.Arguments = Chr(34) + rutaArchivo
+            p.Start()
+            'salida = p.StandardOutput.ReadToEnd        
+            p.WaitForExit()
+            'Cargar resultados de archivo de texto del scanner, parser
+
+            DataGridView1.Rows.Clear()
+            DataGridView1.Show()
+            Try
+                Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
+                Dim texto As String = ""
+                Dim count As Integer = 5
+                Dim split As String() = Nothing
+                While (Not texto Is Nothing)
+                    texto = leer.ReadLine()
+                    If (Not texto Is Nothing) Then
+                        active_color = False
+                        split = texto.Split(New Char() {","}, count)
+                        DataGridView1.Rows.Add(split(0), split(1), split(2), split(3))
+                    Else
+                        MessageBox.Show("Compilación exitosa!!", "Compilación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                End While
+                leer.Close()
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        Else
+            'No existe archivo
+            MessageBox.Show("No se pudo obtener infomarción de la compilación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
 
     End Sub
 
