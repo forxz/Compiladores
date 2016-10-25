@@ -511,7 +511,7 @@ void Instruction()
 
 		// consultar tds				
 		name = nametok;
-		localExist = LocalSearch();	
+		localExist = GeneralSearch();	
 		if (localExist != NULL)
 		{
 			if (isVariable(localExist->tipo)){ // Si es variable Assignation
