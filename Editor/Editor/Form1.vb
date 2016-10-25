@@ -270,7 +270,7 @@ Public Class Form1
         Try
             If DataGridView1.Item(0, current).Value <> "" Then
 
-                Dim selec As String = DataGridView1.CurrentCell.Value
+                Dim selec As String = DataGridView1.CurrentRow.Cells(2).Value
                 SelectLine(RichTextBox1, Val(selec))
                 RichTextBox1.SelectionColor = Color.Yellow
                 'MessageBox.Show("marca")
