@@ -44,7 +44,7 @@ void obtokenAux()
  char lexid[1000];			//+1 para colocar el marcador "\0"
  char charT;
  int i,j, points, mindex;	// mindex sera usado para encontrar el punto medio en la busqueda binaria
- bool reservada = false;
+ int reservada = 0;
  int binariaL = 0;			// busqueda binaria posicion de lado izquierdo pos inicial 0
  int binariaR = 38;			// busqueda binaria posicion de lado derecho pos inicial 38 (total palabras reservadas)
 
@@ -68,7 +68,7 @@ void obtokenAux()
 		 mindex = (binariaL + binariaR) / 2;
 		 if (strcmp(lexid, lexpal[mindex]) == 0)
 		 {
-			 reservada = true;
+			 reservada = 1;
 			 break;
 		 }
 		 else
@@ -78,7 +78,7 @@ void obtokenAux()
 				 binariaL = mindex + 1;
 	 }
 
-	 if (reservada == true) token = tokpal[mindex]; //es palabra reservada
+	 if (reservada == 1) token = tokpal[mindex]; //es palabra reservada
 	 else
 	 {
 		 token = identTok;  //es identificador

@@ -37,4 +37,4 @@ registro* LocalSearch();
 registro* GlobalSearch();
 registro* GeneralSearch();
 int Posicion();
-bool ValidParameters(parameters global, parameters local);
+int ValidParameters(parameters global, parameters local);

@@ -12,7 +12,7 @@ objeto currentValueType;
 registro *paramDeclaration = NULL;
 int definitions;
 //Funciones Auxiliares
-bool isBlock(), isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
+int isBlock(), isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
 
 //funciones internas al parser
 void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
@@ -137,7 +137,7 @@ void Variable_Declaration()
 					char name[100];
 					strcpy(name, nametok);
 					obtoken();
-					bool isAssigTok = token == assigTok;
+					int isAssigTok = token == assigTok;
 					if (isAssigTok)
 					{
 						obtoken();
@@ -1594,45 +1594,45 @@ void Relational_Expression(){
 
 // Funciones auxiliares
 
-bool isBlock(){
+int isBlock(){
 	
 	return (token == identTok || token == arrayTok || IsType() || token == ifTok || token == switchTok || token == whileTok || token == forTok ||
 		token == repeatTok || token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || 
 		token == powTok || token == substringTok || token == compareTok || token == printTok );
 }
 
-bool  isNumeric_Expression()
+int  isNumeric_Expression()
 {
 	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok; 
 }
 
-bool IsBoolExpression()
+int IsBoolExpression()
 {
 	return (token == boolValTok || token == trueTok || token == falseTok || token == compareTok || token == evenTok ||  isNumeric_Expression());
 }
 
-bool IsFactor()
+int IsFactor()
 {
 	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok;
 }
 
-bool IsIntegerExpression()
+int IsIntegerExpression()
 {
 	return token == numberValTok || token == factorialTok || token == identTok;
 }
 
-bool IsStringExpression()
+int IsStringExpression()
 {
 	return token == stringValTok || token == substringTok || token == concatTok || token == readTok || token == identTok;
 }
 
-bool IsExpression()
+int IsExpression()
 {
 	return  token == stringValTok || token == substringTok || token == concatTok || token == readTok 
 		|| token == charValTok || token == identTok || IsBoolExpression();
 }
 
-bool IsType()
+int IsType()
 {
 	if (token == intTok) currentObject = INTEGER;
 	else if (token == boolTok) currentObject = BOOL;
@@ -1640,11 +1640,11 @@ bool IsType()
 	else if (token == stringTok) currentObject = STRING;
 	else if (token == fileTok) currentObject = File;
 	else if (token == floatTok) currentObject = FLOAT;
-	else return false;
-	return true;
+	else return 0;
+	return 1;
 }
 
-bool isVariable(objeto type){
+int isVariable(objeto type){
 
 	return type == INTEGER || type == FLOAT || type == STRING || type == CHAR
 		|| type == BOOL || type == File || type == ARRAY;

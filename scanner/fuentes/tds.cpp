@@ -123,11 +123,11 @@ registro* GlobalSearch()
 	return auxB;
 }
 
-bool ValidParameters(parameters global, parameters local)
+int ValidParameters(parameters global, parameters local)
 {
 	int index = global.length;
 	int i = 0;
-	bool valid = true;
+	int valid = 1;
 	while (i <= index)
 	{
 		valid = global.type[i] == local.type[i];
