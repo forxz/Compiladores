@@ -13,6 +13,31 @@ int tds_gobal; // posicion de la tabla de simbolos donde finaliza la declaracion
 int tds_local; // posicion donde inicia el bloque de una funcion o procedimiento
 
 //SetTable: poner un objeto: INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION en la tds
+
+void SetTable(char name[])
+{
+	registro *auxB = NULL;
+	if (tablads != NULL)
+	{
+		registro *auxA = tablads;
+		while (auxA != NULL)
+		{
+			if (strcmp(auxA->name, nametok) == 0){
+				auxB = auxA;
+				break;
+			}
+
+			auxA = auxA->next;
+		}
+	}
+
+	if (auxB != NULL)
+	{
+		SetTable(auxB->tipo, name);
+		tablads->params = auxB->params;
+	}
+}
+
 void SetTable(enum objeto k, char name[])
 {
 	if (tablads != NULL)

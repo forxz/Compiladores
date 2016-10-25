@@ -1,6 +1,8 @@
 int c  	# Variable global
 int h
 function sumar(int n1, int n2) : int
+function sumar2(int n1, int n2) : int
+procedure sumar3(int n1, int n2)
 
 main {
 	int a =3.1
@@ -19,8 +21,19 @@ zaq***********\
 }
 
 function sumar(int n1, int n2) : int {
-	int n1
+	int n
 	int h
 	return 2
+}
+
+function sumar2(int n1, int n2) : int {
+	int n
+	int h
+	return 2
+}
+
+procedure sumar3(int n1, int n2){
+	int n
+	int q
 }
 int

@@ -9,6 +9,7 @@
 
 objeto currentObject;
 registro *paramDeclaration = NULL;
+int definitions;
 //Funciones Auxiliares
 bool isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression();
 
@@ -22,6 +23,7 @@ Relational_Expression(), AddObject();
 
 void Program()
 {
+	definitions = 0;
 	while (token == arrayTok || token == intTok || token == boolTok || token == charTok
 		|| token == stringTok || token == fileTok || token == floatTok){
 		Variable_Declaration();
@@ -62,7 +64,7 @@ void Program()
 						Function_Definition();
 					else
 						Procedure_Definition();
-					tds_it = tds_local;
+					tds_it = tds_local + definitions;
 				}
 			}
 			else
@@ -256,7 +258,7 @@ void Function_Definition()
 		obtoken();
 		if (token == identTok){
 			registro *globalExist = GlobalSearch();
-			if (globalExist != NULL)
+			if (globalExist != NULL && globalExist->tipo == DEC_FUNCTION)
 			{
 				registro *localExist = LocalSearch();
 				if (localExist == NULL)
@@ -297,6 +299,7 @@ void Function_Definition()
 									{
 										SetTable(FUNCTION, functionName);
 										tablads->params = param;
+										definitions++;
 										while (token != returnTok)
 										{
 											Block();
@@ -306,6 +309,8 @@ void Function_Definition()
 											obtoken();
 											Expression();
 											if (token == cBracketRTok){
+												tds_it = tds_local + definitions -1;
+												SetTable(functionName);
 												obtoken();
 											}
 											else error(9); //Se esperaba }	
@@ -337,7 +342,7 @@ void AddObject()
 	{
 		SetTable(paramDeclaration->tipo, paramDeclaration->name);
 	}
-	else printf("Error vieja \n");
+	else error(3);
 }
 
 void Procedure_Definition()
@@ -346,7 +351,7 @@ void Procedure_Definition()
 		obtoken();
 		if (token == identTok){
 			registro *globalExist = GlobalSearch();
-			if (globalExist != NULL)
+			if (globalExist != NULL && globalExist->tipo == DEC_PROCEDURE)
 			{
 				registro *localExist = LocalSearch();
 				if (localExist == NULL)
@@ -355,7 +360,7 @@ void Procedure_Definition()
 					strcpy(functionName, nametok);
 					obtoken();
 					if (token == parentLTok){
-						objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
+						objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion 
 						int index = 0;
 						obtoken();
 						if (token == refTok || IsType || token == arrayTok){
@@ -373,17 +378,23 @@ void Procedure_Definition()
 						if (token == parentRTok){
 							parameters param;
 							param.length = index;
-							param.returnT = currentObject;
+							param.returnT = BOOL;
 							param.type = listaParametros;
 							if (ValidParameters(globalExist->params, param))
 							{
-								SetTable(FUNCTION, functionName);
+								SetTable(PROCEDURE, functionName);
 								tablads->params = param;
+								definitions++;
 								obtoken();
 								if (token == cBracketLTok){
 									obtoken();
-									Block();
+									while (token != cBracketRTok)
+									{
+										Block();
+									}
 									if (token == cBracketRTok){
+										tds_it = tds_local + definitions - 1;
+										SetTable(functionName);
 										obtoken();
 									}
 									else error(9); //falta }

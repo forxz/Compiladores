@@ -1,2 +1,2 @@
 
-^ error 2: Variable no declarada
+^ error 3: Variable ya declarada
