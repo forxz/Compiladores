@@ -8,6 +8,7 @@
 #include "lexico.h"
 
 objeto currentObject;
+objeto currentValueType;
 registro *paramDeclaration = NULL;
 int definitions;
 //Funciones Auxiliares
@@ -136,13 +137,24 @@ void Variable_Declaration()
 					char name[100];
 					strcpy(name, nametok);
 					obtoken();
-					if (token == assigTok)
+					bool isAssigTok = token == assigTok;
+					if (isAssigTok)
 					{
 						obtoken();
 						Expression();
 					}
-
-					SetTable(currentObject, name);
+					if (isAssigTok)
+					{
+						if (currentValueType == currentObject)
+						{
+							SetTable(currentObject, name);
+						}
+						else error(43);
+					}
+					else
+					{
+						SetTable(currentObject, name);
+					}
 				}
 				else error(3);
 			}
@@ -601,9 +613,11 @@ void Expression()
 	else if (token == stringValTok || token == substringTok
 		|| token == concatTok || token == readTok){
 		String_Expression();
+		currentValueType = STRING;
 	}
 	else if (token == charValTok){
 		Char_Expression();
+		currentValueType = CHAR;
 	}
 	else if (token == identTok){
 		// Buscar en tds y verificar de que tipo es el identificador		
@@ -614,9 +628,15 @@ void Expression()
 				localExist->tipo == FLOAT || localExist->params.returnT == FLOAT)
 				Bool_Expression();
 			else if (localExist->tipo == STRING || localExist->params.returnT == STRING)
+			{
 				String_Expression();
+				currentValueType = STRING;
+			}
 			else if (localExist->tipo == CHAR || localExist->params.returnT == CHAR)
+			{
 				Char_Expression();
+				currentValueType = CHAR;
+			}
 			else{
 				error(53); // Se esperaba expresión
 			}
@@ -633,10 +653,12 @@ void Integer_Expression()
 {
 	if (token == numberValTok){
 		// Verificar que este declarado
+		currentValueType = INTEGER;
 		obtoken();
 	}
 	else if (token == factorialTok){
 		Integer_Function();
+		currentValueType = INTEGER;
 	}
 	else if (token == identTok){
 		// Verificar tabla de simbolos para saber si es llamada o variable
@@ -657,10 +679,12 @@ void Bool_Expression()
 {
 	if (token == boolValTok){
 		// Verificar que este declarado
+		currentValueType = BOOL;
 		obtoken();
 	}
 	else if (token == compareTok || token == evenTok){
 		Bool_Function();
+		currentValueType = BOOL;
 	}
 	else if (isNumeric_Expression()){
 		Numeric_Expression();
@@ -908,9 +932,11 @@ void Factor()
 	// Integer
 	if (token == numberValTok || token == factorialTok){
 		Integer_Expression();
+		currentValueType = INTEGER;
 	}
 	else if (token == floatValTok || token == powTok || token == averageTok){ // Float
 		Float_Expression();
+		currentValueType = FLOAT;
 	}
 	else if (token == identTok){
 		// si es de tipo int o float
@@ -1540,6 +1566,7 @@ void Relational_Expression(){
 		|| token == lessETok || token == equalTok || token == notEqualTok){
 		obtoken();
 		Aritmethic_Expression();
+		currentValueType = BOOL;
 	}
 }
 

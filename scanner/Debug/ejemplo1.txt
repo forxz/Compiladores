@@ -5,15 +5,17 @@ function sumar2(int n1, int n2) : int
 procedure sumar3(int n1, int n2)
 
 main {
-	int a =3.1
+	int a = 3
 	int b = 512312
 	array zapato<int>[5]
 	array zapato1<int>[5]
 	int k
+	#a = 1
 /*qwerty ====== COMentario de bloque
 zaq***********\
-	#c = sumar(a, b)
-	if (c<0){
+	#a = sumar(1,2)
+	if (true)
+	{
 		print("El numero es negativo")
 	}else{
 		print("El numero es positivo")
@@ -35,3 +37,4 @@ function sumar2(int n1, int n2) : int {
 procedure sumar3(int n1, int n2){
 	int n
 	int q
+}
