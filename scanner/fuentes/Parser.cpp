@@ -668,6 +668,7 @@ void Integer_Expression()
 			if (localExist->tipo != INTEGER && localExist->params.returnT != INTEGER){
 				error(30); // Se esperaba expresión entera
 			}
+			else obtoken();
 		}
 
 	}

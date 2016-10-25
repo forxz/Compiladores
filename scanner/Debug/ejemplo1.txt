@@ -13,7 +13,7 @@ main {
 	#a = 1
 /*qwerty ====== COMentario de bloque
 zaq***********\
-	#a = sumar(1,2)
+	int h = sumar(b , k)
 	if (true)
 	{
 		print("El numero es negativo")
