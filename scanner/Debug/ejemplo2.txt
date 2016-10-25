@@ -1,0 +1,19 @@
+int c  	# Variable global
+function sumar(int n1, int n2) : int
+
+main {
+	int a = 3
+	int b = 5 
+/*qwerty ====== COMentario de bloque
+zaq***********\
+	c = sumar(a, b)
+	if (c<0){
+		print("El numero es negativo")
+	}else{
+		print("El numero es positivo")
+	}
+}
+
+function sumar(int n1, int n2) : int {
+	return n1+n2
+}

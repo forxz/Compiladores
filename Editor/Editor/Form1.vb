@@ -224,19 +224,20 @@ Public Class Form1
         Dim p As New Process
         'Dim salida As String
 
-        If (File.Exists("errores.txt")) Then
-            p.StartInfo.UseShellExecute = False
-            p.StartInfo.RedirectStandardOutput = True
-            p.StartInfo.RedirectStandardError = True
-            p.StartInfo.FileName = "parser.exe"
-            p.StartInfo.Arguments = Chr(34) + rutaArchivo
-            p.Start()
-            'salida = p.StandardOutput.ReadToEnd        
-            p.WaitForExit()
-            'Cargar resultados de archivo de texto del scanner, parser
 
-            DataGridView1.Rows.Clear()
-            DataGridView1.Show()
+        p.StartInfo.UseShellExecute = False
+        p.StartInfo.RedirectStandardOutput = True
+        p.StartInfo.RedirectStandardError = True
+        p.StartInfo.FileName = "parser.exe"
+        p.StartInfo.Arguments = Chr(34) + rutaArchivo
+        p.Start()
+        'salida = p.StandardOutput.ReadToEnd        
+        p.WaitForExit()
+        'Cargar resultados de archivo de texto del scanner, parser
+
+        DataGridView1.Rows.Clear()
+        DataGridView1.Show()
+        If (File.Exists("errores.txt")) Then
             Try
                 Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
                 Dim texto As String = ""
