@@ -11,7 +11,7 @@ enum simbolo {
 				substringTok, switchTok, trueTok, untilTok, whileTok, assigTok, commaTok, numberValTok, floatValTok, boolValTok, charValTok, 
 				stringValTok, fileValTok, arrayValTok, lessTok, moreTok, bracketLTok, bracketRTok, cBracketLTok, cBracketRTok, 
 				parentLTok, parentRTok, colonTok, semiColonTok, plusTok, minusTok, multTok, divideTok, percentTok, moreETok, 
-				lessETok, denialTok, notEqualTok, equalTok, identTok, enterTok }; //definido aquí en el encabezado
+				lessETok, denialTok, notEqualTok, equalTok, identTok, enterTok, eofTok }; //definido aquí en el encabezado
 
 extern enum simbolo token;
 

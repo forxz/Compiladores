@@ -14,7 +14,7 @@ int error(int no){
 	if ((errorsFile = fopen("errores.txt", "w")) == NULL)
 		printf("\nNo pudo escribir archivo errores.");
 
-	 printf("\n^ error %d: %s\n", no, mensaje_de_error[no]);
+	 printf("\n^ error %d, %s, %d, %d\n", no, mensaje_de_error[no], numLine, offset);
 	 fprintf(errorsFile, "%d,%s,%d,%d\n", no, mensaje_de_error[no], numLine, offset);
 	 Clear();
 	 fclose(fp);

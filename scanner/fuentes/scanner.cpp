@@ -129,6 +129,9 @@ void obtokenAux()
     else //reconocimiento de símbolos especiales, incluyendo pares de simbolos (aplicamos "lookahead symbol technique")
 		switch (ch)
 		{
+		case'@': 
+			if (fin_de_archivo == 1) token = eofTok;
+			break;
 		case '#':  // es un comentario de linea
 			while (ch = obtch()) if (ch == 10) break; 
 			comentario = 1;
@@ -286,13 +289,13 @@ int busquedaBinaria(char generada[], char original[])
 int obtch()
 { 
 
- if (fin_de_archivo==1) {
-	Clear();
-	fclose(fp);//cerrar el programa fuente
-	fclose(tokensFile);
-    //printf("Analisis lexicografico finalizado.");
-    exit(1); //salir...
- }
+ //if (fin_de_archivo==1) {
+	//Clear();
+	//fclose(fp);//cerrar el programa fuente
+	//fclose(tokensFile);
+ //   //printf("Analisis lexicografico finalizado.");
+ //   exit(1); //salir...
+ //}
   
  if (offset==ll-1) 
  {
@@ -306,8 +309,9 @@ int obtch()
 
  ++offset;
 
- if ((linea[offset] == '\0') || (fin_de_archivo == 1))
+ if (linea[offset] == '\0')
 	 return(' ');
+ else if (fin_de_archivo == 1) return ('@'); // @ representa fin del archivo
  else
 	 return(linea[offset]); //de esto depende si el lenguaje es sensitivo de mayúsculas o no.
 

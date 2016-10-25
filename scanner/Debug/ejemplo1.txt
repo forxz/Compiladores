@@ -35,5 +35,3 @@ function sumar2(int n1, int n2) : int {
 procedure sumar3(int n1, int n2){
 	int n
 	int q
-}
-int
