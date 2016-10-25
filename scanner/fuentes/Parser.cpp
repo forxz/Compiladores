@@ -629,7 +629,9 @@ void Expression()
 		{
 			if (localExist->tipo == INTEGER || localExist->params.returnT == INTEGER ||
 				localExist->tipo == FLOAT || localExist->params.returnT == FLOAT)
+			{
 				Bool_Expression();
+			}
 			else if (localExist->tipo == STRING || localExist->params.returnT == STRING)
 			{
 				String_Expression();
@@ -670,6 +672,14 @@ void Integer_Expression()
 		{
 			if (localExist->tipo != INTEGER && localExist->params.returnT != INTEGER){
 				error(30); // Se esperaba expresión entera
+			}
+			else if (localExist->tipo == INTEGER)
+			{
+				obtoken();
+			}
+			else
+			{
+				Subroutine_Call();
 			}
 		}
 
@@ -755,6 +765,15 @@ void Float_Expression()
 		{
 			if (localExist->tipo != FLOAT && localExist->params.returnT != FLOAT){
 				error(33); // Se esperaba expresión flotante
+			}
+
+			else if (localExist->tipo == FLOAT)
+			{
+				obtoken();
+			}
+			else
+			{
+				Subroutine_Call();
 			}
 		}
 	}
@@ -949,9 +968,11 @@ void Factor()
 		{
 			if (localExist->tipo == INTEGER || localExist->params.returnT == INTEGER){
 				Integer_Expression();
+				currentValueType = INTEGER;
 			}
 			else{
 				Float_Expression();
+				currentValueType = FLOAT;
 			}
 
 		}
