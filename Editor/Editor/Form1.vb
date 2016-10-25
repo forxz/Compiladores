@@ -227,13 +227,13 @@ Public Class Form1
         p.StartInfo.UseShellExecute = False
         p.StartInfo.RedirectStandardOutput = True
         p.StartInfo.RedirectStandardError = True
-        p.StartInfo.FileName = "scanner.exe"
+        p.StartInfo.FileName = "parser.exe"
         p.StartInfo.Arguments = Chr(34) + rutaArchivo
         p.Start()
         'salida = p.StandardOutput.ReadToEnd        
         p.WaitForExit()
         'Cargar resultados de archivo de texto del scanner, parser
-
+        DataGridView1.Rows.Clear()
         DataGridView1.Show()
         Try
             Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
