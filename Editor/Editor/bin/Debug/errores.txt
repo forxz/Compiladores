@@ -1,1 +1,0 @@
-48,Se esperaba un valor entero, flotante, caracter o cadena.,18,11

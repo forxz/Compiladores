@@ -224,7 +224,6 @@ Public Class Form1
         Dim p As New Process
         'Dim salida As String
 
-
         p.StartInfo.UseShellExecute = False
         p.StartInfo.RedirectStandardOutput = True
         p.StartInfo.RedirectStandardError = True
@@ -243,16 +242,17 @@ Public Class Form1
                 Dim texto As String = ""
                 Dim count As Integer = 5
                 Dim split As String() = Nothing
-                While (Not texto Is Nothing)
-                    texto = leer.ReadLine()
-                    If (Not texto Is Nothing) Then
+                texto = leer.ReadLine()
+                If (texto Is Nothing) Then
+                    MessageBox.Show("Compilación exitosa!!", "Compilación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    While (Not texto Is Nothing)
                         active_color = False
                         split = texto.Split(New Char() {","}, count)
                         DataGridView1.Rows.Add(split(0), split(1), split(2), split(3))
-                    Else
-                        MessageBox.Show("Compilación exitosa!!", "Compilación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-                End While
+                        texto = leer.ReadLine()
+                    End While
+                End If
                 leer.Close()
             Catch ex As Exception
                 MsgBox(ex.Message)
