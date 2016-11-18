@@ -177,16 +177,25 @@ void Function_Declaration()
 				if (token == parentLTok){
 					obtoken();
 					objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion
+					int *refParams = (int *)malloc(sizeof(int));
 					int index = 0;
 					if (token == refTok || IsType() || token == arrayTok){
+						if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+							refParams[index] = 1;
+						else
+							refParams[index] = 0;
 						Param_Declaration();
 						listaParametros[index] = currentObject;
 						while (token == commaTok){			
 							index++;
 							obtoken();
+
+							if (token == refTok)		// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+								refParams[index] = 1;
+							else
+								refParams[index] = 0;
 							Param_Declaration();
-							listaParametros[index] = currentObject;
-							
+							listaParametros[index] = currentObject;							
 						}
 					}
 					if (token == parentRTok){
@@ -196,6 +205,7 @@ void Function_Declaration()
 							Type();
 							SetTable(DEC_FUNCTION, name);
 							parameters param;
+							param.refParams = refParams;
 							param.length = index;
 							param.returnT = currentObject;
 							param.type = listaParametros;
@@ -227,15 +237,28 @@ void Procedure_Declaration()
 				obtoken();
 				if (token == parentLTok){
 					objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
+					int *refParams = (int *)malloc(sizeof(int));
 					int index = 0;
 					obtoken();
 					if (token == refTok || IsType() || token == arrayTok){
+						
+						if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+							refParams[index] = 1;
+						else
+							refParams[index] = 0;
+
 						Param_Declaration();
 						listaParametros[index] = currentObject;
 						
 						while (token == commaTok){
 							index++;
 							obtoken();
+
+							if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+								refParams[index] = 1;
+							else
+								refParams[index] = 0;
+
 							Param_Declaration();							
 							listaParametros[index] = currentObject;
 							
@@ -245,6 +268,7 @@ void Procedure_Declaration()
 						obtoken();
 						SetTable(DEC_PROCEDURE, name);
 						parameters param;
+						param.refParams = refParams;
 						param.length = index;
 						param.returnT = BOOL;
 						param.type = listaParametros;
@@ -261,7 +285,7 @@ void Procedure_Declaration()
 	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
-void Function_Definition()
+void Function_Definition() // Modificar para revisar si debe ir por referencia cada parametro o no
 {
 	if (token == functionTok){
 		obtoken();
@@ -277,18 +301,29 @@ void Function_Definition()
 					obtoken();
 					if (token == parentLTok){
 						objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
+						int *refParams = (int *)malloc(sizeof(int));
 						int index = 0;
 						obtoken();
-						if (token == refTok || IsType() || token == arrayTok){
+						if (token == refTok || IsType() || token == arrayTok){																						
+							if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+								refParams[index] = 1;
+							else
+								refParams[index] = 0;
+
 							Param_Declaration();
 							AddObject();
 							listaParametros[index] = currentObject;
 							while (token == commaTok)
 							{
-								obtoken();
-								Param_Declaration();
-								AddObject();
 								index++;
+								obtoken();
+								if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+									refParams[index] = 1;
+								else
+									refParams[index] = 0;
+
+								Param_Declaration();
+								AddObject();								
 								listaParametros[index] = currentObject;
 							}
 						}
@@ -301,31 +336,36 @@ void Function_Definition()
 									obtoken();
 									// verificando si la funcion es valida
 									parameters param;
+									param.refParams = refParams;									
 									param.length = index;
 									param.returnT = currentObject;
 									param.type = listaParametros;
-									if (ValidParameters(globalExist->params, param))
+									int result = ValidParameters(globalExist->params, param);
+									if (result != 0)
 									{
-										SetTable(FUNCTION, functionName);
-										tablads->params = param;
-										definitions++;
-										while (isBlock())
-										{
-											Block();
-										}
-										if (token == returnTok)
-										{
-											obtoken();
-											Expression();
-											if (token == cBracketRTok){
-												tds_it = tds_local + definitions -1;
-												SetTable(functionName);
-												obtoken();
-											}
-											else error(9); //Se esperaba }	
-										}
+										if (result == 2)
+											error(36); // Se esperaba un parametro por referencia
 										else{
-											error(58); // Se esperaba la palabra 'return'
+											SetTable(FUNCTION, functionName);
+											tablads->params = param;
+											definitions++;
+											while (isBlock())											
+												Block();
+											
+											if (token == returnTok){
+												obtoken();
+												Expression();
+												if (token == cBracketRTok){
+													tds_it = tds_local + definitions - 1;
+													SetTable(functionName);
+													obtoken();
+												}
+												else error(9); //Se esperaba }	
+
+											}
+											else{
+												error(58); // Se esperaba la palabra 'return'
+											}
 										}
 									}
 									else error(6); // funcion no declarada por error de parametros
@@ -373,45 +413,60 @@ void Procedure_Definition()
 					obtoken();
 					if (token == parentLTok){
 						objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion 
+						int *refParams = (int *)malloc(sizeof(int));
 						int index = 0;
 						obtoken();
-						if (token == refTok || IsType || token == arrayTok){
+						if (token == refTok || IsType() || token == arrayTok){
+							if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+								refParams[index] = 1;
+							else
+								refParams[index] = 0;
 							Param_Declaration();
 							AddObject();
 							listaParametros[index] = currentObject;
 							while (token == commaTok){
-								obtoken();
-								Param_Declaration();
-								AddObject();
 								index++;
+								obtoken();
+								if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+									refParams[index] = 1;
+								else
+									refParams[index] = 0;
+								Param_Declaration();
+								AddObject();								
 								listaParametros[index] = currentObject;
 							}
 						}
 						if (token == parentRTok){
 							parameters param;
 							param.length = index;
+							param.refParams = refParams;
 							param.returnT = BOOL;
 							param.type = listaParametros;
-							if (ValidParameters(globalExist->params, param))
+							int result = ValidParameters(globalExist->params, param);
+							if (result != 0)
 							{
-								SetTable(PROCEDURE, functionName);
-								tablads->params = param;
-								definitions++;
-								obtoken();
-								if (token == cBracketLTok){
+								if (result == 2)
+									error(36); // Se esperaba un parametro por referencia
+								else{
+									SetTable(PROCEDURE, functionName);
+									tablads->params = param;
+									definitions++;
 									obtoken();
-									while (isBlock())
-									{
-										Block();
-									}
-									if (token == cBracketRTok){
-										tds_it = tds_local + definitions - 1;
-										SetTable(functionName);
+									if (token == cBracketLTok){
 										obtoken();
+										while (isBlock())
+										{
+											Block();
+										}
+										if (token == cBracketRTok){
+											tds_it = tds_local + definitions - 1;
+											SetTable(functionName);
+											obtoken();
+										}
+										else error(9); //falta }
 									}
-									else error(9); //falta }
+									else error(8); //falta {
 								}
-								else error(8); //falta {
 							}
 							else error(6); // funcion no declarada por error de parametros
 						}
@@ -853,6 +908,7 @@ void Subroutine_Call()
 		if (token == parentLTok){
 			obtoken();
 			if (token == refTok || IsExpression()){
+														// Incluir validación para parámetros por referencia
 				if (token == refTok){
 					obtoken();
 					if (token == identTok){

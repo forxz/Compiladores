@@ -1,7 +1,7 @@
 #include "scanner.h"
 
-//tipos de objetos
-enum objeto { INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION, File, ARRAY}; //definidos aquí en el encabezado
+// Tipos de objetos
+enum objeto { INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION, File, ARRAY}; // Definidos aquí en el encabezado
 
 struct arrayType
 {
@@ -12,6 +12,7 @@ struct arrayType
 struct parameters
 {
 	int length;
+	int *refParams;
 	objeto *type;
 	objeto returnT;
 };

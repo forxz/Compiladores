@@ -1,4 +1,4 @@
-//tds: la tabla de símbolos
+// tds: la tabla de símbolos
 #include "stdio.h"
 #include <string.h>
 #include <stdlib.h>
@@ -12,7 +12,7 @@ int tds_it; // indice de la tabla de simbolos
 int tds_gobal; // posicion de la tabla de simbolos donde finaliza la declaracion de funciones y variables globales
 int tds_local; // posicion donde inicia el bloque de una funcion o procedimiento
 
-//SetTable: poner un objeto: INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION en la tds
+// SetTable: poner un objeto: INTEGER, FLOAT, BOOL, STRING, CHAR, VARIABLE, PROCEDURE, DEC_PROCEDURE, FUNCTION, DEC_FUNCTION en la tds
 
 void SetTable(char name[])
 {
@@ -128,14 +128,23 @@ int ValidParameters(parameters global, parameters local)
 	int index = global.length;
 	int i = 0;
 	int valid = 1;
-	while (i <= index)
-	{
-		valid = global.type[i] == local.type[i];
+	while (i <= index){
+		if (global.type[i] != local.type[i]) // Tipo correcto			
+			valid = 0;
+		else if (global.refParams[i] != local.refParams[i]) {// referencia o valor correcto			
+			valid = 2;
+		}
 		i++;
-		if (!valid)  break;
+		if (!valid)  
+			break;
 	}
 
-	return valid && global.length == local.length && global.returnT == local.returnT;
+	if (valid == 1 && global.length == local.length && global.returnT == local.returnT)
+		return 1;	// Todo correcto
+	else if (valid == 2)
+		return 2;	// Error en referencia de parametros
+	else
+		return 0;	// Error en cantidad de parametros, tipo de retorno, algun tipo.
 }
 
 void Clear()
