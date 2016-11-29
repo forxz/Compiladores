@@ -899,6 +899,16 @@ void Bool_Function()
 
 void Subroutine_Call()
 {
+//objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion
+//int *refParams = (int *)malloc(sizeof(int));
+//int index = 0;
+// ----------------------------------------------------------------------------------------------------------------------
+//if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+//	refParams[index] = 1;
+//else
+//	refParams[index] = 0;
+
+
 	int index = 0;	
 	registro *localExist = NULL;
 
@@ -909,7 +919,7 @@ void Subroutine_Call()
 			error(6); // Función o procedimiento no declarado
 				
 		if (token == parentLTok){
-			obtoken();
+			obtoken();			
 			if (token == refTok || IsExpression()){
 														// Incluir validación para parámetros por referencia
 				if (token == refTok){
@@ -921,7 +931,11 @@ void Subroutine_Call()
 						if (localExist == NULL)
 							error(2); // Variable no declarada
 						else{
-							if (isVariable(localExist->tipo)){ // Verificar si es variable 								
+							if (isVariable(localExist->tipo)){ // Verificar si es variable 		
+								// verificar si en este indice lleva un parametro por referencia o no
+								if (reg->params.refParams[index] != 1)
+									error(37); // Se esperaba parametro por valor
+
 								index++;
 							}
 							else
@@ -930,7 +944,11 @@ void Subroutine_Call()
 					}
 				}
 				else{
-					Expression();
+					// verificar que en este indice no lleva parametro por referencia si es un identificador					
+					if (reg->params.refParams[index] == 1)
+						error(36); // Se esperaba parámetro por referencia							
+
+					Expression();					
 					index++;
 				}
 
@@ -947,6 +965,10 @@ void Subroutine_Call()
 									error(2); // Variable no declarada
 								else{
 									if (isVariable(localExist->tipo)){ // Verificar si es variable 								
+										// verificar si en este indice lleva un parametro por referencia o no
+										if (reg->params.refParams[index] != 1)
+											error(37); // Se esperaba parametro por valor
+
 										index++;
 									}
 									else
@@ -957,6 +979,10 @@ void Subroutine_Call()
 
 						}
 						else{
+							// verificar que en este indice no lleva parametro por referencia si es un identificador							
+							if (reg->params.refParams[index] == 1)
+									error(36); // Se esperaba parámetro por referencia
+
 							Expression();
 							index++;
 						}
