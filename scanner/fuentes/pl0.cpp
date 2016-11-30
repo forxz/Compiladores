@@ -13,9 +13,10 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-FILE *fp = NULL; //apuntador a archivo conteniendo el programa fuente
-FILE *tokensFile = NULL, *errorsFile = NULL; // Archivo de tokens del programa generado por el scanner
+FILE *fp = NULL;								//apuntador a archivo conteniendo el programa fuente
+FILE *tokensFile = NULL, *errorsFile = NULL;	// Archivo de tokens del programa generado por el scanner
 void obtenerParametros();
+int no_de_errores;								//contador de errores detectados
 
 //main: inicia el compilador...solo scanner
 int main(int argc, char *argv[]) {

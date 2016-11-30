@@ -64,6 +64,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\fuentes\auxiliares.cpp" />
+    <ClCompile Include="..\fuentes\conjuntos.cpp" />
     <ClCompile Include="..\fuentes\lexico.cpp" />
     <ClCompile Include="..\fuentes\Parser.cpp" />
     <ClCompile Include="..\fuentes\pl0.cpp" />
@@ -72,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\fuentes\auxiliares.h" />
+    <ClInclude Include="..\fuentes\conjuntos.h" />
     <ClInclude Include="..\fuentes\lexico.h" />
     <ClInclude Include="..\fuentes\mensajes_de_error.h" />
     <ClInclude Include="..\fuentes\parametros.h" />

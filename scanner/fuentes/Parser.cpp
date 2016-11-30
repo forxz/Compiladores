@@ -15,14 +15,14 @@ int definitions;
 int isBlock(), isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
 
 //funciones internas al parser
-void Program(), Variable_Declaration(), Function_Declaration(), Procedure_Declaration(), Function_Definition(), Procedure_Definition(),
-Param_Declaration(), Array_Param(), Type(), Block(), Instruction(), Assignation(), Expression(), Integer_Expression(), Bool_Expression(), 
-String_Expression(), Char_Expression(), Float_Expression(), Float_Function(), Integer_Function(), String_Function(), Bool_Function(), 
-Subroutine_Call(), Aritmethic_Expression(), Term(), Factor(), If(), Switch(), SwitchAux(), While(), For(), Repeat(), Average(), CloseFile(), Compare(),
-Concat(), Even(), Factorial(), OpenFile(), Pow(), Substring(), Print(), Read(), Sort(), Cond(), CondAux(), Numeric_Expression(), Conjunction_Expression(), 
-Relational_Expression(), AddObject();
+void Program(int *idat), Variable_Declaration(int toksig[]), Function_Declaration(int toksig[]), Procedure_Declaration(int toksig[]), Function_Definition(int toksig[]), Procedure_Definition(int toksig[]),
+Param_Declaration(int toksig[]), Array_Param(int toksig[]), Type(int toksig[]), Block(int toksig[]), Instruction(int toksig[]), Assignation(int toksig[]), Expression(int toksig[]), Integer_Expression(int toksig[]), Bool_Expression(int toksig[]),
+String_Expression(int toksig[]), Char_Expression(int toksig[]), Float_Expression(int toksig[]), Float_Function(int toksig[]), Integer_Function(int toksig[]), String_Function(int toksig[]), Bool_Function(int toksig[]),
+Subroutine_Call(int toksig[]), Aritmethic_Expression(int toksig[]), Term(int toksig[]), Factor(int toksig[]), If(int toksig[]), Switch(int toksig[]), SwitchAux(int toksig[]), While(int toksig[]), For(int toksig[]), Repeat(int toksig[]), Average(int toksig[]), CloseFile(int toksig[]), Compare(int toksig[]),
+Concat(int toksig[]), Even(int toksig[]), Factorial(int toksig[]), OpenFile(int toksig[]), Pow(int toksig[]), Substring(int toksig[]), Print(int toksig[]), Read(int toksig[]), Sort(int toksig[]), Cond(int toksig[]), CondAux(int toksig[]), Numeric_Expression(int toksig[]), Conjunction_Expression(int toksig[]),
+Relational_Expression(int toksig[]), AddObject();
 
-void Program()
+void Program(int toksig[])
 {
 	definitions = 0;
 	while (token == arrayTok || token == intTok || token == boolTok || token == charTok
@@ -72,7 +72,7 @@ void Program()
 		error(1); // Se esperaba declaración de función o procedimiento o main
 }
 
-void Variable_Declaration()
+void Variable_Declaration(int toksig[])
 {
 	if (token == arrayTok)
 	{
@@ -163,7 +163,7 @@ void Variable_Declaration()
 	}
 }
 
-void Function_Declaration()
+void Function_Declaration(int toksig[])
 {
 	if (token == functionTok){
 		obtoken();
@@ -224,7 +224,7 @@ void Function_Declaration()
 	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
-void Procedure_Declaration()
+void Procedure_Declaration(int toksig[])
 {
 	if (token == procedureTok){
 		obtoken();
@@ -285,7 +285,7 @@ void Procedure_Declaration()
 	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
-void Function_Definition() // Modificar para revisar si debe ir por referencia cada parametro o no
+void Function_Definition(int toksig[]) // Modificar para revisar si debe ir por referencia cada parametro o no
 {
 	if (token == functionTok){
 		obtoken();
@@ -397,7 +397,7 @@ void AddObject()
 	else error(3);
 }
 
-void Procedure_Definition()
+void Procedure_Definition(int toksig[])
 {
 	if (token == procedureTok){
 		obtoken();
@@ -483,7 +483,7 @@ void Procedure_Definition()
 	else error(1);//falta procedure
 }
 
-void Param_Declaration()
+void Param_Declaration(int toksig[])
 {
 	paramDeclaration = NULL; // si no se encuentra ningun parametro permanecera NULL
 	if (token == arrayTok)
@@ -505,7 +505,7 @@ void Param_Declaration()
 	}
 }
 
-void Array_Param()
+void Array_Param(int toksig[])
 {
 	if (token == arrayTok)
 	{
@@ -536,7 +536,7 @@ void Array_Param()
 	else error(55);
 }
 
-void Type()
+void Type(int toksig[])
 {
 	if (IsType())
 	{
@@ -545,7 +545,7 @@ void Type()
 	else error(38);
 }
 
-void Block()
+void Block(int toksig[])
 {
 	while (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
 		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok 
@@ -554,7 +554,7 @@ void Block()
 	}
 }
 
-void Instruction()
+void Instruction(int toksig[])
 {
 	char *name = "";
 	registro *localExist = NULL;
@@ -638,7 +638,7 @@ void Instruction()
 	}
 }
 
-void Assignation()
+void Assignation(int toksig[])
 {
 	if (token == identTok){
 		//Verificar que este en tabla de simbolos
@@ -671,7 +671,7 @@ void Assignation()
 		error(7); // Se esperaba identificador
 }
 
-void Expression()
+void Expression(int toksig[])
 {
 	if (token == boolValTok || token == trueTok || token == falseTok || token == compareTok || token == evenTok || token == numberValTok || token == factorialTok
 		|| token == floatValTok || token == powTok || token == averageTok){
@@ -718,7 +718,7 @@ void Expression()
 		error(53); // Se esperaba una expresion
 }
 
-void Integer_Expression()
+void Integer_Expression(int toksig[])
 {
 	if (token == numberValTok){
 		// Verificar que este declarado
@@ -752,7 +752,7 @@ void Integer_Expression()
 		error(30); // Se esperaba expresión entera
 }
 
-void Bool_Expression()
+void Bool_Expression(int toksig[])
 {
 	if (token == boolValTok || token == trueTok || token == falseTok){
 		// Verificar que este declarado
@@ -770,7 +770,7 @@ void Bool_Expression()
 		error(34); // Se esperaba expresión booleana
 }
 
-void String_Expression()
+void String_Expression(int toksig[])
 {
 	if (token == stringValTok){
 		// Verificar que este declarado
@@ -793,7 +793,7 @@ void String_Expression()
 		error(32); // Se esperaba expresión cadena	
 }
 
-void Char_Expression()
+void Char_Expression(int toksig[])
 {
 	if (token == charValTok){
 		//verificar que este declarado
@@ -813,7 +813,7 @@ void Char_Expression()
 		error(31); // Se esperaba expresión caracter
 }
 
-void Float_Expression()
+void Float_Expression(int toksig[])
 {
 	if (token == floatValTok){
 		//verificar que este declarado
@@ -845,7 +845,7 @@ void Float_Expression()
 		error(33); // Se esperaba expresión flotante
 }
 
-void Float_Function()
+void Float_Function(int toksig[])
 {
 	if (token == powTok)
 	{
@@ -858,7 +858,7 @@ void Float_Function()
 	else error(50);
 }
 
-void Integer_Function()
+void Integer_Function(int toksig[])
 {
 	if (token == factorialTok)
 	{
@@ -867,7 +867,7 @@ void Integer_Function()
 	else error(49);
 }
 
-void String_Function()
+void String_Function(int toksig[])
 {
 	if (token == substringTok)
 	{
@@ -884,7 +884,7 @@ void String_Function()
 	else error(51);
 }
 
-void Bool_Function()
+void Bool_Function(int toksig[])
 {
 	if (token == compareTok)
 	{
@@ -897,18 +897,8 @@ void Bool_Function()
 	else error(52);
 }
 
-void Subroutine_Call()
+void Subroutine_Call(int toksig[])
 {
-//objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion
-//int *refParams = (int *)malloc(sizeof(int));
-//int index = 0;
-// ----------------------------------------------------------------------------------------------------------------------
-//if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
-//	refParams[index] = 1;
-//else
-//	refParams[index] = 0;
-
-
 	int index = 0;	
 	registro *localExist = NULL;
 
@@ -1010,7 +1000,7 @@ void Subroutine_Call()
 	else error(7); // falta identificador
 }
 
-void Aritmethic_Expression()
+void Aritmethic_Expression(int toksig[])
 {
 	Term();
 	while (token == plusTok || token == minusTok){
@@ -1019,7 +1009,7 @@ void Aritmethic_Expression()
 	}
 }
 
-void Term()
+void Term(int toksig[])
 {
 		Factor();
 		while (token == multTok || token == divideTok || token == percentTok){
@@ -1028,7 +1018,7 @@ void Term()
 		}
 }
 
-void Factor()
+void Factor(int toksig[])
 {
 	if (token == minusTok)
 		obtoken();
@@ -1064,7 +1054,7 @@ void Factor()
 	}
 }
 
-void If()
+void If(int toksig[])
 {
 	if (token == ifTok)
 	{
@@ -1106,7 +1096,7 @@ void If()
 	else error(57);
 }
 
-void Switch()
+void Switch(int toksig[])
 {
 	if (token == switchTok)
 	{
@@ -1151,7 +1141,7 @@ void Switch()
 	else error(57);
 }
 
-void SwitchAux()
+void SwitchAux(int toksig[])
 {
 	if (token == caseTok)
 	{
@@ -1176,7 +1166,7 @@ void SwitchAux()
 	else error(39);
 }
 
-void While()
+void While(int toksig[])
 {
 	if (token == whileTok)
 	{
@@ -1207,7 +1197,7 @@ void While()
 	else  error(57);
 }
 
-void For()
+void For(int toksig[])
 {
 	if (token == forTok)
 	{
@@ -1261,7 +1251,7 @@ void For()
 	else  error(57);
 }
 
-void Repeat()
+void Repeat(int toksig[])
 {
 	if (token == repeatTok)
 	{
@@ -1297,7 +1287,7 @@ void Repeat()
 	else  error(57);
 }
 
-void Average()
+void Average(int toksig[])
 {
 	if (token == averageTok)
 	{
@@ -1321,7 +1311,7 @@ void Average()
 	else  error(57);
 }
 
-void CloseFile()
+void CloseFile(int toksig[])
 {
 	if (token == closeFileTok)
 	{
@@ -1345,7 +1335,7 @@ void CloseFile()
 	else  error(57);
 }
 
-void Compare()
+void Compare(int toksig[])
 {
 	if (token == compareTok)
 	{
@@ -1371,7 +1361,7 @@ void Compare()
 	else  error(57);
 }
 
-void Concat()
+void Concat(int toksig[])
 {
 	if (token == concatTok)
 	{
@@ -1397,7 +1387,7 @@ void Concat()
 	else  error(57);
 }
 
-void Even()
+void Even(int toksig[])
 {
 	if (token == evenTok)
 	{
@@ -1417,7 +1407,7 @@ void Even()
 	else  error(57);
 }
 
-void Factorial()
+void Factorial(int toksig[])
 {
 	if (token == factorialTok)
 	{
@@ -1437,7 +1427,7 @@ void Factorial()
 	else  error(57);
 }
 
-void OpenFile()
+void OpenFile(int toksig[])
 {
 	if (token == openFileTok)
 	{
@@ -1457,7 +1447,7 @@ void OpenFile()
 	else  error(57);
 }
 
-void Pow()
+void Pow(int toksig[])
 {
 	if (token == powTok)
 	{
@@ -1483,7 +1473,7 @@ void Pow()
 	else  error(57);
 }
 
-void Substring()
+void Substring(int toksig[])
 {
 	if (token == substringTok)
 	{
@@ -1519,7 +1509,7 @@ void Substring()
 	else  error(57);
 }
 
-void Print()
+void Print(int toksig[])
 {
 	if (token == printTok)
 	{
@@ -1549,7 +1539,7 @@ void Print()
 	else  error(57);
 }
 
-void Read()
+void Read(int toksig[])
 {
 	if (token == readTok)
 	{
@@ -1573,7 +1563,7 @@ void Read()
 	else  error(57);
 }
 
-void Sort()
+void Sort(int toksig[])
 {
 	if (token == sortTok)
 	{
@@ -1597,7 +1587,7 @@ void Sort()
 	else  error(57);
 }
 
-void Cond()
+void Cond(int toksig[])
 {
 	if (token == condTok)
 	{
@@ -1617,7 +1607,7 @@ void Cond()
 	else  error(57);
 }
 
-void CondAux()
+void CondAux(int toksig[])
 {
 	if (token == doTok)
 	{
@@ -1645,7 +1635,7 @@ void CondAux()
 	else error(47);
 }
 
-void Numeric_Expression()
+void Numeric_Expression(int toksig[])
 {
 	Conjunction_Expression();
 
@@ -1656,7 +1646,7 @@ void Numeric_Expression()
 }
 
 
-void Conjunction_Expression(){
+void Conjunction_Expression(int toksig[]){
 	Relational_Expression();
 
 	while (token == andTok){
@@ -1665,7 +1655,7 @@ void Conjunction_Expression(){
 	}
 }
 
-void Relational_Expression(){
+void Relational_Expression(int toksig[]){
 	if (token == minusTok)
 		obtoken();
 

@@ -1,1 +1,1 @@
-void Program();
+void Program(int toksig[]);
