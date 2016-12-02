@@ -1,8 +1,8 @@
 int c  	# Variable global
 int h
-function sumar int n1, int n2) : int <->
+function sumar (int n1, int n2) : int <->
 function sumar2(int n1, int n2) : int
-procedure sumar3(int n1, int n2)
+procedure sumar3 (int n1, int n2)
 
 main {
 	int a = 3
