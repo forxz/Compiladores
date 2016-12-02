@@ -2,29 +2,29 @@
 #include "parametros.h"
 #include "lexico.h"
 #include "auxiliares.h"
+#include "stdio.h"
 #include "scanner.h"
 
 //conjuntos de tokens para manejo de errores         
-//tokens iniciales de declaración, de instrucción y de factor
-int tokinidecl[NOTOKENS],tokiniinst[NOTOKENS],tokinifact[NOTOKENS];
+//tokens iniciales de Expression, de Instruction y de Type
+int tokiniexp[NOTOKENS], tokiniinst[NOTOKENS], tokinitype[NOTOKENS];
 
-//conjunto de sincronización de arranque
-int set_arranque[NOTOKENS]; 
 
 void inicializa_conjuntos() {
 //creación de conjuntos de tokens iniciales
-init_set(tokinidecl);
-tokinidecl[consttok]=tokinidecl[vartok]=tokinidecl[proctok]=1;
+init_set(tokiniexp);
+tokiniexp[numberValTok] = tokiniexp[boolValTok] = tokiniexp[stringValTok] = tokiniexp[charValTok] = tokiniexp[floatValTok] = 1;
+
     
 init_set(tokiniinst);
-tokiniinst[calltok]=tokiniinst[begintok]=tokiniinst[iftok]=tokiniinst[whiletok]=1;
+tokiniinst[identTok] = tokiniinst[ifTok] = tokiniinst[switchTok] = tokiniinst[whileTok] = tokiniinst[forTok] = 
+tokiniinst[repeatTok] = tokiniinst[condTok] = tokiniinst[closeFileTok] = tokiniinst[openFileTok] = tokiniinst[factorialTok] = 
+tokiniinst[powTok] = tokiniinst[substringTok] = tokiniinst[concatTok] = tokiniinst[readTok] = tokiniinst[compareTok] = 
+tokiniinst[evenTok] = tokiniinst[printTok] = tokiniinst[sortTok] = tokiniinst[returnTok]= 1;
    
-init_set(tokinifact);
-tokinifact[ident]=tokinifact[numero]=tokinifact[parena]=1;
+init_set(tokinitype);
+tokinitype[intTok] = tokinitype[boolTok] = tokinitype[charTok] = tokinitype[stringTok] = tokinitype[fileTok] = tokinitype[floatTok] = 1;
 
-//creación del set de arranque del parser con los tokens iniciales de declaración+tokens iniciales de instrucción+punto
-union_set(set_arranque,tokinidecl,tokiniinst);
-set_arranque[punto]=1;
 }
 
 //init_set                     
@@ -69,7 +69,9 @@ void test (int conjunto1[],int conjunto2[],int n)
   //se arma un conjunto de estabilización
   union_set(conj_union,conjunto1,conjunto2);
   //se salta texto de manera "inteligente"
-  while (conj_union[token]==0) 
-   obtoken();
+  while (conj_union[token] == 0) {
+	  obtoken();
+	  printf("%d\n", token);
+  }
  }
 }

@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "conjuntos.h"
 
 FILE *fp = NULL;								//apuntador a archivo conteniendo el programa fuente
 FILE *tokensFile = NULL, *errorsFile = NULL;	// Archivo de tokens del programa generado por el scanner
@@ -42,6 +43,11 @@ int main(int argc, char *argv[]) {
 				ch = ' ';
 				fin_de_archivo = 0;
 				offset = -1; ll = 0;
+
+				no_de_errores = 0;
+
+				//inicialización de conjuntos de estabilización (en conjuntos.cpp)
+				inicializa_conjuntos();
 
 				//Leer parámetros
 				obtenerParametros();

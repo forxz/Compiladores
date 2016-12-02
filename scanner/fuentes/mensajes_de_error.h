@@ -2,7 +2,7 @@
 
 
 char *mensaje_de_error[] = { "",
-/*Error 1 */ "Se esperaba declaración de función o procedimiento o main",
+/*Error 1 */ "Se esperaba declaracion de funcion o procedimiento o main",
 /*Error 2 */ "Variable no declarada",
 /*Error 3 */ "Variable ya declarada",
 /*Error 4 */ "Se esperaba declaración de función o procedimiento",
@@ -60,7 +60,7 @@ char *mensaje_de_error[] = { "",
 /*Error 56*/ "No se declaro ninguna instruccion",
 /*Error 57*/ "Error de sintaxis",
 /*Error 58*/ "Se esperaba la palabra 'return'",
-/*Error 59*/ "",
+/*Error 59*/ "Se esperaba definicion de funcion o procedimiento",
 /*Error 60*/ "",
 /*Error 61*/ "",
 /*Error 62*/ "",

@@ -9,10 +9,12 @@
 #include "scanner.h"
 
 
-//error: por el momento todo error es fatal          
+     
 int error(int no){
-	if ((errorsFile = fopen("errores.txt", "w")) == NULL)
-		printf("\nNo pudo escribir archivo errores.");
+	if (errorsFile == NULL){
+		if ((errorsFile = fopen("errores.txt", "w")) == NULL)
+			printf("\nNo pudo escribir archivo errores.");
+	}
 	++no_de_errores;
 	fprintf(errorsFile, "%d,%s,%d,%d\n", no, mensaje_de_error[no], numLine, offset);
 
@@ -57,12 +59,10 @@ void inicializar_espec()
 
 // Determinar si es necesaria ???????????????????
 int estadisticas() {
-																	
-	if ((errorsFile = fopen("errores.txt", "w")) == NULL)
-		printf("\nNo pudo escribir archivo errores.");
-	fclose(errorsFile);
 
+	fclose(errorsFile);
 	printf("\n\n***   Estadisticas globales   ***\n");
+
 	if (no_de_errores == 0)
 		printf("***  No se detectaron errores ***");
 	else{

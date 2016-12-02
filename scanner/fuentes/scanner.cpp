@@ -130,7 +130,12 @@ void obtokenAux()
 		switch (ch)
 		{
 		case'@': 
-			if (fin_de_archivo == 1) token = eofTok;
+			if (fin_de_archivo == 1) 
+				token = eofTok;
+			//else{
+			//	token = espec[ch]; //hashing directo en la tabla de tokens de símbolos especiales del lenguaje
+			//	ch = obtch();
+			//}
 			break;
 		case '#':  // es un comentario de linea
 			while (ch = obtch()) if (ch == 10) break; 
@@ -140,12 +145,24 @@ void obtokenAux()
 			ch = obtch();
 			if (ch == '*') {
 				comentario = 1;
-				while (ch = obtch())
-					if( ch == '*')
-						if (ch = obtch() == '\\'){
-							ch = obtch();
-							break;
-						}
+				float flag = false;
+				ch = obtch();
+				while (ch)
+				{
+					if (ch == '*'){
+						printf("%c\n", ch);
+						flag = true;
+					}
+
+					ch = obtch();
+					printf("->  %c\n", ch);
+					if (ch == '\\' && flag){
+						ch = obtch();
+						break;
+					}
+
+					flag = (ch == '*');
+				}
 													
 			}
 			else{
@@ -307,11 +324,13 @@ int obtch()
 	numLine++;
  }
 
- ++offset;
+	 ++offset;
 
  if (linea[offset] == '\0')
 	 return(' ');
- else if (fin_de_archivo == 1) return ('@'); // @ representa fin del archivo
+ else 
+	if (fin_de_archivo == 1) 
+		return ('@'); // @ representa fin del archivo
  else
 	 return(linea[offset]); //de esto depende si el lenguaje es sensitivo de mayúsculas o no.
 

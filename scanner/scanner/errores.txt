@@ -1,0 +1,4 @@
+16,Se esperaba '(',3,18
+1,Se esperaba declaracion de funcion o procedimiento o main,3,38
+53,Se esperaba expresión,10,2
+42,Símbolo desconocido,10,2

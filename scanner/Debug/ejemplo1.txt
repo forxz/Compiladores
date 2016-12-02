@@ -1,21 +1,20 @@
 int c  	# Variable global
 int h
-function sumar(int n1, int n2) : int
+function sumar int n1, int n2) : int <->
 function sumar2(int n1, int n2) : int
 procedure sumar3(int n1, int n2)
 
 main {
 	int a = 3
-	int b = 512312
-	array zapato<int>[5]
+	int b = 
+	;array zapato <int>[5]
 	array zapato1<int>[5]
 	int k
 
 /*qwerty ====== COMentario de bloque
-zaq***********\
+zaq*/**********\
 	c = sumar(1,2)
-	if (true)
-	{
+	if (true){
 		print("El numero es negativo")
 	}else{
 		print("El numero es positivo")
