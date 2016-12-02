@@ -300,9 +300,9 @@ Public Class Form1
         Dim length As Integer = RichTextBox.Lines(LineNumber).Length
         RichTextBox.SelectionStart = Start
         RichTextBox.SelectionLength = length
-        ''RichTextBox1.SelectionStart = 0
-        'RichTextBox1.SelectionLength = RichTextBox1.TextLength
-        'RichTextBox1.SelectionColor = RichTextBox1.ForeColor
     End Sub
 
+    Private Sub EjecutarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EjecutarToolStripMenuItem.Click
+        Shell("cmd.exe", AppWinStyle.NormalFocus)
+    End Sub
 End Class

@@ -64,6 +64,7 @@ Partial Class Form1
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Linea = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Columna = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EjecutarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -161,7 +162,7 @@ Partial Class Form1
         '
         'CompilarToolStripMenuItem
         '
-        Me.CompilarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem, Me.ScannerParserToolStripMenuItem})
+        Me.CompilarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScannerToolStripMenuItem, Me.ScannerParserToolStripMenuItem, Me.EjecutarToolStripMenuItem})
         Me.CompilarToolStripMenuItem.Name = "CompilarToolStripMenuItem"
         Me.CompilarToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.CompilarToolStripMenuItem.Text = "Compilar"
@@ -169,13 +170,13 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'ScannerParserToolStripMenuItem
         '
         Me.ScannerParserToolStripMenuItem.Name = "ScannerParserToolStripMenuItem"
-        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ScannerParserToolStripMenuItem.Text = "Parser"
         '
         'NuevaVentanaToolStripMenuItem
@@ -368,6 +369,12 @@ Partial Class Form1
         Me.Columna.HeaderText = "Columna"
         Me.Columna.Name = "Columna"
         '
+        'EjecutarToolStripMenuItem
+        '
+        Me.EjecutarToolStripMenuItem.Name = "EjecutarToolStripMenuItem"
+        Me.EjecutarToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EjecutarToolStripMenuItem.Text = "Ejecutar"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -434,5 +441,6 @@ End Sub
     Friend WithEvents Descripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Linea As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Columna As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents EjecutarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
