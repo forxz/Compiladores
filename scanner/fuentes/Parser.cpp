@@ -423,6 +423,8 @@ void Function_Definition(int toksig[]) {
 								{
 									if (result == 2)
 										error(36); // Se esperaba un parametro por referencia
+									else if (result == 3)
+										error(37); // Se esperaba un parametro por valor
 									else{
 										SetTable(FUNCTION, functionName);
 										tablads->params = param;
@@ -550,7 +552,9 @@ void Procedure_Definition(int toksig[]) {
 						{
 							if (result == 2)
 								error(36); // Se esperaba un parametro por referencia
-							else{
+							else if (result == 3)
+								error(37); // Se esperaba un parametro por valor
+							else {
 								SetTable(PROCEDURE, functionName);
 								tablads->params = param;
 								definitions++;
@@ -1156,7 +1160,7 @@ void Subroutine_Call(int toksig[]) {
 						localExist = GlobalSearch();
 						if (localExist == NULL)
 							error(2); // Variable no declarada
-						else{
+						else {
 							if (isVariable(localExist->tipo)){ // Verificar si es variable 		
 								// verificar si en este indice lleva un parametro por referencia o no
 								if (reg->params.refParams[index] != 1)
@@ -1205,9 +1209,8 @@ void Subroutine_Call(int toksig[]) {
 								}
 							}
 							else error(7); // falta identificador
-
 						}
-						else{
+						else {
 							// verificar que en este indice no lleva parametro por referencia si es un identificador							
 							if (reg->params.refParams[index] == 1)
 								error(36); // Se esperaba parámetro por referencia

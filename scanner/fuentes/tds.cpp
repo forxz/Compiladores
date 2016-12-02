@@ -129,20 +129,23 @@ int ValidParameters(parameters global, parameters local)
 	int i = 0;
 	int valid = 1;
 	while (i <= index){
-		if (global.type[i] != local.type[i]) // Tipo correcto			
+		if (global.type[i] != local.type[i]) // Tipo correcto
 			valid = 0;
-		else if (global.refParams[i] != local.refParams[i]) {// referencia o valor correcto			
-			valid = 2;
+		else if (global.refParams[i] != local.refParams[i]) {	// referencia o valor correcto
+			valid = (global.refParams[i] == 1) ? 2 : 3;			// Si estaba declarado por referencia 2 sino 3
 		}
+		
 		i++;
-		if (!valid)  
+		if (!valid)
 			break;
 	}
 
 	if (valid == 1 && global.length == local.length && global.returnT == local.returnT)
 		return 1;	// Todo correcto
 	else if (valid == 2)
-		return 2;	// Error en referencia de parametros
+		return 2;	// Error se esperaba parametro por referencia
+	else if (valid == 3)
+		return 3;   // Error se esperaba parametro por valor
 	else
 		return 0;	// Error en cantidad de parametros, tipo de retorno, algun tipo.
 }

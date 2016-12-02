@@ -1,4 +1,2 @@
-1,Se esperaba declaracion de funcion o procedimiento o main,3,39
-16,Se esperaba '(',5,18
-17,Se esperaba ')',5,18
-1,Se esperaba declaracion de funcion o procedimiento o main,5,18
+37,Se esperaba parametro por valor,16,17
+37,Se esperaba parametro por valor,25,4
