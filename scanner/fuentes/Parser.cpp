@@ -54,6 +54,7 @@ void Program() {
 		tds_gobal = tds_it;			// Se gurada el indice de la tds donde comienzan las variables gloables 
 		tds_local = tds_it;			// Se gurada el indice de la tds donde comienzan las variables locales (ambito)
 		obtoken();
+
 		if (token == cBracketLTok)
 			obtoken();
 		else error(8); // Se esperaba '{'
@@ -111,39 +112,36 @@ void Variable_Declaration(int toksig[]) {
 				strcpy(name, nametok);
 				obtoken();
 				if (token == lessTok)
+					obtoken();
+				else error(12); //Se esperaba '<'
+
+				Type(vacio);
+				if (token == moreTok)
+					obtoken();
+				else error(13); // Se esperaba '>'
+
+				if (token == bracketLTok)
+					obtoken();
+				else error(14); //Se esperaba '['
+
+				if (token == numberValTok)
 				{
 					obtoken();
-					Type(vacio);
-					if (token == moreTok)
-					{
+					if (token == bracketRTok)
 						obtoken();
-						if (token == bracketLTok)
-						{
-							obtoken();
-							if (token == numberValTok)
-							{
-								obtoken();
-								if (token == bracketRTok)
-								{
-									arrayType arrayT;
-									arrayT =
-									{
-										integertok,
-										currentObject
-									};
-									SetTable(ARRAY, name);
-									tablads->arrayT = arrayT;
-									obtoken();
-								}
-								else error(15);
-							}
-							else error(24);
-						}
-						else error(14);
-					}
-					else error(13);
+					else 
+						error(15); // Se esperaba ']'
+
+					arrayType arrayT;
+					arrayT =
+					{
+						integertok,
+						currentObject
+					};
+					SetTable(ARRAY, name);
+					tablads->arrayT = arrayT;
 				}
-				else error(12);
+				else error(24);
 			}
 			else error(3);
 		}
