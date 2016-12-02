@@ -54,51 +54,43 @@ void Program() {
 		tds_gobal = tds_it;			// Se gurada el indice de la tds donde comienzan las variables gloables 
 		tds_local = tds_it;			// Se gurada el indice de la tds donde comienzan las variables locales (ambito)
 		obtoken();
-		if (token == cBracketLTok){
+		if (token == cBracketLTok)
 			obtoken();
-			// Prim(Instruction) ={ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort} 
-			copia_set(setpaso, tokiniinst);
-			Block(setpaso);
+		else error(8); // Se esperaba '{'
 
-			if (token == procedureTok || token == functionTok) {
-				error(57); // Error de sintaxis
-			}
-			if (token == cBracketRTok){
-				obtoken();
+		// Prim(Instruction) ={ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort} 
+		copia_set(setpaso, tokiniinst);
+		Block(setpaso);
 
-				init_set(setpaso);
-				setpaso[procedureTok] = setpaso[functionTok] = 1;
-				// setpaso -> otra declaración de procedimientos o funciones, instrucción
-				test(setpaso, setpaso, 59); // Se esperaba definicion de funcion o procedimiento
-
-				tds_it = tds_local; // Se guarda el indice antes de entrar a otro bloque anidado
-				while (token == functionTok || token == procedureTok){
-					if (token == functionTok){
-						// Prim(Instruction) = {ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort}
-						// Prim(Param_Declaration) = {array, ref}
-						// Prim(Type) = {int, bool, char, string, file, float}
-						// Prim(Expression)= {integer_val, bool_val, string_val, char_val, float_val}
-						union_set(setpaso, tokiniinst, tokiniexp);
-						union_set(setpaso, setpaso, tokinitype);
-						setpaso[arrayTok] = setpaso[refTok] = 1;
-						Function_Definition(setpaso);
-					}
-					else{
-						// Prim(Instruction) = {ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort}
-						// Prim(Param_Declaration) = {array, ref}
-						copia_set(setpaso, tokiniinst);
-						setpaso[arrayTok] = setpaso[refTok] = 1;
-						Procedure_Definition(setpaso);
-					}
-
-					tds_it = tds_local + definitions; // Se restaura el indice de la tds
-				}
-			}
-			else
-				error(9); // Se esperaba '}'
+		if (token == procedureTok || token == functionTok) {
+			error(57); // Error de sintaxis
 		}
-		else
-			error(8); // Se esperaba '{'
+		if (token == cBracketRTok)
+			obtoken();
+		else error(9); // Se esperaba '}'
+
+		tds_it = tds_local; // Se guarda el indice antes de entrar a otro bloque anidado
+		while (token == functionTok || token == procedureTok){
+			if (token == functionTok){
+				// Prim(Instruction) = {ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort}
+				// Prim(Param_Declaration) = {array, ref}
+				// Prim(Type) = {int, bool, char, string, file, float}
+				// Prim(Expression)= {integer_val, bool_val, string_val, char_val, float_val}
+				union_set(setpaso, tokiniinst, tokiniexp);
+				union_set(setpaso, setpaso, tokinitype);
+				setpaso[arrayTok] = setpaso[refTok] = 1;
+				Function_Definition(setpaso);
+			}
+			else{
+				// Prim(Instruction) = {ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort}
+				// Prim(Param_Declaration) = {array, ref}
+				copia_set(setpaso, tokiniinst);
+				setpaso[arrayTok] = setpaso[refTok] = 1;
+				Procedure_Definition(setpaso);
+			}
+
+			tds_it = tds_local + definitions; // Se restaura el indice de la tds
+		}			
 	}
 	else
 		error(1); // Se esperaba declaración de función o procedimiento o main
