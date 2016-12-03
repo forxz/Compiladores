@@ -193,7 +193,7 @@ void Variable_Declaration(int toksig[], int * idat) {
 					}
 					else
 					{
-						SetTable(currentObject, name);
+						SetTable(currentObject, name, idat);
 					}
 				}
 				else error(3);

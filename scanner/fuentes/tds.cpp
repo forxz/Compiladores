@@ -65,8 +65,8 @@ void SetTable(enum objeto k, char name[], int *idat){
 		case File:
 		case FLOAT:
 		case CHAR:			
-			tablads[tds_it].dir = *idat;
-			++(*idat);
+			nuevo->dir = *idat;
+			*idat = *idat + 1;
 			break;
 	};
 

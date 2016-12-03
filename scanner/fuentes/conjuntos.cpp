@@ -71,7 +71,7 @@ void test (int conjunto1[],int conjunto2[],int n)
   //se salta texto de manera "inteligente"
   while (conj_union[token] == 0) {
 	  obtoken();
-	  printf("%d\n", token);
+	//  printf("%d\n", token);
   }
  }
 }

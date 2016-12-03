@@ -18,6 +18,7 @@ int error(int no){
 		}
 	}
 	++no_de_errores;
+	printf("\n %d -> %s\n", no, mensaje_de_error[no]);
 	fprintf(errorsFile, "%d,%s,%d,%d\n", no, mensaje_de_error[no], numLine, offset);
 
 	return (no_de_errores);
