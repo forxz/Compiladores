@@ -131,40 +131,33 @@ void Variable_Declaration(int toksig[], int * idat) {
 				char name[100];
 				strcpy(name, nametok);
 				obtoken();
-				if (token == lessTok)
-				{
-					obtoken();
-					Type(vacio);
-					if (token == moreTok)
+
+				if (token == lessTok) obtoken();
+				else error(12);
+
+				Type(vacio);
+				if (token == moreTok) obtoken();
+				else error(13);
+
+					if (token == bracketLTok) obtoken();
+					else error(14);
+
+					if (token == numberValTok)
 					{
 						obtoken();
-						if (token == bracketLTok)
+						if (token == bracketRTok) obtoken();
+						else error(15);
+
+						arrayType arrayT;
+						arrayT =
 						{
-							obtoken();
-							if (token == numberValTok)
-							{
-								obtoken();
-								if (token == bracketRTok)
-								{
-									arrayType arrayT;
-									arrayT =
-									{
-										integertok,
-										currentObject
-									};
-									SetTable(ARRAY, name, idat);
-									tablads->arrayT = arrayT;
-									obtoken();
-								}
-								else error(15);
-							}
-							else error(24);
-						}
-						else error(14);
+							integertok,
+							currentObject
+						};
+						SetTable(ARRAY, name, idat);
+						tablads->arrayT = arrayT;
 					}
-					else error(13);
-				}
-				else error(12);
+					else error(24);
 			}
 			else error(3);
 		}
@@ -230,13 +223,9 @@ void Function_Declaration(int toksig[]) {
 				char name[100];
 				strcpy(name, nametok);
 				obtoken();
-				if (token == parentLTok) {
-					obtoken();
-				}
-				else
-				{
-					error(16); //Se esperaba (
-				}
+				if (token == parentLTok) obtoken();
+				else error(16); //Se esperaba (
+
 				objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion
 				int *refParams = (int *)malloc(sizeof(int));
 				int index = 0;
@@ -265,28 +254,26 @@ void Function_Declaration(int toksig[]) {
 						listaParametros[index] = currentObject;
 					}
 				}
-				if (token == parentRTok){
-					obtoken();
-					if (token == colonTok){
-						obtoken();
-						Type(vacio);
-						SetTable(DEC_FUNCTION, name);
-						parameters param;
-						param.refParams = refParams;
-						param.length = index;
-						param.returnT = currentObject;
-						param.type = listaParametros;
-						tablads->params = param;
-
-						// -------------------------------------------------->>>>>>>>>>> Posible punto critico!!!
-						init_set(setpaso);
-						setpaso[procedureTok] = setpaso[functionTok] = setpaso[mainTok]= 1;
-						// setpaso -> otra declaración de procedimientos o funciones, instrucción
-						test(setpaso, toksig, 1); // Se esperaba declaración de función o procedimiento o main
-					}
-					else error(18); //Se esperaba :
-				}
+				if (token == parentRTok) obtoken();
 				else error(17); //Se esperaba )
+
+					if (token == colonTok) obtoken();
+					else error(18); //Se esperaba :
+
+					Type(vacio);
+					SetTable(DEC_FUNCTION, name);
+					parameters param;
+					param.refParams = refParams;
+					param.length = index;
+					param.returnT = currentObject;
+					param.type = listaParametros;
+					tablads->params = param;
+
+					// -------------------------------------------------->>>>>>>>>>> Posible punto critico!!!
+					init_set(setpaso);
+					setpaso[procedureTok] = setpaso[functionTok] = setpaso[mainTok]= 1;
+					// setpaso -> otra declaración de procedimientos o funciones, instrucción
+					test(setpaso, toksig, 1); // Se esperaba declaración de función o procedimiento o main
 			}
 			else error(5);// Función o procedimiento ya declarado
 		}
@@ -308,12 +295,8 @@ void Procedure_Declaration(int toksig[]) {
 				strcpy(name, nametok);
 				obtoken();
 
-				if (token == parentLTok) {
-					obtoken();
-				}
-				else{
-					error(16); //Se esperaba '(' 
-				}
+				if (token == parentLTok) obtoken();
+				else error(16); //Se esperaba '(' 
 
 				objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
 				int *refParams = (int *)malloc(sizeof(int));
@@ -347,24 +330,21 @@ void Procedure_Declaration(int toksig[]) {
 
 					}
 				}
-				if (token == parentRTok){
-					obtoken();
-					SetTable(DEC_PROCEDURE, name);
-					parameters param;
-					param.refParams = refParams;
-					param.length = index;
-					param.returnT = BOOL;
-					param.type = listaParametros;
-					tablads->params = param;
-
-					init_set(setpaso);
-					setpaso[procedureTok] = setpaso[functionTok] = setpaso[mainTok] = 1;
-					// setpaso -> otra declaración de procedimientos o funciones, instrucción
-					test(setpaso, toksig, 1); // Se esperaba declaración de función o procedimiento o main
-
-				}
+				if (token == parentRTok) obtoken();
 				else error(17); //Se esperaba )
 
+				SetTable(DEC_PROCEDURE, name);
+				parameters param;
+				param.refParams = refParams;
+				param.length = index;
+				param.returnT = BOOL;
+				param.type = listaParametros;
+				tablads->params = param;
+
+				init_set(setpaso);
+				setpaso[procedureTok] = setpaso[functionTok] = setpaso[mainTok] = 1;
+				// setpaso -> otra declaración de procedimientos o funciones, instrucción
+				test(setpaso, toksig, 1); // Se esperaba declaración de función o procedimiento o main
 			}
 			else error(3); // variable ya declarada
 		}
