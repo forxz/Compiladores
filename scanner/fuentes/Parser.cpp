@@ -1527,73 +1527,57 @@ void For(int toksig[], int* idat){
 	if (token == forTok)
 	{
 		obtoken();
-		if (token == parentLTok)
+		if (token == parentLTok) obtoken();
+		else error(16);
+		if (token == identTok)
 		{
 			obtoken();
-			if (token == identTok)
+			if (token == assigTok)
 			{
 				obtoken();
-				if (token == assigTok)
-				{
-					obtoken();
-					//toksig U Prim(subroutine_call) U Prim(integer_Function)
-					copia_set(setpaso, toksig);
-					setpaso[identTok] = setpaso[factorialTok] = 1;
-					Integer_Expression(setpaso);
-				}
-
-				if (token == semiColonTok)
-				{
-					obtoken();
-					ic1 = ic;
-					//toksig U Prim(numeric_expression)={minus, integer, float_val} U Prim(bool_function)={even, compare}
-					copia_set(setpaso, toksig);
-					setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = setpaso[evenTok] = setpaso[compareTok] = 1;
-					Bool_Expression(setpaso);
-					if (token == semiColonTok)
-					{
-						obtoken();
-						//toksig U Prim(integer_expression) U Prim(expression)
-						union_set(setpaso, toksig, tokiniexp);
-						setpaso[identTok] = setpaso[numberValTok] = setpaso[factorialTok] = 1;
-						Assignation(setpaso);
-						if (token == parentRTok)
-						{
-							obtoken();
-							if (token == cBracketLTok)
-							{
-								obtoken();
-								ic2 = ic;
-								value.tipo = 0;
-								value.ival = 0;
-								gen(SAC, 0, value);
-
-								//toksig U Prim(Instruction)
-								union_set(setpaso, toksig, tokiniinst);
-								Block(setpaso, idat);
-								if (token == cBracketRTok) {
-									obtoken();
-
-									value.ival = ic1;
-									gen(SAL, 0, value);
-
-									//Backpatching
-									codigo[ic2].di.ival = ic;
-								}
-								else error(9);
-							}
-							else error(8);
-						}
-						else error(17);
-					}
-					else error(19);
-
-				}
-				else error(19);
+				//toksig U Prim(subroutine_call) U Prim(integer_Function)
+				copia_set(setpaso, toksig);
+				setpaso[identTok] = setpaso[factorialTok] = 1;
+				Integer_Expression(setpaso);
 			}
-			else error(7);
+
+			if (token == semiColonTok) obtoken();
+			else error(19);
+			ic1 = ic;
+			//toksig U Prim(numeric_expression)={minus, integer, float_val} U Prim(bool_function)={even, compare}
+			copia_set(setpaso, toksig);
+			setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = setpaso[evenTok] = setpaso[compareTok] = 1;
+			Bool_Expression(setpaso);
+			if (token == semiColonTok) obtoken();
+			else error(19);
+
+			//toksig U Prim(integer_expression) U Prim(expression)
+			union_set(setpaso, toksig, tokiniexp);
+			setpaso[identTok] = setpaso[numberValTok] = setpaso[factorialTok] = 1;
+			Assignation(setpaso);
+			if (token == parentRTok) obtoken();
+			else error(17);
+			if (token == cBracketLTok) obtoken();
+			else error(8);
+
+			ic2 = ic;
+			value.tipo = 0;
+			value.ival = 0;
+			gen(SAC, 0, value);
+
+			//toksig U Prim(Instruction)
+			union_set(setpaso, toksig, tokiniinst);
+			Block(setpaso, idat);
+			if (token == cBracketRTok) obtoken();
+			else error(9);
+
+			value.ival = ic1;
+			gen(SAL, 0, value);
+
+			//Backpatching
+			codigo[ic2].di.ival = ic;
 		}
-		else error(16);
+		else error(7);
 	}
 	else  error(57);
 }
@@ -1605,69 +1589,47 @@ void Repeat(int toksig[], int* idat){
 	if (token == repeatTok)
 	{
 		obtoken();
-		if (token == cBracketLTok)
-		{
-			obtoken();
-
-			ic1 = ic;
-			//toksig U Prim(Instruction)
-			union_set(setpaso, toksig, tokiniinst);
-			Block(setpaso, idat);
-			if (token == cBracketRTok)
-			{
-				obtoken();
-				if (token == untilTok)
-				{
-					obtoken();
-					if (token == parentLTok)
-					{
-						obtoken();
-						//Prim(numeric_expression)
-						copia_set(setpaso, toksig);
-						setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
-						Bool_Expression(setpaso);
-						if (token == parentRTok)
-						{
-							obtoken();
-
-							value.tipo = 0;
-							value.ival = ic1;
-							gen(SAC, 0, value);
-						}
-						else error(17);
-					}
-					else error(16);
-				}
-				else error(41);
-			}
-			else error(9);
-		}
+		if (token == cBracketLTok) obtoken();
 		else error(8);
+
+		ic1 = ic;
+		//toksig U Prim(Instruction)
+		union_set(setpaso, toksig, tokiniinst);
+		Block(setpaso, idat);
+		if (token == cBracketRTok) obtoken();
+		else error(9);
+		if (token == untilTok) obtoken();
+		else error(41);
+
+		if (token == parentLTok) obtoken();
+		else error(16);
+		//Prim(numeric_expression)
+		copia_set(setpaso, toksig);
+		setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
+		Bool_Expression(setpaso);
+		if (token == parentRTok) obtoken();
+		else error(17);
+		value.tipo = 0;
+		value.ival = ic1;
+		gen(SAC, 0, value);
 	}
 	else  error(57);
 }
 
-void Average(int toksig[]){
-	
-
+void Average(int toksig[])
+{
 	if (token == averageTok)
 	{
 		obtoken();
-		if (token == parentLTok)
+		if (token == parentLTok) obtoken();
+		else error(16);
+		if (token == identTok)
 		{
 			obtoken();
-			if (token == identTok)
-			{
-				obtoken();
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
-			}
-			else error(7);
+			if (token == parentRTok) obtoken();
+			else error(17);
 		}
-		else error(16);
+		else error(7);
 	}
 	else  error(57);
 }
@@ -1677,21 +1639,15 @@ void CloseFile(int toksig[])
 	if (token == closeFileTok)
 	{
 		obtoken();
-		if (token == parentLTok)
+		if (token == parentLTok) obtoken();
+		else error(16);
+		if (token == identTok)
 		{
 			obtoken();
-			if (token == identTok)
-			{
-				obtoken();
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
-			}
-			else error(7);
+			if (token == parentRTok) obtoken();
+			else error(17);
 		}
-		else error(16);
+		else error(7);
 	}
 	else  error(57);
 }
@@ -1702,30 +1658,22 @@ void Compare(int toksig[]){
 	if (token == compareTok)
 	{
 		obtoken();
-		if (token == parentLTok)
-		{
-			obtoken();
-			//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
-			copia_set(setpaso, toksig);
-			setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
-			String_Expression(setpaso);
-			if (token == commaTok)
-			{
-				obtoken();
-				//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
-				copia_set(setpaso, toksig);
-				setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
-				String_Expression(setpaso);
-
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
-			}
-			else error(11);
-		}
+		if (token == parentLTok) obtoken();
 		else error(16);
+
+		//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
+		String_Expression(setpaso);
+		if (token == commaTok) obtoken();
+		else error(11);
+		//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
+		String_Expression(setpaso);
+
+		if (token == parentRTok) obtoken();
+		else error(17);
 	}
 	else  error(57);
 }
@@ -1736,33 +1684,24 @@ void Concat(int toksig[]){
 	if (token == concatTok)
 	{
 		obtoken();
-		if (token == parentLTok)
-		{
-			obtoken();
-			
-			//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
-			copia_set(setpaso, toksig);
-			setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
-			String_Expression(setpaso);
-
-			if (token == commaTok)
-			{
-				obtoken();
-
-				//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
-				copia_set(setpaso, toksig);
-				setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
-				String_Expression(setpaso);
-
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
-			}
-			else error(11);
-		}
+		if (token == parentLTok) obtoken();
 		else error(16);
+			
+		//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
+		String_Expression(setpaso);
+
+		if (token == commaTok) obtoken();
+		else error(11);
+
+		//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
+		String_Expression(setpaso);
+
+		if (token == parentRTok) obtoken();
+		else error(17);
 	}
 	else  error(57);
 }
@@ -1773,20 +1712,14 @@ void Even(int toksig[]){
 	if (token == evenTok)
 	{
 		obtoken();
-		if (token == parentLTok)
-		{
-			obtoken();
-			//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
-			copia_set(setpaso, toksig);
-			setpaso[identTok] = setpaso[factorialTok] = 1;
-			Integer_Expression(setpaso);
-			if (token == parentRTok)
-			{
-				obtoken();
-			}
-			else error(17);
-		}
+		if (token == parentLTok) obtoken();
 		else error(16);
+		//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[factorialTok] = 1;
+		Integer_Expression(setpaso);
+		if (token == parentRTok) obtoken();
+		else error(17);
 	}
 	else  error(57);
 }
@@ -1796,21 +1729,15 @@ void Factorial(int toksig[]){
 	if (token == factorialTok)
 	{
 		obtoken();
-		if (token == parentLTok)
-		{
-			obtoken();
-
-			//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
-			copia_set(setpaso, toksig);
-			setpaso[identTok] = setpaso[factorialTok] = 1;
-			Integer_Expression(setpaso);
-			if (token == parentRTok)
-			{
-				obtoken();
-			}
-			else error(17);
-		}
+		if (token == parentLTok) obtoken();
 		else error(16);
+
+		//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[factorialTok] = 1;
+		Integer_Expression(setpaso);
+		if (token == parentRTok) obtoken();
+		else error(17);
 	}
 	else  error(57);
 }
@@ -1821,21 +1748,15 @@ void OpenFile(int toksig[]){
 	if (token == openFileTok)
 	{
 		obtoken();
-		if (token == parentLTok)
-		{
-			obtoken();
-
-			//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
-			copia_set(setpaso, toksig);
-			setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
-			String_Expression(setpaso);
-			if (token == parentRTok)
-			{
-				obtoken();
-			}
-			else error(17);
-		}
+		if (token == parentLTok) obtoken();
 		else error(16);
+
+		//toksig U Prim(subroutine_call) U Prim(string_function) ={substring, concat, read}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[substringTok] = setpaso[concatTok] = setpaso[readTok] = 1;
+		String_Expression(setpaso);
+		if (token == parentRTok) obtoken();
+		else error(17);
 	}
 	else  error(57);
 }
@@ -1845,29 +1766,21 @@ void Pow(int toksig[]){
 	if (token == powTok)
 	{
 		obtoken();
-		if (token == parentLTok)
-		{
-			obtoken();
-			//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
-			copia_set(setpaso, toksig);
-			setpaso[identTok] = setpaso[factorialTok] = 1;
-			Integer_Expression(setpaso);
-			if (token == commaTok)
-			{
-				obtoken();
-				//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
-				copia_set(setpaso, toksig);
-				setpaso[identTok] = setpaso[factorialTok] = 1;
-				Integer_Expression(setpaso);
-				if (token == parentRTok)
-				{
-					obtoken();
-				}
-				else error(17);
-			}
-			else error(11);
-		}
+		if (token == parentLTok) obtoken();
 		else error(16);
+		//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[factorialTok] = 1;
+		Integer_Expression(setpaso);
+		if (token == commaTok) obtoken();
+		else error(11);
+
+		//toksig U Prim(Subroutine_Call) = {ident} U Prim(integer_function) = {factorial}
+		copia_set(setpaso, toksig);
+		setpaso[identTok] = setpaso[factorialTok] = 1;
+		Integer_Expression(setpaso);
+		if (token == parentRTok) obtoken();
+		else error(17);
 	}
 	else  error(57);
 }
