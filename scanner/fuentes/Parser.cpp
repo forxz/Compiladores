@@ -23,7 +23,7 @@ void Program(), Variable_Declaration(int toksig[], int* idat), Function_Declarat
 Param_Declaration(int toksig[]), Array_Param(int toksig[]), Type(int toksig[]), Block(int toksig[], int* idat), Instruction(int toksig[], int* idat), Assignation(int toksig[]), Expression(int toksig[]), Integer_Expression(int toksig[]), Bool_Expression(int toksig[]),
 String_Expression(int toksig[]), Char_Expression(int toksig[]), Float_Expression(int toksig[]), Float_Function(int toksig[]), Integer_Function(int toksig[]), String_Function(int toksig[]), Bool_Function(int toksig[]),
 Subroutine_Call(int toksig[]), Aritmethic_Expression(int toksig[]), Term(int toksig[]), Factor(int toksig[]), If(int toksig[], int* idat), Switch(int toksig[], int* idat), SwitchAux(int toksig[], int* idat), While(int toksig[], int* idat), For(int toksig[], int* idat), Repeat(int toksig[], int* idat), Average(int toksig[]), CloseFile(int toksig[]), Compare(int toksig[]),
-Concat(int toksig[]), Even(int toksig[]), Factorial(int toksig[]), OpenFile(int toksig[]), Pow(int toksig[]), Substring(int toksig[]), Print(int toksig[]), Read(int toksig[]), Sort(int toksig[]), Cond(int toksig[], int* idat), CondAux(int toksig[], int* idat), Numeric_Expression(int toksig[]), Conjunction_Expression(int toksig[]),
+Concat(int toksig[]), Even(int toksig[]), Factorial(int toksig[]), OpenFile(int toksig[]), Pow(int toksig[]), Substring(int toksig[]), Print(int toksig[]), Read(int toksig[]), Sort(int toksig[]), Cond(int toksig[], int* idat), CondAux(int toksig[], int numConds[], int* i, int* idat), Numeric_Expression(int toksig[]), Conjunction_Expression(int toksig[]),
 Relational_Expression(int toksig[]), AddObject();
 
 void Program() {
@@ -1557,12 +1557,13 @@ void SwitchAux(int toksig[], int* idat){
 
 void While(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
-	int ic1;
+	int ic1, ic2;
 	if (token == whileTok)
 	{
 		obtoken();
 		if (token == parentLTok)
 		{
+			ic1 = ic;
 			obtoken();
 			//toksig U Prim(numeric_expression)
 			copia_set(setpaso, toksig);
@@ -1575,7 +1576,7 @@ void While(int toksig[], int* idat){
 				{
 					obtoken();
 
-					ic1 = ic;
+					ic2 = ic;
 					value.tipo = 0;
 					value.ival = 0;
 					gen(SAC, 0, value);
@@ -1589,8 +1590,8 @@ void While(int toksig[], int* idat){
 						value.ival = ic1;
 						gen(SAL, 0, value);
 
-						value.ival = ic;
-						gen(SAC, 0, value);
+						//Backpatching
+						codigo[ic2].di.ival = ic;
 
 					}
 					else error(9);
@@ -1606,7 +1607,7 @@ void While(int toksig[], int* idat){
 
 void For(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
-
+	int ic1, ic2;
 	if (token == forTok)
 	{
 		obtoken();
@@ -1628,6 +1629,7 @@ void For(int toksig[], int* idat){
 				if (token == semiColonTok)
 				{
 					obtoken();
+					ic1 = ic;
 					//toksig U Prim(numeric_expression)={minus, integer, float_val} U Prim(bool_function)={even, compare}
 					copia_set(setpaso, toksig);
 					setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = setpaso[evenTok] = setpaso[compareTok] = 1;
@@ -1645,11 +1647,22 @@ void For(int toksig[], int* idat){
 							if (token == cBracketLTok)
 							{
 								obtoken();
+								ic2 = ic;
+								value.tipo = 0;
+								value.ival = 0;
+								gen(SAC, 0, value);
+
 								//toksig U Prim(Instruction)
 								union_set(setpaso, toksig, tokiniinst);
 								Block(setpaso, idat);
 								if (token == cBracketRTok) {
 									obtoken();
+
+									value.ival = ic1;
+									gen(SAL, 0, value);
+
+									//Backpatching
+									codigo[ic2].di.ival = ic;
 								}
 								else error(9);
 							}
@@ -1671,6 +1684,7 @@ void For(int toksig[], int* idat){
 
 void Repeat(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
+	int ic1;
 
 	if (token == repeatTok)
 	{
@@ -1678,6 +1692,8 @@ void Repeat(int toksig[], int* idat){
 		if (token == cBracketLTok)
 		{
 			obtoken();
+
+			ic1 = ic;
 			//toksig U Prim(Instruction)
 			union_set(setpaso, toksig, tokiniinst);
 			Block(setpaso, idat);
@@ -1697,6 +1713,10 @@ void Repeat(int toksig[], int* idat){
 						if (token == parentRTok)
 						{
 							obtoken();
+
+							value.tipo = 0;
+							value.ival = ic1;
+							gen(SAC, 0, value);
 						}
 						else error(17);
 					}
@@ -2061,6 +2081,7 @@ void Sort(int toksig[])
 
 void Cond(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
+	int numConds[50], i = 0;
 
 	if (token == condTok)
 	{
@@ -2071,19 +2092,25 @@ void Cond(int toksig[], int* idat){
 			do
 			{
 				copia_set(setpaso, toksig);
-				CondAux(setpaso, idat);
+				CondAux(setpaso, numConds, &i, idat);
+				
 			} while (token == doTok);
 			if (token != cBracketRTok) error(9);
 			else obtoken();
+
+			//Backpatching
+			for (int j = 0; j <= i; j++){
+				codigo[numConds[j]].di.ival = ic;
+			}
 		}
 		else error(8);
 	}
 	else  error(57);
 }
 
-void CondAux(int toksig[], int* idat){
+void CondAux(int toksig[], int numConds[], int* i, int* idat){
 	int setpaso[NOTOKENS];
-
+	int ic1Temp;
 	if (token == doTok)
 	{
 		obtoken();
@@ -2101,11 +2128,26 @@ void CondAux(int toksig[], int* idat){
 				{
 					obtoken();
 
+					ic1Temp = ic;
+					value.tipo = 0;
+					value.ival = 0;
+					gen(SAC, 0, value);
+
 					//toksig U Prim(Instruction)
 					union_set(setpaso, toksig, tokiniinst);
 					Block(setpaso, idat);
 					if (token != cBracketRTok) error(9);
 					else obtoken();
+					
+					numConds[(*i)] = ic;
+					value.ival = 0;
+					gen(SAL, 0, value);
+
+					//Backpatching
+					codigo[ic1Temp].di.ival = ic;
+
+					(*i)++;
+
 				}
 				else error(8);
 			}
