@@ -150,10 +150,12 @@ void obtokenAux()
 				while (ch)
 				{
 					if (ch == '*'){
+						printf("%c\n", ch);
 						flag = true;
 					}
 
 					ch = obtch();
+					printf("->  %c\n", ch);
 					if (ch == '\\' && flag){
 						ch = obtch();
 						break;
