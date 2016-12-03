@@ -1,4 +1,4 @@
-﻿Compilación iniciada a las 02/12/2016 18:26:09.
+﻿Compilación iniciada a las 02/12/2016 23:18:26.
      1>Proyecto "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" en el nodo 2 (Rebuild destinos).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\codigo_p.cpp ..\fuentes\conjuntos.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
@@ -20,10 +20,9 @@
          Debug\pl0.obj
          Debug\scanner.obj
          Debug\tds.obj
-     1>Parser.obj : error LNK2019: símbolo externo "void __cdecl Procedure_Definition(int * const)" (?Procedure_Definition@@YAXQAH@Z) sin resolver al que se hace referencia en la función "void __cdecl Program(void)" (?Program@@YAXXZ)
-     1>C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe : fatal error LNK1120: 1 externos sin resolver
-     1>Compilación del proyecto terminada "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild destinos) -- ERROR.
+         scanner.vcxproj -> C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe
+     1>Compilación del proyecto terminada "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild destinos).
 
-ERROR al compilar.
+Compilación correcta.
 
-Tiempo transcurrido 00:00:02.03
+Tiempo transcurrido 00:00:04.29
