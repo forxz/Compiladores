@@ -24,6 +24,7 @@ struct registro
 	parameters params;
 	int index;
 	enum objeto tipo;
+	int dir;
 	struct registro *next;
 };
 
@@ -33,7 +34,7 @@ extern int tds_it; // indice de la tabla de simbolos
 extern int tds_gobal; // posicion de la tabla de simbolos donde finaliza la declaracion de funciones y variables globales
 extern int tds_local; // posicion donde inicia el bloque de una funcion o procedimiento
 
-void SetTable(enum objeto k, char name[]), SetTable(char name[]), Clear();
+void SetTable(enum objeto k, char name[], int *idat = NULL), SetTable(char name[]), Clear();
 registro* LocalSearch();
 registro* GlobalSearch();
 registro* GeneralSearch();

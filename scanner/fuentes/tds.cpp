@@ -38,8 +38,7 @@ void SetTable(char name[])
 	}
 }
 
-void SetTable(enum objeto k, char name[])
-{
+void SetTable(enum objeto k, char name[], int *idat){
 	if (tablads != NULL)
 	{
 		int index = tablads->index;
@@ -58,6 +57,19 @@ void SetTable(enum objeto k, char name[])
 	nuevo->index = tds_it;
 	strcpy(nuevo->name, name);
 	nuevo->next = tablads;
+	// Asignar atributos para generacion de codigo p
+	switch (k) {
+		case INTEGER:
+		case BOOL:
+		case STRING:
+		case File:
+		case FLOAT:
+		case CHAR:			
+			tablads[tds_it].dir = *idat;
+			++(*idat);
+			break;
+	};
+
 	tablads = nuevo;
 	tds_it++;
 }

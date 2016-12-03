@@ -1,26 +1,29 @@
-﻿Compilación iniciada a las 02/12/2016 12:27:02.
+﻿Compilación iniciada a las 02/12/2016 18:26:09.
      1>Proyecto "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" en el nodo 2 (Rebuild destinos).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\conjuntos.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\codigo_p.cpp ..\fuentes\conjuntos.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
          tds.cpp
          scanner.cpp
          pl0.cpp
          Parser.cpp
          lexico.cpp
          conjuntos.cpp
+         codigo_p.cpp
          auxiliares.cpp
          Generando código...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.lib" /MACHINE:X86 Debug\auxiliares.obj
+         Debug\codigo_p.obj
          Debug\conjuntos.obj
          Debug\lexico.obj
          Debug\Parser.obj
          Debug\pl0.obj
          Debug\scanner.obj
          Debug\tds.obj
-         scanner.vcxproj -> C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe
-     1>Compilación del proyecto terminada "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild destinos).
+     1>Parser.obj : error LNK2019: símbolo externo "void __cdecl Procedure_Definition(int * const)" (?Procedure_Definition@@YAXQAH@Z) sin resolver al que se hace referencia en la función "void __cdecl Program(void)" (?Program@@YAXXZ)
+     1>C:\Users\Marvin\Documents\Compiladores\scanner\Debug\scanner.exe : fatal error LNK1120: 1 externos sin resolver
+     1>Compilación del proyecto terminada "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" (Rebuild destinos) -- ERROR.
 
-Compilación correcta.
+ERROR al compilar.
 
-Tiempo transcurrido 00:00:02.37
+Tiempo transcurrido 00:00:02.03
