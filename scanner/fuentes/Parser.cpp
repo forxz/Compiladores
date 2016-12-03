@@ -673,7 +673,7 @@ void Block(int toksig[], int* idat)
 void Instruction(int toksig[], int* idat) {
 	int setpaso[NOTOKENS];
 	int vacio[NOTOKENS] = { 0 };
-
+	
 	char *name = "";
 	registro *localExist = NULL;
 	switch (token){
@@ -834,6 +834,10 @@ void Assignation(int toksig[]) {
 			union_set(setpaso, toksig, tokiniexp);
 			setpaso[identTok] = 1;
 			Expression(setpaso);
+
+			value.tipo = 0;
+			value.ival = reg->dir;
+			gen(ALM, 0, value);
 		}
 		else
 			error(10); // Se esperaba '='
@@ -1240,6 +1244,11 @@ void Subroutine_Call(int toksig[]) {
 			}
 			if (token == parentRTok){
 				obtoken();
+
+				value.tipo = 0;
+				value.tipo = 0;
+				gen(LLA, reg->index, value);
+
 			}
 			else error(17); //Se esperaba )
 
@@ -1381,6 +1390,7 @@ void Factor(int toksig[]){
 
 void If(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
+	int ic1, ic2;
 
 	if (token == ifTok)
 	{
@@ -1398,9 +1408,25 @@ void If(int toksig[], int* idat){
 				if (token == cBracketLTok)
 				{
 					obtoken();
+
+					ic1 = ic;
+					value.tipo = 0;
+					value.ival = 0;
+					gen(SAC, 0, value);
+
 					//toksig U Prim(Instruction)
 					union_set(setpaso, toksig, tokiniinst);
 					Block(setpaso, idat);
+
+					ic2 = ic;
+					value.tipo = 0;
+					value.ival = 0;
+					gen(SAL, 0, value);
+
+					//Backpatching
+					codigo[ic1].di.ival = ic;
+
+
 					if (token == cBracketRTok)
 					{
 						obtoken();
@@ -1415,6 +1441,9 @@ void If(int toksig[], int* idat){
 								Block(setpaso, idat);
 								if (token != cBracketRTok) error(9);
 								else obtoken();
+
+								//Backpatching
+								codigo[ic2].di.ival = ic;
 							}
 						}
 					}
@@ -1508,7 +1537,7 @@ void SwitchAux(int toksig[], int* idat){
 
 void While(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
-
+	int ic1;
 	if (token == whileTok)
 	{
 		obtoken();
@@ -1525,12 +1554,24 @@ void While(int toksig[], int* idat){
 				if (token == cBracketLTok)
 				{
 					obtoken();
+
+					ic1 = ic;
+					value.tipo = 0;
+					value.ival = 0;
+					gen(SAC, 0, value);
 					//toksig U Prim(Instruction)
 					union_set(setpaso, toksig, tokiniinst);
 					Block(setpaso, idat);
 					if (token == cBracketRTok)
 					{
 						obtoken();
+
+						value.ival = ic1;
+						gen(SAL, 0, value);
+
+						value.ival = ic;
+						gen(SAC, 0, value);
+
 					}
 					else error(9);
 				}
