@@ -36,6 +36,9 @@
     <ClCompile Include="..\fuentes\conjuntos.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\fuentes\codigo_p.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\fuentes\parametros.h">
@@ -63,6 +66,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\fuentes\conjuntos.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fuentes\codigo_p.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,31 +7,40 @@
 #include "auxiliares.h"
 #include "lexico.h"
 #include "conjuntos.h"
+#include "codigo_p.h"
 
 objeto currentObject;
 objeto currentValueType;
 registro *paramDeclaration = NULL;
 int definitions;
+Tipo_Var value;
+
 //Funciones Auxiliares
 int isBlock(), isNumeric_Expression(), IsBoolExpression(), IsFactor(), IsIntegerExpression(), IsExpression(), IsType(), IsStringExpression(), isVariable(objeto type);
 
 //funciones internas al parser
-void Program(), Variable_Declaration(int toksig[]), Function_Declaration(int toksig[]), Procedure_Declaration(int toksig[]), Function_Definition(int toksig[]), Procedure_Definition(int toksig[]),
-Param_Declaration(int toksig[]), Array_Param(int toksig[]), Type(int toksig[]), Block(int toksig[]), Instruction(int toksig[]), Assignation(int toksig[]), Expression(int toksig[]), Integer_Expression(int toksig[]), Bool_Expression(int toksig[]),
+void Program(), Variable_Declaration(int toksig[], int* idat), Function_Declaration(int toksig[]), Procedure_Declaration(int toksig[]), Function_Definition(int toksig[]), Procedure_Definition(int toksig[]),
+Param_Declaration(int toksig[]), Array_Param(int toksig[]), Type(int toksig[]), Block(int toksig[], int* idat), Instruction(int toksig[], int* idat), Assignation(int toksig[]), Expression(int toksig[]), Integer_Expression(int toksig[]), Bool_Expression(int toksig[]),
 String_Expression(int toksig[]), Char_Expression(int toksig[]), Float_Expression(int toksig[]), Float_Function(int toksig[]), Integer_Function(int toksig[]), String_Function(int toksig[]), Bool_Function(int toksig[]),
-Subroutine_Call(int toksig[]), Aritmethic_Expression(int toksig[]), Term(int toksig[]), Factor(int toksig[]), If(int toksig[]), Switch(int toksig[]), SwitchAux(int toksig[]), While(int toksig[]), For(int toksig[]), Repeat(int toksig[]), Average(int toksig[]), CloseFile(int toksig[]), Compare(int toksig[]),
-Concat(int toksig[]), Even(int toksig[]), Factorial(int toksig[]), OpenFile(int toksig[]), Pow(int toksig[]), Substring(int toksig[]), Print(int toksig[]), Read(int toksig[]), Sort(int toksig[]), Cond(int toksig[]), CondAux(int toksig[]), Numeric_Expression(int toksig[]), Conjunction_Expression(int toksig[]),
+Subroutine_Call(int toksig[]), Aritmethic_Expression(int toksig[]), Term(int toksig[]), Factor(int toksig[]), If(int toksig[], int* idat), Switch(int toksig[], int* idat), SwitchAux(int toksig[], int* idat), While(int toksig[], int* idat), For(int toksig[], int* idat), Repeat(int toksig[], int* idat), Average(int toksig[]), CloseFile(int toksig[]), Compare(int toksig[]),
+Concat(int toksig[]), Even(int toksig[]), Factorial(int toksig[]), OpenFile(int toksig[]), Pow(int toksig[]), Substring(int toksig[]), Print(int toksig[]), Read(int toksig[]), Sort(int toksig[]), Cond(int toksig[], int* idat), CondAux(int toksig[], int* idat), Numeric_Expression(int toksig[]), Conjunction_Expression(int toksig[]),
 Relational_Expression(int toksig[]), AddObject();
 
 void Program() {
 	definitions = 0;
-	int setpaso[NOTOKENS]; // Conjunto de paso por valor
+	int setpaso[NOTOKENS]; // Conjunto de paso por valor	
+	int idat = 3;
+	int dirInicioMain = 0;
+
+	value.ival = 0;
+	value.tipo = 0; //ival
+	gen(SAL, 0, value);
 
 	while (token == arrayTok || token == intTok || token == boolTok || token == charTok
 		|| token == stringTok || token == fileTok || token == floatTok){
 		// Prim(Expression) = {integer_val, bool_val, string_val, char_val, float_val} U Prim(Type)={int, bool, char, string, file, float}
 		union_set(setpaso, tokiniexp, tokinitype);
-		Variable_Declaration(setpaso);
+		Variable_Declaration(setpaso, &idat);
 	}
 
 	while (token == functionTok || token == procedureTok) {
@@ -50,6 +59,15 @@ void Program() {
 		}
 	}
 
+	//parchamos a la TDS y el código intermedio
+	//backpatching sobre TDS y código
+	tablads[dirInicioMain].dir = ic;
+
+	//se abre espacio en la memoria para un mínimo de 3 direcciones
+	value.tipo = 0;
+	value.ival = idat;
+	gen(INS, 0, value);
+
 	if (token == mainTok){
 		tds_gobal = tds_it;			// Se gurada el indice de la tds donde comienzan las variables gloables 
 		tds_local = tds_it;			// Se gurada el indice de la tds donde comienzan las variables locales (ambito)
@@ -60,7 +78,7 @@ void Program() {
 
 		// Prim(Instruction) ={ident, if, switch, while, for, repeat, cond, closeFile, openFile, factorial, pow, substring, concat, read, compare, even, print, sort} 
 		copia_set(setpaso, tokiniinst);
-		Block(setpaso);
+		Block(setpaso, &idat);
 
 		if (token == procedureTok || token == functionTok) {
 			error(57); // Error de sintaxis
@@ -68,6 +86,10 @@ void Program() {
 		if (token == cBracketRTok)
 			obtoken();
 		else error(9); // Se esperaba '}'
+
+		value.tipo = 0;
+		value.ival = 0;
+		gen(OPR, 0, value); //retorno de main
 
 		tds_it = tds_local; // Se guarda el indice antes de entrar a otro bloque anidado
 		while (token == functionTok || token == procedureTok){
@@ -96,11 +118,10 @@ void Program() {
 		error(1); // Se esperaba declaración de función o procedimiento o main
 }
 
-void Variable_Declaration(int toksig[]) {
+void Variable_Declaration(int toksig[], int * idat) {
 	int setpaso[NOTOKENS];
 	int vacio[NOTOKENS] = { 0 };
-	if (token == arrayTok)
-	{
+	if (token == arrayTok) {
 		obtoken();
 		if (token == identTok)
 		{
@@ -131,7 +152,7 @@ void Variable_Declaration(int toksig[]) {
 										integertok,
 										currentObject
 									};
-									SetTable(ARRAY, name);
+									SetTable(ARRAY, name, idat);
 									tablads->arrayT = arrayT;
 									obtoken();
 								}
@@ -173,7 +194,7 @@ void Variable_Declaration(int toksig[]) {
 					if (isAssigTok) {
 
 						if (currentValueType == currentObject) {
-							SetTable(currentObject, name);
+							SetTable(currentObject, name, idat);
 						}
 						else error(43);
 					}
@@ -185,11 +206,11 @@ void Variable_Declaration(int toksig[]) {
 				else error(3);
 			}
 			else error(7);
-			// -------------------------------------------------->>>>>>>>>>> Posible punto critico!!!
+			// ------------------------------------------------>>>>>>>>>>> Posible punto critico!!!
 
 			union_set(setpaso, tokiniinst, tokinitype);
 			setpaso[identTok] = setpaso[arrayTok] = setpaso[commaTok] = setpaso[procedureTok] = setpaso[functionTok] = setpaso[cBracketRTok] = 1;
-			// setpaso -> otra declaracion, declara de proc o func, instruccion, commaTok
+			// setpaso -> otra declaracion, declara de proc o func, instruccion, llave de cierre 
 			test(setpaso, toksig, 42); // Símbolo desconocido 
 
 		} while (token == commaTok);
@@ -209,7 +230,7 @@ void Function_Declaration(int toksig[]) {
 				char name[100];
 				strcpy(name, nametok);
 				obtoken();
-				if (token == parentLTok){
+				if (token == parentLTok) {
 					obtoken();
 				}
 				else
@@ -286,59 +307,64 @@ void Procedure_Declaration(int toksig[]) {
 				char name[100];
 				strcpy(name, nametok);
 				obtoken();
-				if (token == parentLTok){
-					objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
-					int *refParams = (int *)malloc(sizeof(int));
-					int index = 0;
+
+				if (token == parentLTok) {
 					obtoken();
-					if (token == refTok || IsType() || token == arrayTok){
+				}
+				else{
+					error(16); //Se esperaba '(' 
+				}
+
+				objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
+				int *refParams = (int *)malloc(sizeof(int));
+				int index = 0;				
+				if (token == refTok || IsType() || token == arrayTok){
+
+					if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+						refParams[index] = 1;
+					else
+						refParams[index] = 0;
+					// Prim(Type) = {int, bool, char, string, file, float}
+					union_set(setpaso, toksig, tokinitype);
+					setpaso[arrayTok] = 1;
+					Param_Declaration(setpaso);
+					listaParametros[index] = currentObject;
+
+					while (token == commaTok){
+						index++;
+						obtoken();
 
 						if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
 							refParams[index] = 1;
 						else
 							refParams[index] = 0;
-						// Prim(Type) = {int, bool, char, string, file, float}
+
+						// toksig U Prim(Type) = {int, bool, char, string, file, float}
 						union_set(setpaso, toksig, tokinitype);
 						setpaso[arrayTok] = 1;
 						Param_Declaration(setpaso);
 						listaParametros[index] = currentObject;
 
-						while (token == commaTok){
-							index++;
-							obtoken();
-
-							if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
-								refParams[index] = 1;
-							else
-								refParams[index] = 0;
-
-							// toksig U Prim(Type) = {int, bool, char, string, file, float}
-							union_set(setpaso, toksig, tokinitype);
-							setpaso[arrayTok] = 1;
-							Param_Declaration(setpaso);
-							listaParametros[index] = currentObject;
-
-						}
 					}
-					if (token == parentRTok){
-						obtoken();
-						SetTable(DEC_PROCEDURE, name);
-						parameters param;
-						param.refParams = refParams;
-						param.length = index;
-						param.returnT = BOOL;
-						param.type = listaParametros;
-						tablads->params = param;
-
-						init_set(setpaso);
-						setpaso[procedureTok] = setpaso[functionTok] = setpaso[mainTok] = setpaso[eofTok] = 1;
-						// setpaso -> otra declaración de procedimientos o funciones, instrucción
-						test(setpaso, toksig, 1); // Se esperaba declaración de función o procedimiento o main
-
-					}
-					else error(17); //Se esperaba )
 				}
-				else error(16); //Se esperaba 
+				if (token == parentRTok){
+					obtoken();
+					SetTable(DEC_PROCEDURE, name);
+					parameters param;
+					param.refParams = refParams;
+					param.length = index;
+					param.returnT = BOOL;
+					param.type = listaParametros;
+					tablads->params = param;
+
+					init_set(setpaso);
+					setpaso[procedureTok] = setpaso[functionTok] = setpaso[mainTok] = 1;
+					// setpaso -> otra declaración de procedimientos o funciones, instrucción
+					test(setpaso, toksig, 1); // Se esperaba declaración de función o procedimiento o main
+
+				}
+				else error(17); //Se esperaba )
+
 			}
 			else error(3); // variable ya declarada
 		}
@@ -350,6 +376,8 @@ void Procedure_Declaration(int toksig[]) {
 void Function_Definition(int toksig[]) {
 	int setpaso[NOTOKENS];
 	int vacio[NOTOKENS] = { 0 };
+	int idat = 3;
+
 	if (token == functionTok){
 		obtoken();
 		if (token == identTok){
@@ -363,99 +391,104 @@ void Function_Definition(int toksig[]) {
 					strcpy(functionName, nametok);
 					obtoken();
 					if (token == parentLTok){
-						objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
-						int *refParams = (int *)malloc(sizeof(int));
-						int index = 0;
 						obtoken();
-						if (token == refTok || IsType() || token == arrayTok){
+					}
+					else{
+						error(16); //Se esperaba (
+					}
+					objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion // lista de tipos que recibira la funcion
+					int *refParams = (int *)malloc(sizeof(int));
+					int index = 0;
+
+					if (token == refTok || IsType() || token == arrayTok){
+						if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+							refParams[index] = 1;
+						else
+							refParams[index] = 0;
+
+						// toksig U Prim(Array_param)={array}
+						copia_set(setpaso, toksig);
+						setpaso[arrayTok] = 1;
+						Param_Declaration(setpaso);
+						AddObject();
+						listaParametros[index] = currentObject;
+						while (token == commaTok)
+						{
+							index++;
+							obtoken();
 							if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
 								refParams[index] = 1;
 							else
 								refParams[index] = 0;
-
 							// toksig U Prim(Array_param)={array}
 							copia_set(setpaso, toksig);
 							setpaso[arrayTok] = 1;
 							Param_Declaration(setpaso);
 							AddObject();
 							listaParametros[index] = currentObject;
-							while (token == commaTok)
-							{
-								index++;
-								obtoken();
-								if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
-									refParams[index] = 1;
-								else
-									refParams[index] = 0;
-								// toksig U Prim(Array_param)={array}
-								copia_set(setpaso, toksig);
-								setpaso[arrayTok] = 1;
-								Param_Declaration(setpaso);
-								AddObject();
-								listaParametros[index] = currentObject;
-							}
 						}
-						if (token == parentRTok){
+					}
+					if (token == parentRTok){
+						obtoken();
+						if (token == colonTok){
 							obtoken();
-							if (token == colonTok){
+							Type(vacio);
+							if (token == cBracketLTok){
 								obtoken();
-								Type(vacio);
-								if (token == cBracketLTok){
-									obtoken();
-									// verificando si la funcion es valida
-									parameters param;
-									param.refParams = refParams;
-									param.length = index;
-									param.returnT = currentObject;
-									param.type = listaParametros;
-									int result = ValidParameters(globalExist->params, param);
-									if (result != 0)
-									{
-										if (result == 2)
-											error(36); // Se esperaba un parametro por referencia
-										else{
-											SetTable(FUNCTION, functionName);
-											tablads->params = param;
-											definitions++;
-											while (isBlock()){
-												// toksig
-												copia_set(setpaso, toksig);
-												Block(setpaso);
-											}
-											if (token == returnTok){
+								// verificando si la funcion es valida
+								parameters param;
+								param.refParams = refParams;
+								param.length = index;
+								param.returnT = currentObject;
+								param.type = listaParametros;
+								int result = ValidParameters(globalExist->params, param);
+								if (result != 0)
+								{
+									if (result == 2)
+										error(36); // Se esperaba un parametro por referencia
+									else if (result == 3)
+										error(37); // Se esperaba un parametro por valor
+									else{
+										SetTable(FUNCTION, functionName);
+										tablads->params = param;
+										definitions++;
+										while (isBlock()){
+											// toksig
+											copia_set(setpaso, toksig);
+											Block(setpaso, &idat);
+										}
+										if (token == returnTok){
+											obtoken();
+											// Prim(Char_Expression)= {char_val, ident} U Prim(Bool_Expression)= {bool_Val, compare,minus, integer_Val, float_Val, ident} U Prim(String_Expression)={string_Val, ident, substring} U {return}
+											copia_set(setpaso, toksig);
+											setpaso[identTok] = 1;
+											Expression(setpaso);
+											if (token == cBracketRTok){
+												tds_it = tds_local + definitions - 1;
+												SetTable(functionName);
 												obtoken();
-												// Prim(Char_Expression)= {char_val, ident} U Prim(Bool_Expression)= {bool_Val, compare,minus, integer_Val, float_Val, ident} U Prim(String_Expression)={string_Val, ident, substring} U {return}
-												copia_set(setpaso, toksig);
-												setpaso[identTok] = 1;
-												Expression(setpaso);
-												if (token == cBracketRTok){
-													tds_it = tds_local + definitions - 1;
-													SetTable(functionName);
-													obtoken();
 
-													init_set(setpaso);
-													setpaso[procedureTok] = setpaso[functionTok] = setpaso[eofTok] = 1;
-													// setpaso -> otra declaración de procedimientos o funciones
-													test(setpaso, toksig, 59); // Se esperaba definicion de funcion o procedimiento
-
-												}
-												else error(9); //Se esperaba }	
+												init_set(setpaso);
+												setpaso[procedureTok] = setpaso[functionTok] = setpaso[eofTok] = 1;
+												// setpaso -> otra declaración de procedimientos o funciones
+												test(setpaso, toksig, 59); // Se esperaba definicion de funcion o procedimiento
 
 											}
-											else{
-												error(58); // Se esperaba la palabra 'return'
-											}
+											else error(9); //Se esperaba }	
+
+										}
+										else{
+											error(58); // Se esperaba la palabra 'return'
 										}
 									}
-									else error(6); // funcion no declarada por error de parametros
 								}
-								else error(8); //Se esperaba {
+								else error(6); // funcion no declarada por error de parametros
 							}
-							else error(18); //Se esperaba :
+							else error(8); //Se esperaba {
 						}
-						else error(17); //Se esperaba )
+						else error(18); //Se esperaba :
 					}
-					else error(16); //Se esperaba (
+					else error(17); //Se esperaba )					
 				}
 				else error(5);//funcion o procedimiento ya declarado
 			}
@@ -469,8 +502,7 @@ void Function_Definition(int toksig[]) {
 void AddObject()
 {
 	registro *localExist = LocalSearch();
-	if (localExist == NULL)
-	{
+	if (localExist == NULL) {
 		SetTable(paramDeclaration->tipo, paramDeclaration->name);
 	}
 	else error(3);
@@ -479,6 +511,7 @@ void AddObject()
 void Procedure_Definition(int toksig[]) {
 
 	int setpaso[NOTOKENS];
+	int idat = 3;
 	if (token == procedureTok){
 		obtoken();
 		if (token == identTok){
@@ -492,84 +525,90 @@ void Procedure_Definition(int toksig[]) {
 					strcpy(functionName, nametok);
 					obtoken();
 					if (token == parentLTok){
-						objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion 
-						int *refParams = (int *)malloc(sizeof(int));
-						int index = 0;
 						obtoken();
-						if (token == refTok || IsType() || token == arrayTok){
+					}
+					else{
+						error(16); //falta (
+					}
+
+					objeto *listaParametros = (objeto *)malloc(sizeof(objeto)); // lista de tipos que recibira la funcion 
+					int *refParams = (int *)malloc(sizeof(int));
+					int index = 0;
+
+					if (token == refTok || IsType() || token == arrayTok){
+						if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
+							refParams[index] = 1;
+						else
+							refParams[index] = 0;
+
+						// toksig U Prim(Array_param)={array}
+						copia_set(setpaso, toksig);
+						setpaso[arrayTok] = 1;
+						Param_Declaration(setpaso);
+
+						AddObject();
+						listaParametros[index] = currentObject;
+						while (token == commaTok){
+							index++;
+							obtoken();
 							if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
 								refParams[index] = 1;
 							else
 								refParams[index] = 0;
-
 							// toksig U Prim(Array_param)={array}
+
 							copia_set(setpaso, toksig);
 							setpaso[arrayTok] = 1;
 							Param_Declaration(setpaso);
-							
+
 							AddObject();
 							listaParametros[index] = currentObject;
-							while (token == commaTok){
-								index++;
-								obtoken();
-								if (token == refTok)			// Si es por referencia se guarda en el arreglo un 1 sino queda 0
-									refParams[index] = 1;
-								else
-									refParams[index] = 0;
-								// toksig U Prim(Array_param)={array}
-
-								copia_set(setpaso, toksig);
-								setpaso[arrayTok] = 1;
-								Param_Declaration(setpaso);
-								
-								AddObject();
-								listaParametros[index] = currentObject;
-							}
 						}
-						if (token == parentRTok){
-							parameters param;
-							param.length = index;
-							param.refParams = refParams;
-							param.returnT = BOOL;
-							param.type = listaParametros;
-							int result = ValidParameters(globalExist->params, param);
-							if (result != 0)
-							{
-								if (result == 2)
-									error(36); // Se esperaba un parametro por referencia
-								else{
-									SetTable(PROCEDURE, functionName);
-									tablads->params = param;
-									definitions++;
-									obtoken();
-									if (token == cBracketLTok){
-										obtoken();
-										while (isBlock())
-										{
-											// toksig
-											copia_set(setpaso, toksig);
-											Block(setpaso);
-										}
-										if (token == cBracketRTok){
-											tds_it = tds_local + definitions - 1;
-											SetTable(functionName);
-											obtoken();
-
-											init_set(setpaso);
-											setpaso[procedureTok] = setpaso[functionTok] = setpaso[eofTok] = 1;
-											// setpaso -> otra declaración de procedimientos o funciones
-											test(setpaso, toksig, 59); // Se esperaba definicion de funcion o procedimiento
-										}
-										else error(9); //falta }
-									}
-									else error(8); //falta {
-								}
-							}
-							else error(6); // funcion no declarada por error de parametros
-						}
-						else error(17); //falta )
 					}
-					else error(16); //falta (
+					if (token == parentRTok){
+						parameters param;
+						param.length = index;
+						param.refParams = refParams;
+						param.returnT = BOOL;
+						param.type = listaParametros;
+						int result = ValidParameters(globalExist->params, param);
+						if (result != 0)
+						{
+							if (result == 2)
+								error(36); // Se esperaba un parametro por referencia
+							else if (result == 3)
+								error(37); // Se esperaba un parametro por valor
+							else {
+								SetTable(PROCEDURE, functionName);
+								tablads->params = param;
+								definitions++;
+								obtoken();
+								if (token == cBracketLTok){
+									obtoken();
+									while (isBlock())
+									{
+										// toksig
+										copia_set(setpaso, toksig);
+										Block(setpaso, &idat);
+									}
+									if (token == cBracketRTok){
+										tds_it = tds_local + definitions - 1;
+										SetTable(functionName);
+										obtoken();
+
+										init_set(setpaso);
+										setpaso[procedureTok] = setpaso[functionTok] = setpaso[eofTok] = 1;
+										// setpaso -> otra declaración de procedimientos o funciones
+										test(setpaso, toksig, 59); // Se esperaba definicion de funcion o procedimiento
+									}
+									else error(9); //falta }
+								}
+								else error(8); //falta {
+							}
+						}
+						else error(6); // funcion no declarada por error de parametros
+					}
+					else error(17); //falta )					
 				}
 				else error(5);//funcion o procedimiento ya declarado
 			}
@@ -641,17 +680,17 @@ void Type(int toksig[])
 	else error(38);
 }
 
-void Block(int toksig[])
+void Block(int toksig[], int* idat)
 {
 	while (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
 		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok
 		|| token == substringTok || token == compareTok || token == printTok || IsType() || token == arrayTok || token == sortTok){
 		// toksig
-		Instruction(toksig);
+		Instruction(toksig, idat);
 	}
 }
 
-void Instruction(int toksig[]) {
+void Instruction(int toksig[], int* idat) {
 	int setpaso[NOTOKENS];
 	int vacio[NOTOKENS] = { 0 };
 
@@ -671,7 +710,7 @@ void Instruction(int toksig[]) {
 		union_set(setpaso, toksig, tokinitype);
 		union_set(setpaso, setpaso, tokiniexp);
 		setpaso[identTok] = 1;
-		Variable_Declaration(setpaso);
+		Variable_Declaration(setpaso, idat);
 		break;
 	case identTok:
 
@@ -700,37 +739,37 @@ void Instruction(int toksig[]) {
 		// toksig U Prim(Bool_Expression) = {bool_val, compare, minus, integer_val, float_val, ident}
 		copia_set(setpaso, toksig);
 		setpaso[boolValTok] = setpaso[compareTok] = setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
-		If(setpaso);
+		If(setpaso, idat);
 		break;
 	case switchTok:
 		// toksig
 		copia_set(setpaso, toksig);
-		Switch(setpaso);
+		Switch(setpaso,  idat);
 		break;
 	case whileTok:
 		// toksig U Prim(Bool_Expression) = {bool_val, compare, minus, integer_val, float_val, ident}
 		copia_set(setpaso, toksig);
 		setpaso[boolValTok] = setpaso[compareTok] = setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
-		While(setpaso);
+		While(setpaso, idat);
 		break;
 	case forTok:
 		// toksig U Prim(Assignation)= {ident} U Prim(Integer_Expression)= {ident, integer_Val, factorial} U Prim(Bool_Expression) = {bool_val, compare, minus, integer_val, float_val, ident}
 		copia_set(setpaso, toksig);
 		setpaso[factorialTok] = 1;
 		setpaso[boolValTok] = setpaso[compareTok] = setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
-		For(setpaso);
+		For(setpaso, idat);
 		break;
 	case repeatTok:
 		// toksig U Prim(Bool_Expression) = {bool_val, compare, minus, integer_val, float_val, ident}
 		copia_set(setpaso, toksig);
 		setpaso[boolValTok] = setpaso[compareTok] = setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
-		Repeat(setpaso);
+		Repeat(setpaso, idat);
 		break;
 	case condTok:
 		// toksig U Prim(Bool_Expression) = {bool_val, compare, minus, integer_val, float_val, ident}
 		copia_set(setpaso, toksig);
 		setpaso[boolValTok] = setpaso[compareTok] = setpaso[minusTok] = setpaso[numberValTok] = setpaso[floatValTok] = 1;
-		Cond(setpaso);
+		Cond(setpaso, idat);
 		break;
 	case closeFileTok:
 		// toksig
@@ -1145,7 +1184,7 @@ void Subroutine_Call(int toksig[]) {
 						localExist = GlobalSearch();
 						if (localExist == NULL)
 							error(2); // Variable no declarada
-						else{
+						else {
 							if (isVariable(localExist->tipo)){ // Verificar si es variable 		
 								// verificar si en este indice lleva un parametro por referencia o no
 								if (reg->params.refParams[index] != 1)
@@ -1194,9 +1233,8 @@ void Subroutine_Call(int toksig[]) {
 								}
 							}
 							else error(7); // falta identificador
-
 						}
-						else{
+						else {
 							// verificar que en este indice no lleva parametro por referencia si es un identificador							
 							if (reg->params.refParams[index] == 1)
 								error(36); // Se esperaba parámetro por referencia
@@ -1361,7 +1399,7 @@ void Factor(int toksig[]){
 	}
 }
 
-void If(int toksig[]){
+void If(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == ifTok)
@@ -1382,7 +1420,7 @@ void If(int toksig[]){
 					obtoken();
 					//toksig U Prim(Instruction)
 					union_set(setpaso, toksig, tokiniinst);
-					Block(setpaso);
+					Block(setpaso, idat);
 					if (token == cBracketRTok)
 					{
 						obtoken();
@@ -1394,7 +1432,7 @@ void If(int toksig[]){
 								obtoken();
 								//toksig U Prim(Instruction)
 								union_set(setpaso, toksig, tokiniinst);
-								Block(setpaso);
+								Block(setpaso, idat);
 								if (token != cBracketRTok) error(9);
 								else obtoken();
 							}
@@ -1411,7 +1449,7 @@ void If(int toksig[]){
 	else error(57);
 }
 
-void Switch(int toksig[]){
+void Switch(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == switchTok)
@@ -1432,14 +1470,14 @@ void Switch(int toksig[]){
 						do
 						{
 							copia_set(setpaso, toksig);
-							SwitchAux(setpaso);
+							SwitchAux(setpaso, idat);
 						} while (token == caseTok);
 						if (token == defaultTok)
 						{
 							obtoken();
 							//toksig U Prim(Instruction)
 							union_set(setpaso, toksig, tokiniinst);
-							Block(setpaso);
+							Block(setpaso, idat);
 						}
 
 						if (token == cBracketRTok)
@@ -1460,7 +1498,7 @@ void Switch(int toksig[]){
 	else error(57);
 }
 
-void SwitchAux(int toksig[]){
+void SwitchAux(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == caseTok)
@@ -1474,7 +1512,7 @@ void SwitchAux(int toksig[]){
 				obtoken();
 				//toksig U Prim(Instruction)
 				union_set(setpaso, toksig, tokiniinst);
-				Block(setpaso);
+				Block(setpaso, idat);
 				if (token == breakTok)
 				{
 					obtoken();
@@ -1488,7 +1526,7 @@ void SwitchAux(int toksig[]){
 	else error(39);
 }
 
-void While(int toksig[]){
+void While(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == whileTok)
@@ -1509,7 +1547,7 @@ void While(int toksig[]){
 					obtoken();
 					//toksig U Prim(Instruction)
 					union_set(setpaso, toksig, tokiniinst);
-					Block(setpaso);
+					Block(setpaso, idat);
 					if (token == cBracketRTok)
 					{
 						obtoken();
@@ -1525,7 +1563,7 @@ void While(int toksig[]){
 	else  error(57);
 }
 
-void For(int toksig[]){
+void For(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == forTok)
@@ -1568,9 +1606,8 @@ void For(int toksig[]){
 								obtoken();
 								//toksig U Prim(Instruction)
 								union_set(setpaso, toksig, tokiniinst);
-								Block(setpaso);
-								if (token == cBracketRTok)
-								{
+								Block(setpaso, idat);
+								if (token == cBracketRTok) {
 									obtoken();
 								}
 								else error(9);
@@ -1591,7 +1628,7 @@ void For(int toksig[]){
 	else  error(57);
 }
 
-void Repeat(int toksig[]){
+void Repeat(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == repeatTok)
@@ -1602,7 +1639,7 @@ void Repeat(int toksig[]){
 			obtoken();
 			//toksig U Prim(Instruction)
 			union_set(setpaso, toksig, tokiniinst);
-			Block(setpaso);
+			Block(setpaso, idat);
 			if (token == cBracketRTok)
 			{
 				obtoken();
@@ -1981,7 +2018,7 @@ void Sort(int toksig[])
 	else  error(57);
 }
 
-void Cond(int toksig[]){
+void Cond(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == condTok)
@@ -1993,7 +2030,7 @@ void Cond(int toksig[]){
 			do
 			{
 				copia_set(setpaso, toksig);
-				CondAux(setpaso);
+				CondAux(setpaso, idat);
 			} while (token == doTok);
 			if (token != cBracketRTok) error(9);
 			else obtoken();
@@ -2003,7 +2040,7 @@ void Cond(int toksig[]){
 	else  error(57);
 }
 
-void CondAux(int toksig[]){
+void CondAux(int toksig[], int* idat){
 	int setpaso[NOTOKENS];
 
 	if (token == doTok)
@@ -2025,7 +2062,7 @@ void CondAux(int toksig[]){
 
 					//toksig U Prim(Instruction)
 					union_set(setpaso, toksig, tokiniinst);
-					Block(setpaso);
+					Block(setpaso, idat);
 					if (token != cBracketRTok) error(9);
 					else obtoken();
 				}
