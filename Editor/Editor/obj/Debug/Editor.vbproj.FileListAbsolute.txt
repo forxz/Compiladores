@@ -1,0 +1,37 @@
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\bin\Debug\Editor.exe.config
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\bin\Debug\Editor.exe
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\bin\Debug\Editor.pdb
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\bin\Debug\Editor.xml
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.Form1.resources
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.Resources.resources
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.exe
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.xml
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.pdb
+C:\Users\Sergio Funes\AppData\Local\Temporary Projects\Editor\obj\Debug\Editor.Form2.resources
+C:\Users\Sergio Funes\Documents\Visual Studio 2013\Projects\Editor\Editor\bin\Debug\Editor.exe.config
+C:\Users\Sergio Funes\Documents\Visual Studio 2013\Projects\Editor\Editor\obj\Debug\Editor.exe
+C:\Users\Sergio Funes\Documents\Visual Studio 2013\Projects\Editor\Editor\obj\Debug\Editor.xml
+C:\Users\Sergio Funes\Documents\Visual Studio 2013\Projects\Editor\Editor\obj\Debug\Editor.pdb
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\bin\Debug\Editor.exe.config
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.exe
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.xml
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.pdb
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\bin\Debug\Editor.exe
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\bin\Debug\Editor.pdb
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\bin\Debug\Editor.xml
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.Form1.resources
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.Form2.resources
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.Resources.resources
+F:\Sergio Funes respaldo\Documents\UCA\0214\Editor\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache
+E:\Editor\Editor\bin\Debug\Editor.exe.config
+E:\Editor\Editor\obj\Debug\Editor.exe
+E:\Editor\Editor\obj\Debug\Editor.xml
+E:\Editor\Editor\obj\Debug\Editor.pdb
+E:\Editor\Editor\bin\Debug\Editor.exe
+E:\Editor\Editor\bin\Debug\Editor.pdb
+E:\Editor\Editor\bin\Debug\Editor.xml
+E:\Editor\Editor\obj\Debug\Editor.Form1.resources
+E:\Editor\Editor\obj\Debug\Editor.Form2.resources
+E:\Editor\Editor\obj\Debug\Editor.Resources.resources
+E:\Editor\Editor\obj\Debug\Editor.vbproj.GenerateResource.Cache
