@@ -41,6 +41,7 @@ Partial Class Form1
         Me.CompilarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScannerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScannerParserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EjecutarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaVentanaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LeemeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ParametrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,7 +65,6 @@ Partial Class Form1
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Linea = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Columna = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EjecutarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -170,14 +170,20 @@ Partial Class Form1
         'ScannerToolStripMenuItem
         '
         Me.ScannerToolStripMenuItem.Name = "ScannerToolStripMenuItem"
-        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerToolStripMenuItem.Size = New System.Drawing.Size(177, 22)
         Me.ScannerToolStripMenuItem.Text = "Scanner"
         '
         'ScannerParserToolStripMenuItem
         '
         Me.ScannerParserToolStripMenuItem.Name = "ScannerParserToolStripMenuItem"
-        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ScannerParserToolStripMenuItem.Size = New System.Drawing.Size(177, 22)
         Me.ScannerParserToolStripMenuItem.Text = "Parser"
+        '
+        'EjecutarToolStripMenuItem
+        '
+        Me.EjecutarToolStripMenuItem.Name = "EjecutarToolStripMenuItem"
+        Me.EjecutarToolStripMenuItem.Size = New System.Drawing.Size(177, 22)
+        Me.EjecutarToolStripMenuItem.Text = "Compilar y Ejecutar"
         '
         'NuevaVentanaToolStripMenuItem
         '
@@ -368,12 +374,6 @@ Partial Class Form1
         '
         Me.Columna.HeaderText = "Columna"
         Me.Columna.Name = "Columna"
-        '
-        'EjecutarToolStripMenuItem
-        '
-        Me.EjecutarToolStripMenuItem.Name = "EjecutarToolStripMenuItem"
-        Me.EjecutarToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.EjecutarToolStripMenuItem.Text = "Ejecutar"
         '
         'Form1
         '

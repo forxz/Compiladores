@@ -303,6 +303,31 @@ Public Class Form1
     End Sub
 
     Private Sub EjecutarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EjecutarToolStripMenuItem.Click
-        Shell("cmd.exe", AppWinStyle.NormalFocus)
+        'Shell("cmd.exe", AppWinStyle.NormalFocus)
+        Dim p As New Process
+        Dim m As New Process
+        Dim rutaVM As String
+        Dim salidaStd As String
+        Dim salidaEr As String
+        Dim rutaCp As String
+
+
+        m.StartInfo.UseShellExecute = False
+        m.StartInfo.RedirectStandardOutput = True
+        m.StartInfo.RedirectStandardError = True
+        rutaVM = Directory.GetCurrentDirectory + "\pl0mv\pl0mv\Debug\pl0mv.exe"
+        m.StartInfo.FileName = rutaVM
+        Dim sp As String() = rutaArchivo.Split(".")
+        rutaCp = sp(0) + ".obp"
+
+        m.StartInfo.Arguments = Chr(34) + rutaCp + Chr(34)
+        m.Start()
+        salidaStd = p.StandardOutput.ReadToEnd
+        salidaEr = p.StandardError.ReadToEnd
+        MessageBox.Show(salidaStd.ToString())
+
+
+        m.WaitForExit()
+        'historial.Show()
     End Sub
 End Class
