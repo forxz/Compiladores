@@ -16,9 +16,18 @@
 enum fcn {LIT,OPR,CAR,ALM,LLA,INS,SAL,SAC};
 
 typedef struct {
+	int		ival;
+	bool	bval;
+	char	cval;
+	double	fval;
+	char	sval[200];
+	int		tipo; // variable de control {0 = ival, 1 = bval, 2 = cval, 3 = fval, 4 = sval}
+} Tipo_Var;
+
+typedef struct {
  enum fcn f; //mnemónico
  int     ni; //nivel (0..MAXNIV)
- int     di; //dirección o desplazamiento (0..32767)
+ Tipo_Var     di; //dirección o desplazamiento (0..32767)
 } codigo_intermedio;
 
 codigo_intermedio codigo[MAXIC]; //array con las instrucciones de codigo-p
@@ -26,7 +35,7 @@ int ic;                          //índice sobre el array de código-p
 
 FILE *obj; //apuntador al archivo de código intermedio
 
-int p[LONGSTACK] ; //memoria de datos-stack
+Tipo_Var p[LONGSTACK]; //memoria de datos-stack
 
 //arrays para mostrar como string el mnemónico de la instrucción
 char *mnemonico[]={"LIT","OPR","CAR","ALM","LLA","INS","SAL","SAC"};
@@ -39,11 +48,13 @@ char *mnemonico[]={"LIT","OPR","CAR","ALM","LLA","INS","SAL","SAC"};
 //prototipos de funciones
 void interpretar(void),listar_p(void);
 int base(int ni,int b);
+void operaciones(codigo_intermedio i, int *s);
+void error(char mensaje[]);
 
 //main: inicia la ejecución
 int main(int argc,char *argv[]) {
  if (argc!=2) //analizar argumentos de main
-    printf("\nuso: pl0mv nombre_de_archivo");
+    printf("\nuso: simplexMV nombre_de_archivo");
  else  
     if ( (obj=fopen(argv[1],"r+b"))==NULL ) 
        printf("\nerror al abrir archivo %s",argv[1]);
@@ -61,8 +72,18 @@ int main(int argc,char *argv[]) {
        listar_p(); //quita el comentario de esta línea si deseas verificar que el código se cargo al array correctamente
 
 	   //interpreta el codigo-p 
-	   interpretar();   	
+	   interpretar();   
+	   char a;
+	   while (scanf("%c", &a) == 1);
     }
+
+	char a;
+	while (true)
+	{
+		printf("\n\nPresione una enter para finalizar");
+		getchar();
+		break;
+	}
    return(0);
  }
 
@@ -75,158 +96,95 @@ void interpretar(void) {
  codigo_intermedio i;  //registro de instrucción: contiene la siguiente instrucción a ejecutar		     
 			
  s=-1;b=0;d=0;
- p[0]=p[1]=p[2]=0;   //ED,EE y DR para el programa principal
+ p[0].ival = p[1].ival = p[2].ival = 0;  //ED,EE y DR para el programa principal
  
  //bucle de ejecución
  do {
   
     i=codigo[d++];   
-    printf("\n\nejecutando la instruccion %4d: %3s %5d %5d",d-1,mnemonico[i.f],i.ni,i.di); 
+    printf("\n\nejecutando la instruccion %4d: %3s %5d %5d",d-1,mnemonico[i.f],i.ni,i.di.ival); 
    
     switch(i.f) {
           case LIT:
                p[++s]=i.di;
-	           printf("\nLIT : cargando la literal %d en la direccion %d (s en %d)",i.di,s,s);
+			   p[s].tipo = i.ni;
+	           printf("\nLIT : cargando la literal %d en la direccion %d (s en %d)",i.di.ival,s,s);
                break;
 
           case OPR:
                printf("\nOPR : ");
 			   //determinar de que operador se trata
-               switch(i.di) {  
+               switch(i.di.ival) {  
 			       case 0: //retornar o fin
                         s=--b;
-                        d=p[s+3];
-                        b=p[s+2];
+                        d=p[s+3].ival;
+                        b=p[s+2].ival;
 	                    printf("retornar a la instruccion %d, base=%d (s en %d)",d,b,s);
                         break;
-
                    case 1:
-	                    printf("- unario para %d (s en %d)",p[s],s);
-                        p[s]=-p[s];
-                        break;
-
                    case 2:
-                        --s;
-	                    printf("suma de %d + %d (s en %d)",p[s],p[s+1],s);
-                        p[s]=p[s]+p[s+1];
-	                    break;
-
                    case 3:
-	                    --s;
-                        printf("resta de %d - %d (s en %d)",p[s],p[s+1],s);
-                        p[s]=p[s]-p[s+1];
-                        break;
-
                    case 4:
-	                    --s;
-                        printf("multiplicacion de %d * %d (s en %d)",p[s],p[s+1],s);
-                        p[s]=p[s]*p[s+1];
-                        break;
-
                    case 5:
-                        --s;
-	                    printf("division entera de %d / %d (s en %d)",p[s],p[s+1],s);
-                        if(p[s+1]==0) {
-						  fclose(obj);
-	                      printf("\nError a tiempo de ejecucion\nSe intenta dividir entre cero");
-	                      printf("\n--Programa abortado--");
-	                      exit(1); //el error es fatal
-                        }
-                        p[s]=p[s]/p[s+1];
-                        break;
-
                    case 6:
-                        printf("odd(%d)? (s en %d)",p[s],s);
-                        p[s]=(p[s]%2!=0);
-       
+					   --s;
+					   if (p[s].tipo == p[s + 1].tipo) operaciones(i, &s); 
+					   else error("Los tipos no son iguales");
+					   break;
                    case 7: //sin uso
-                        break;
-
-                   case 8:
-	                    --s;
-                        printf("%d=%d? (s en %d)",p[s],p[s+1],s);
-                        p[s]=(p[s]==p[s+1]);
-                        break;
-
-                   case 9:
-                        --s;
-                        printf("%d!=%d? (s en %d)",p[s],p[s+1],s);
-                        p[s]=(p[s]!=p[s+1]);
-                        break;
-
-                   case 10:
-                        --s;
-                        printf("%d<%d? (s en %d)",p[s],p[s+1],s);
-                        p[s]=(p[s]<p[s+1]);
-                        break;
-
-                   case 11:
-                        --s;
-                        printf("%d>=%d? (s en %d)",p[s],p[s+1],s);
-                        p[s]=(p[s]>=p[s+1]);
-                        break;
-
-                   case 12:
-                        --s;
-                        printf("%d>%d? (s en %d)",p[s],p[s+1],s);
-                        p[s]=(p[s]>p[s+1]);
-                        break;
-
-                   case 13:
-	                    --s;
-                        printf("%d<=%d? (s en %d)",p[s],p[s+1],s);
-                        p[s]=(p[s]<=p[s+1]);
-                        break;       
+                        break;      
                };
                break;
     
           case CAR:
-               p[++s]=p[base(i.ni,b)+i.di];
-	           printf("\nCAR : cargando %d en la direccion %d (s en %d)",p[base(i.ni,b)+i.di],s,s);
-               break;
-
+			  p[++s] = p[base(i.ni, b) + i.di.ival];
+			  printf("\nCAR : cargando %d en la direccion %d (s en %d)", p[base(i.ni, b) + i.di.ival].ival, s, s);
+			  break;
           case ALM:
-               printf("\nALM : almacenando %d en la direccion %d (s en %d)",p[s],base(i.ni,b)+i.di,s-1);
-               p[base(i.ni,b)+i.di]=p[s];
-               --s;
-               break;
-
+			  printf("\nALM : almacenando %d en la direccion %d (s en %d)", p[s].ival, base(i.ni, b) + i.di.ival, s - 1);
+			  p[base(i.ni, b) + i.di.ival] = p[s];
+			  --s;
+			  break;
           case LLA:
-               //generar un nuevo bloque
-               p[s+1]=base(i.ni,b);
-               p[s+2]=b;
-               p[s+3]=d;
-               printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d",p[s+1],p[s+2],p[s+3]);
+			  //generar un nuevo bloque
+			  p[s + 1].ival = base(i.ni, b);
+			  p[s + 2].ival = b;
+			  p[s + 3].ival = d;
+			  printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival);
 
-               b=s+1;d=i.di;
-               printf("\n    : nueva base %d, instruccion %d (s en %d)",b,d,s);
-               break;
-
+			  b = s + 1; d = i.di.ival;
+			  printf("\n    : nueva base %d, instruccion %d (s en %d)", b, d, s);
+			  break;
           case INS:
-               printf("\nINS : asignando %d espacios en el stack (s en %d)",i.di,s+i.di);
-               s+=i.di;
-               break;
-
+			  printf("\nINS : asignando %d espacios en el stack (s en %d)", i.di.ival, s + i.di.ival);
+			  s += i.di.ival;
+			  break;
           case SAL:
-               printf("\nSAL : saltando incondicionalmente a la instruccion %d (s en %d)",i.di,s);
-               d=i.di;
-               break;
+			  printf("\nSAL : saltando incondicionalmente a la instruccion %d (s en %d)", i.di, s);
+			  d = i.di.ival;
+			  break;
 
           case SAC:
-               printf("\nSAC : ");
-               if (p[s]==0) {
-                  d=i.di;
-                  printf("la condicion es falsa. saltando condicionalmente a la instruccion %d.",d);
-               }
-               else
-                  printf("la condicion es verdadera. prosigo en la instruccion %d",d);
+			  printf("\nSAC : ");
+			  if (p[s].ival == 0) {
+				  d = i.di.ival;
+				  printf("la condicion es falsa. saltando condicionalmente a la instruccion %d.", d);
+			  }
+			  else
+				  printf("la condicion es verdadera. prosigo en la instruccion %d", d);
 
-              --s;
-	          printf("(s en %d)",s);
-              break;
+			  --s;
+			  printf("(s en %d)", s);
+			  break;
     };
 
  } while (d!=0);
+}
+
+void operaciones(codigo_intermedio i, int *s)
+{
+	switch (i.di.ival) {
+	}
 }
  
 //base: encuentra la base ni niveles más abajo en el stack para la operación actual (CAR,ALM,LLA)
@@ -235,7 +193,7 @@ int base(int ni,int b)
  int b1;
  b1=b;
  while (ni>0) {
-       b1=p[b1];
+       b1=p[b1].ival;
        --ni;
  }
  return (b1);
@@ -251,6 +209,13 @@ void listar_p()
  for(i=0;i<ic;++i) {
      printf("\n %4d  %3s %5d %5d %s",i,mnemonico[codigo[i].f],codigo[i].ni,codigo[i].di,comentario[codigo[i].f]);
  }
+}
+
+void error(char mensaje[]){
+	printf("\n %s \n", mensaje);
+	printf("\n--Programa abortado--");
+	fclose(obj);
+	exit(1); //el error es fatal
 }
 
 
