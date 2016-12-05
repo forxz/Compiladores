@@ -38,10 +38,6 @@ void Program() {
 	value.tipo = 0; //ival
 	gen(SAL, 0, value);
 
-	value.tipo = 0;
-	value.ival = 3;
-	gen(INS, 0, value);
-
 	while (token == arrayTok || token == intTok || token == boolTok || token == charTok
 		|| token == stringTok || token == fileTok || token == floatTok){
 		// Prim(Expression) = {integer_val, bool_val, string_val, char_val, float_val} U Prim(Type)={int, bool, char, string, file, float}
@@ -68,6 +64,10 @@ void Program() {
 	//parchamos a la TDS y el código intermedio
 	//backpatching sobre TDS y código
 	codigo[dirInicioMain].di.ival = ic;
+
+	value.tipo = 0;
+	value.ival = idat;
+	gen(INS, 0, value);
 
 	if (token == mainTok){
 		tds_gobal = tds_it;			// Se gurada el indice de la tds donde comienzan las variables gloables 
