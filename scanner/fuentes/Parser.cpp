@@ -504,10 +504,6 @@ void Procedure_Definition(int toksig[]) {
 	int idat = 3;
 	int ic1 = ic;
 
-	value.tipo = 0;
-	value.ival = idat;
-	gen(INS, 0, value);
-
 	if (token == procedureTok){
 		obtoken();
 		if (token == identTok){

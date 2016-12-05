@@ -77,8 +77,9 @@ int main(int argc, char *argv[]) {
 		interpretar();
 	}
 
-	//printf("\n\nPresione una enter para finalizar");
-	//getchar();
+	printf("\n\nPresione una enter para finalizar");
+	fflush(stdin);
+	getchar();
 	return(0);
 }
 
@@ -98,13 +99,13 @@ void interpretar(void) {
 
 		//printf("\n\n d es %i b es %i s es %i \n", d, b ,s);
 		i = codigo[d++];
-		printf("\n\nejecutando la instruccion %4d: %3s %5d %5d tipo %i", d - 1, mnemonico[i.f], i.ni, i.di.ival, i.di.tipo);
+		//printf("\n\nejecutando la instruccion %4d: %3s %5d %5d tipo %i", d - 1, mnemonico[i.f], i.ni, i.di.ival, i.di.tipo);
 
 		switch (i.f) {
 		case LIT:
 			p[++s] = i.di;
 			p[s].tipo = i.di.tipo;
-			printf("\n\n LIT tipo %i %s \n", p[s].tipo, p[s].sval);
+			//printf("\n\n LIT tipo %i %s \n", p[s].tipo, p[s].sval);
 			//printf("\nLIT : cargando la literal %d en la direccion %d (s en %d)", i.di.ival, s, s);
 			break;
 
@@ -118,7 +119,7 @@ void interpretar(void) {
 				p[s] = p[aux];
 				d = p[s + 3].ival;
 				b = p[s + 2].ival;
-				printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
+				//printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
 				break;
 			case 1:
 			case 2:
@@ -150,11 +151,29 @@ void interpretar(void) {
 				p[s].bval = 1;
 				break;
 			case 15:
-				printf("scanf: ");
-				char str[80];
+				char str[200];
+				int resultI;
+				float resultF;
+				printf(" scanf: ");				
 				scanf("%79s", str);
-				strcpy_s(p[++s].sval, str);
-				p[s].tipo = 4;
+
+				resultI = atoi(str);
+				if (resultI != 0){
+					p[++s].ival = resultI;
+					p[s].tipo = 0;
+				}
+				else {
+					resultF = atof(str);
+					if (resultF != 0.0){
+						p[++s].fval = resultF;
+						p[s].tipo = 3;
+					}
+					else{
+						strcpy_s(p[++s].sval, str);
+						p[s].tipo = 4;
+					}
+				}
+				
 			case 16:
 				// sort array pending
 				break;
@@ -172,12 +191,12 @@ void interpretar(void) {
 			case 18:
 				if (p[s].tipo == 4 && p[s + 1].tipo == 4)
 				{
-					//printf(" concat (%s , %s) (s en %d)", p[s].sval, p[s + 1].sval, s);
+					//printf(" Compare (%s , %s) (s en %d)", p[s].sval, p[s + 1].sval, s);
 					int comp = strcmp(p[s].sval, p[s + 1].sval);
 					p[s].bval = comp == 0;
 					p[s].tipo = 1;
 				}
-				else error("Solo se pueden concatenera string");
+				else error("Solo se pueden comparar string");
 				break;
 			case 19:
 				if (p[s].tipo == 0)
@@ -194,6 +213,8 @@ void interpretar(void) {
 
 					p[s].ival = val == 0 ? 1 : r;
 				}
+				else error("Solo se puede calcular factorial de enteros");
+
 				break;
 			case 20:
 				// promedio de un arreglo
@@ -279,7 +300,7 @@ void interpretar(void) {
 					memParams++;
 				}				
 			}
-			printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d. numParametros: %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival, i.np);
+			//printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d. numParametros: %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival, i.np);
 
 			b = s + 1; d = i.di.ival;
 			//printf("\n    : nueva base %d, instruccion %d (s en %d)", b, d, s);
@@ -299,19 +320,18 @@ void interpretar(void) {
 			{
 				d = i.di.ival;
 				//printf("la condicion es falsa. saltando condicionalmente a la instruccion %d.", d);
-			}
-			else
+			}		
 				//printf("la condicion es verdadera. prosigo en la instruccion %d", d);
 
-				--s;
+			--s;
 			//printf("(s en %d)", s);
 			break;
 		};
-
-		getchar();
-
+		
 	} while (d != 0);
+	
 }
+
 
 void operaciones(codigo_intermedio i, int *s)
 {

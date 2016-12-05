@@ -1,22 +1,22 @@
 int c  	# Variable global
-int h
-function sumar (int n1, int n2) : int
-function sumar2(int n1, int n2) : int
-procedure sumar3 (int n1, int n2)
+
+procedure imprimir(string cadena)
 
 main {
 	int a = 3
 	int b = 2
-	array zapato <int>[5]
-	array zapato1<int>[5]
-	int k
+	int h
 
-/*qwerty ====== COMentario de bloque
-zaq*/**********\
-	c = sumar(a,2)
-	h = factorial(a)
-	print(c)
+/*---Este es un comentario de bloque 
+	Comentanto el codigo ----*\
+
+	imprimir("Hola Mundo en Simplex!!")	
+	imprimir("Escriba un numero pequeño plis:")
+	a = read()
+	h = factorial(a)	
+	print("El factorial es")
 	print(h)
+	
 	switch(c){
 		case 1 :
 			bool boleano = true
@@ -24,27 +24,10 @@ zaq*/**********\
 		case 5 :
 			print(c)
 		break
-	}
-	if (true){
-		print("El numero es negativo")
-	}else{
-		print("El numero es positivo")
-	}
+	}	
 }
 
-function sumar(int n1, int n2) : int {
-	int n
-	int h
-	return n1 + n2
-}
-
-function sumar2(int n1, int n2) : int {
-	int n
-	int h
-	return 2
-}
-
-procedure sumar3(int n1, int n2){
-	int n
-	int q
+procedure imprimir(string cad) {
+	
+	print(cad)
 }

@@ -1,4 +1,4 @@
-﻿Compilación iniciada a las 05/12/2016 15:04:40.
+﻿Compilación iniciada a las 05/12/2016 15:40:40.
      1>Proyecto "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" en el nodo 2 (Rebuild destinos).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\codigo_p.cpp ..\fuentes\conjuntos.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
@@ -26,4 +26,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:07.40
+Tiempo transcurrido 00:00:07.21
