@@ -677,7 +677,7 @@ void Block(int toksig[], int* idat)
 {
 	while (token == identTok || token == ifTok || token == switchTok || token == whileTok || token == forTok || token == repeatTok
 		|| token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok || token == powTok
-		|| token == substringTok || token == compareTok || token == printTok || IsType() || token == arrayTok || token == sortTok){
+		|| token == substringTok || token == compareTok || token == printTok || IsType() || token == arrayTok || token == sortTok || token == readTok){
 		// toksig
 		Instruction(toksig, idat);
 	}
@@ -808,6 +808,10 @@ void Instruction(int toksig[], int* idat) {
 		// toksig
 		copia_set(setpaso, toksig);
 		Sort(setpaso);
+		break;
+	case readTok:
+		copia_set(setpaso, toksig);
+		Read(setpaso);
 		break;
 	default:
 		error(56);
@@ -2237,7 +2241,7 @@ int isBlock(){
 
 	return (token == identTok || token == arrayTok || IsType() || token == ifTok || token == switchTok || token == whileTok || token == forTok ||
 		token == repeatTok || token == condTok || token == closeFileTok || token == openFileTok || token == factorialTok ||
-		token == powTok || token == substringTok || token == compareTok || token == printTok || token == sortTok);
+		token == powTok || token == substringTok || token == compareTok || token == printTok || token == sortTok || token == readTok);
 }
 
 int  isNumeric_Expression()
