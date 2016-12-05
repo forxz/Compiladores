@@ -57,28 +57,28 @@ int main(int argc, char *argv[]) {
 	if (argc != 2) //analizar argumentos de main
 		printf("\nuso: simplexMV nombre_de_archivo");
 	else
-		if ((obj = fopen(argv[1], "r+b")) == NULL)
-			printf("\nerror al abrir archivo %s", argv[1]);
-		else {
-			//leer el código desde el archivo hacia un array en memoria
-			ic = 0;
+	if ((obj = fopen(argv[1], "r+b")) == NULL)
+		printf("\nerror al abrir archivo %s", argv[1]);
+	else {
+		//leer el código desde el archivo hacia un array en memoria
+		ic = 0;
+		fread(&codigo[ic], sizeof(codigo_intermedio), 1, obj);
+		while (!feof(obj)) {
+			++ic;
 			fread(&codigo[ic], sizeof(codigo_intermedio), 1, obj);
-			while (!feof(obj)) {
-				++ic;
-				fread(&codigo[ic], sizeof(codigo_intermedio), 1, obj);
-			}
-			//cierra el archivo
-			fclose(obj);
-
-			listar_p(); //quita el comentario de esta línea si deseas verificar que el código se cargo al array correctamente
-
-			//interpreta el codigo-p 
-			interpretar();
 		}
+		//cierra el archivo
+		fclose(obj);
 
-		printf("\n\nPresione una enter para finalizar");
-		getchar();
-		return(0);
+		//listar_p(); //quita el comentario de esta línea si deseas verificar que el código se cargo al array correctamente
+
+		//interpreta el codigo-p 
+		interpretar();
+	}
+
+	printf("\n\nPresione una enter para finalizar");
+	getchar();
+	return(0);
 }
 
 //interpretar: interpreta código-p                
@@ -95,25 +95,27 @@ void interpretar(void) {
 	//bucle de ejecución
 	do {
 
+		//printf("\n\n d es %i b es %i s es %i \n", d, b ,s);
 		i = codigo[d++];
-		printf("\n\nejecutando la instruccion %4d: %3s %5d %5d", d - 1, mnemonico[i.f], i.ni, i.di.ival);
+		//printf("\n\nejecutando la instruccion %4d: %3s %5d %5d tipo %i", d - 1, mnemonico[i.f], i.ni, i.di.ival, i.di.tipo);
 
 		switch (i.f) {
 		case LIT:
 			p[++s] = i.di;
-			p[s].tipo = i.ni;
-			printf("\nLIT : cargando la literal %d en la direccion %d (s en %d)", i.di.ival, s, s);
+			p[s].tipo = i.di.tipo;
+			//printf("\n\n LIT tipo %i %s \n", p[s].tipo, p[s].sval);
+			//printf("\nLIT : cargando la literal %d en la direccion %d (s en %d)", i.di.ival, s, s);
 			break;
 
 		case OPR:
-			printf("\nOPR : ");
+			//printf("\nOPR : ");
 			//determinar de que operador se trata
 			switch (i.di.ival) {
 			case 0: //retornar o fin
 				s = --b;
 				d = p[s + 3].ival;
 				b = p[s + 2].ival;
-				printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
+				//printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
 				break;
 			case 1:
 			case 2:
@@ -133,52 +135,30 @@ void interpretar(void) {
 				else error("Los tipos no son iguales");
 				break;
 			case 14:
-				printf(" printf %d (s en %d)", p[s], s);
-				switch (p[s].tipo){
-				case 0: printf("\n %i \n", p[s].ival); break;
-				case 3: printf("\n %4f \n", p[s].fval); break;
-				case 2: printf("\n %c \n", p[s].cval); break;
-				case 4: printf("\n %s \n", p[s].sval); break;
-				case 1: printf("\n %i \n", p[s].bval); break;
+				//printf("printf %d (s en %d) tipo\n %s", p[s], s, p[s].sval);
+				switch (p[s].tipo)
+				{
+					case 0: printf("\n %i \n", p[s].ival); break;
+					case 3: printf("\n %4f \n", p[s].fval); break;
+					case 2: printf("\n %c \n", p[s].cval); break;
+					case 4: printf("\n %s \n", p[s].sval); break;
+					case 1: printf("\n %i \n", p[s].bval); break;
 				}
 				p[s].bval = 1;
 				break;
 			case 15:
-				printf("scanf");
-				switch (p[s].tipo)
-				{
-				case 0:
-					int i;
-					scanf_s("%i", &i);
-					p[++s].ival = i;
-					p[s].tipo = 0;
-					break;
-				case 3:
-					double f;
-					scanf_s("%f", &f);
-					p[++s].fval = f;
-					p[s].tipo = 3;
-					break;
-				case 2:
-					char c;
-					scanf_s("%c", &c);
-					p[++s].cval = c;
-					p[s].tipo = 2;
-					break;
-				case 4:
-					char str[80];
-					scanf_s("%79s", str);
-					strcpy_s(p[++s].sval, str);
-					p[s].tipo = 4;
-					break;
-				}
+				//printf("scanf");
+				char str[80];
+				scanf_s("%79s", str);
+				strcpy_s(p[++s].sval, str);
+				p[s].tipo = 4;
 			case 16:
 				// sort array pending
 				break;
 			case 17:
 				if (p[s].tipo == 4 && p[s + 1].tipo == 4)
 				{
-					printf(" concat (%s , %s) (s en %d)", p[s].sval, p[s + 1].sval, s);
+					//printf("concat (%s , %s) (s en %d)", p[s].sval, p[s + 1].sval, s);
 					char str[80];
 					strcpy_s(str, p[s].sval);
 					strcat_s(str, p[s + 1].sval);
@@ -189,7 +169,7 @@ void interpretar(void) {
 			case 18:
 				if (p[s].tipo == 4 && p[s + 1].tipo == 4)
 				{
-					printf(" concat (%s , %s) (s en %d)", p[s].sval, p[s + 1].sval, s);
+					//printf(" concat (%s , %s) (s en %d)", p[s].sval, p[s + 1].sval, s);
 					int comp = strcmp(p[s].sval, p[s + 1].sval);
 					p[s].bval = comp == 0;
 					p[s].tipo = 1;
@@ -197,7 +177,20 @@ void interpretar(void) {
 				else error("Solo se pueden concatenera string");
 				break;
 			case 19:
-				// Factorial
+				if (p[s].tipo == 0)
+				{
+					//printf("factorial de  %d (s en %d)", p[s].ival, s);
+					int val = p[s].ival;
+					int temp = val - 1;
+					int r = val;
+					while (temp >= 1)
+					{
+						r = r*temp;
+						temp--;
+					}
+
+					p[s].ival = val == 0 ? 1 : r;
+				}
 				break;
 			case 20:
 				// promedio de un arreglo
@@ -205,7 +198,7 @@ void interpretar(void) {
 			case 21:
 				if (p[s].tipo == 4 && p[s + 1].tipo == 4)
 				{
-					printf(" pow(%d , %d) (s en %d)", p[s].ival, p[s + 1].ival, s);
+					//printf(" pow(%d , %d) (s en %d)", p[s].ival, p[s + 1].ival, s);
 					p[s].fval = pow((double)p[s].ival, p[s + 1].ival);
 					p[s].tipo = 3;
 				}
@@ -214,7 +207,7 @@ void interpretar(void) {
 			case 22:
 				if (p[s].tipo == 0)
 				{
-					printf("Even(%d) (s en %d)", p[s].ival, s);
+					//printf("Even(%d) (s en %d)", p[s].ival, s);
 					p[s].bval = (p[s].ival % 2 == 0);
 					p[s].tipo = 1;
 				}
@@ -223,7 +216,7 @@ void interpretar(void) {
 			case 23:
 				if (p[s].tipo == 4 && p[s + 1].tipo == 0 && p[s + 2].tipo == 0)
 				{
-					printf("Substring(%s, %d, %d) (s en %d)", p[s].sval, p[s + 1].ival, p[s + 2].ival, s);
+					//printf("Substring(%s, %d, %d) (s en %d)", p[s].sval, p[s + 1].ival, p[s + 2].ival, s);
 
 					char substr[70];
 					strncpy_s(substr, p[s].sval + p[s + 1].ival, p[s + 2].ival);
@@ -232,16 +225,16 @@ void interpretar(void) {
 				}
 				else error("Substring: error de tipos");
 				break;
-			case 24: 
+			case 24:
 				// Open file
 				break;
-			case 25: 
+			case 25:
 				// close file
 				break;
 			case 26:
 				if (p[s].tipo == 1 && p[s + 1].tipo == 1)
 				{
-					printf("boolean %d and %d (s en %d)", p[s].bval, p[s + 1].bval, s);
+					//printf("boolean %d and %d (s en %d)", p[s].bval, p[s + 1].bval, s);
 					p[s].bval = p[s].bval && p[s + 1].bval;
 				}
 				else error("debe usar solo valores booleandos");
@@ -249,56 +242,61 @@ void interpretar(void) {
 			case 27:
 				if (p[s].tipo == 1 && p[s + 1].tipo == 1)
 				{
-					printf("boolean %d or %d (s en %d)", p[s].bval, p[s + 1].bval, s);
+					//printf("boolean %d or %d (s en %d)", p[s].bval, p[s + 1].bval, s);
 					p[s].bval = p[s].bval || p[s + 1].bval;
 				}
 				else error("debe usar solo valores booleandos");
+				break;
+			case 40:
+				d = 0;
 				break;
 			}
 			break;
 
 		case CAR:
-			p[++s] = p[base(i.ni, b) + i.di.ival];
-			printf("\nCAR : cargando %d en la direccion %d (s en %d)", p[base(i.ni, b) + i.di.ival].ival, s, s);
+			p[++s] = p[i.di.ival];
+			//printf("\nCAR : cargando %d en la direccion %d (s en %d)", p[base(i.ni, b) + i.di.ival].ival, s, s);
 			break;
 		case ALM:
-			printf("\nALM : almacenando %d en la direccion %d (s en %d)", p[s].ival, base(i.ni, b) + i.di.ival, s - 1);
-			p[base(i.ni, b) + i.di.ival] = p[s];
+			//printf("\nALM : almacenando %d en la direccion %d (s en %d)", p[s].ival, base(i.ni, b) + i.di.ival, s - 1);
+			p[i.di.ival] = p[s];
 			--s;
 			break;
 		case LLA:
 			//generar un nuevo bloque
-			p[s + 1].ival = base(i.ni, b);
+			p[s + 1].ival = i.ni;
 			p[s + 2].ival = b;
 			p[s + 3].ival = d;
-			printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival);
+			//printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival);
 
 			b = s + 1; d = i.di.ival;
-			printf("\n    : nueva base %d, instruccion %d (s en %d)", b, d, s);
+			//printf("\n    : nueva base %d, instruccion %d (s en %d)", b, d, s);
 			break;
 		case INS:
-			printf("\nINS : asignando %d espacios en el stack (s en %d)", i.di.ival, s + i.di.ival);
+			//printf("\nINS : asignando %d espacios en el stack (s en %d)", i.di.ival, s + i.di.ival);
 			s += i.di.ival;
 			break;
 		case SAL:
-			printf("\nSAL : saltando incondicionalmente a la instruccion %d (s en %d)", i.di, s);
+			//printf("\nSAL : saltando incondicionalmente a la instruccion %d (s en %d)", i.di, s);
 			d = i.di.ival;
 			break;
 
 		case SAC:
-			printf("\nSAC : ");
+			//printf("\nSAC : ");
 			if (p[s].ival == 0)
 			{
 				d = i.di.ival;
-				printf("la condicion es falsa. saltando condicionalmente a la instruccion %d.", d);
+				//printf("la condicion es falsa. saltando condicionalmente a la instruccion %d.", d);
 			}
 			else
-				printf("la condicion es verdadera. prosigo en la instruccion %d", d);
+				//printf("la condicion es verdadera. prosigo en la instruccion %d", d);
 
-			--s;
-			printf("(s en %d)", s);
+				--s;
+			//printf("(s en %d)", s);
 			break;
 		};
+
+		//	getchar();
 
 	} while (d != 0);
 }
@@ -309,48 +307,48 @@ void operaciones(codigo_intermedio i, int *s)
 	case 1:
 		if (p[*s].tipo == 0)
 		{
-			printf("- unario para %d (s en %d)", p[*s].ival, s);
+			//printf("- unario para %d (s en %d)", p[*s].ival, s);
 			p[*s].ival = -p[*s].ival;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("- unario para %f (s en %d)", p[*s].fval, s);
+			//printf("- unario para %f (s en %d)", p[*s].fval, s);
 			p[*s].fval = -p[*s].fval;
 		}
 		else error("datos incorrectos");
 		break;
 	case 2:
 		if (p[*s].tipo == 0){
-			printf("suma de %d + %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("suma de %d + %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].ival = p[*s].ival + p[*s + 1].ival;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("suma de %f + %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("suma de %f + %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].fval = p[*s].fval + p[*s + 1].fval;
 		}
 		else error("este tipo de dato no se puede sumar");
 		break;
 	case 3:
 		if (p[*s].tipo == 0){
-			printf("resta de %d - %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("resta de %d - %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].ival = p[*s].ival - p[*s + 1].ival;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("resta de %f - %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("resta de %f - %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].fval = p[*s].fval - p[*s + 1].fval;
 		}
 		else error("este tipo de dato no se puede restar");
 		break;
 	case 4:
 		if (p[*s].tipo == 0){
-			printf("multiplicacion de %d * %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("multiplicacion de %d * %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].ival = p[*s].ival * p[*s + 1].ival;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("multiplicacion de %f * %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("multiplicacion de %f * %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].fval = p[*s].fval * p[*s + 1].fval;
 		}
 		else error("este tipo de dato no se puede multiplicar");
@@ -360,13 +358,13 @@ void operaciones(codigo_intermedio i, int *s)
 		if (p[*s].tipo == 0)
 		{
 			if (p[*s + 1].ival == 0) error("divicion entre 0 no permitida");
-			printf("divicion de %d / %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("divicion de %d / %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].ival = p[*s].ival / p[*s + 1].ival;
 		}
 		else if (p[*s].tipo == 3)
 		{
 			if (p[*s + 1].fval == 0) error("divicion entre 0 no permitida");
-			printf("divicion de %f / %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("divicion de %f / %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].fval = p[*s].fval / p[*s + 1].fval;
 		}
 		else error("este tipo de dato no se puede dividir");
@@ -374,7 +372,7 @@ void operaciones(codigo_intermedio i, int *s)
 	case 6:
 		if (p[*s].tipo == 0)
 		{
-			printf("modulo de %d % %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("modulo de %d % %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].ival = p[*s].ival % p[*s + 1].ival;
 		}
 		else error("este tipo de dato no puede evaluar modulo");
@@ -382,13 +380,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 7:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d == %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d == %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival == p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f == %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f == %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval == p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -397,13 +395,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 8:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d != %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d != %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival != p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f != %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f != %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval != p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -412,13 +410,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 9:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d < %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d < %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival < p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f < %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f < %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval < p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -427,13 +425,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 10:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d >= %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d >= %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival >= p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f >= %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f >= %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval >= p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -442,13 +440,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 11:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d > %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d > %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival > p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f > %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f > %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval > p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -457,13 +455,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 12:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d <= %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d <= %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival <= p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f <= %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f <= %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval <= p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -472,13 +470,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 13:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d != %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d != %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival != p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f != %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f != %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval != p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -506,8 +504,9 @@ void listar_p()
 
 	printf("\n\n --Listado de codigo-p simplificado generado por el compilador--\n\n");
 
-	for (i = 0; i<ic; ++i) {
-		printf("\n %4d  %3s %5d %5d %s", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di, comentario[codigo[i].f]);
+	for (i = 0; i<ic; ++i)
+	{
+		printf("\n %4d  %3s %5d %5d", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di.tipo);
 	}
 }
 
@@ -517,5 +516,3 @@ void error(char mensaje[]){
 	fclose(obj);
 	exit(1); //el error es fatal
 }
-
-
