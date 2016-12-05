@@ -13,7 +13,15 @@ main {
 
 /*qwerty ====== COMentario de bloque
 zaq*/**********\
-	c = sumar(ref a,2)
+	c = sumar(a,2)
+	switch(c){
+		case 1 :
+			bool boleano = true
+		break
+		case 5 :
+			print(c)
+		break
+	}	
 	if (true){
 		print("El numero es negativo")
 	}else{
@@ -21,7 +29,7 @@ zaq*/**********\
 	}
 }
 
-function sumar(ref int n1, int n2) : int {
+function sumar(int n1, int n2) : int {
 	int n
 	int h
 	return 2

@@ -65,8 +65,10 @@ void SetTable(enum objeto k, char name[], int *idat){
 		case File:
 		case FLOAT:
 		case CHAR:			
-			nuevo->dir = *idat;
-			*idat = *idat + 1;
+			if (idat != NULL){
+				nuevo->dir = *idat;
+				*idat = *idat + 1;
+			}
 			break;
 	};
 
