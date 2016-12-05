@@ -13,12 +13,13 @@ typedef struct {
 } Tipo_Var;
 
 typedef struct {
- enum fcn f; //mnemónico
- int     ni; //nivel (0..MAXNIV)
- Tipo_Var     di; //dirección o desplazamiento (0..32767)
+ enum fcn		f;		//mnemónico
+ int			ni;		//nivel (0..MAXNIV)
+ Tipo_Var		di;		//dirección o desplazamiento (0..32767)
+ int			np;		//Número de parámetros para subrutinas
 } codigo_intermedio;
 
 extern codigo_intermedio codigo[MAXIC]; //array con las instrucciones de codigo-p
 extern int ic;                          //índice sobre el array de código-p
 
-void gen (enum fcn x, int y, Tipo_Var z), listar_p(), escribe_codigop(char *fuente);
+void gen (enum fcn x, int y, Tipo_Var z, int np = 0), listar_p(), escribe_codigop(char *fuente);

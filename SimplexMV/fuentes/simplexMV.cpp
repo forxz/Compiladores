@@ -29,6 +29,7 @@ typedef struct {
 	enum fcn f; //mnemónico
 	int     ni; //nivel (0..MAXNIV)
 	Tipo_Var     di; //dirección o desplazamiento (0..32767)
+	int		np;
 } codigo_intermedio;
 
 codigo_intermedio codigo[MAXIC]; //array con las instrucciones de codigo-p

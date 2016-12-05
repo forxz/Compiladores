@@ -1297,18 +1297,16 @@ void Subroutine_Call(int toksig[]) {
 				error(44); // La función esperaba mas parametros
 			else if ((index - 1) > reg->params.length)
 				error(45); // Se superó el número de parametros esperados la función
+	
 
-			//if (token == parentRTok){
-			//	obtoken();
-			//}
-			//else error(17);//Se esperaba )
+
 		}
 		if (token == parentRTok){
 			obtoken();
 
 			value.tipo = 0;
 			value.ival = 0;
-			gen(LLA, reg->index, value);
+			gen(LLA, reg->index, value, reg->params.length);
 
 		}
 		else error(17); //Se esperaba )

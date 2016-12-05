@@ -6,7 +6,7 @@ procedure sumar3 (int n1, int n2)
 
 main {
 	int a = 3
-	int b = 2
+	int b = 2;
 	array zapato <int>[5]
 	array zapato1<int>[5]
 	int k

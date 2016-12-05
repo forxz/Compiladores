@@ -1,0 +1,2 @@
+53,Se esperaba expresión,9,11
+42,Símbolo desconocido,9,11

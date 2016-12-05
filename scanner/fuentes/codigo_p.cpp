@@ -12,7 +12,7 @@ int ic;                          //índice sobre el array de código
 //gen
 //coloca una instrucción más en el array de código intermedio
 //ic se deja al final una posición adelante.                    
-void gen (enum fcn x,int y,Tipo_Var z)
+void gen (enum fcn x,int y,Tipo_Var z, int np)
 {
  if (ic > MAXIC-1) {
   error(74); //error fatal: no queda más que terminar la compilación por una limitación específica del compilador
@@ -26,6 +26,7 @@ void gen (enum fcn x,int y,Tipo_Var z)
  codigo[ic].f  = x;
  codigo[ic].ni = y;
  codigo[ic].di = z;
+ codigo[ic].np = np;
 
  ++ic;
 }
