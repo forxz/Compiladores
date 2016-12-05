@@ -305,29 +305,75 @@ Public Class Form1
     Private Sub EjecutarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EjecutarToolStripMenuItem.Click
         'Shell("cmd.exe", AppWinStyle.NormalFocus)
         Dim p As New Process
+        'Dim salida As String
+
+        p.StartInfo.UseShellExecute = False
+        p.StartInfo.RedirectStandardOutput = True
+        p.StartInfo.RedirectStandardError = True
+        p.StartInfo.FileName = "parser.exe"
+        p.StartInfo.Arguments = Chr(34) + rutaArchivo
+        p.Start()
+        'salida = p.StandardOutput.ReadToEnd        
+        p.WaitForExit()
+        'Cargar resultados de archivo de texto del scanner, parser
+
+        DataGridView1.Rows.Clear()
+        DataGridView1.Show()
+        If (File.Exists("errores.txt")) Then
+            Try
+                Dim leer As New StreamReader(Path.GetFullPath("errores.txt"))
+                Dim texto As String = ""
+                Dim count As Integer = 5
+                Dim split As String() = Nothing
+                texto = leer.ReadLine()
+                If (texto Is Nothing) Then
+                    MessageBox.Show("Compilación exitosa!!", "Compilación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    While (Not texto Is Nothing)
+                        active_color = False
+                        split = texto.Split(New Char() {","}, count)
+                        DataGridView1.Rows.Add(split(0), split(1), split(2), split(3))
+                        texto = leer.ReadLine()
+                    End While
+                End If
+                leer.Close()
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        Else
+            'No existe archivo
+            MessageBox.Show("No se pudo obtener infomarción de la compilación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        '---------------------------- llamada a la maquina virtual -------------------------------
+
+        Dim a As New Process
         Dim m As New Process
         Dim rutaVM As String
         Dim salidaStd As String
         Dim salidaEr As String
         Dim rutaCp As String
 
-
         m.StartInfo.UseShellExecute = False
         m.StartInfo.RedirectStandardOutput = True
         m.StartInfo.RedirectStandardError = True
-        rutaVM = Directory.GetCurrentDirectory + "\pl0mv\pl0mv\Debug\pl0mv.exe"
+        ' rutaVM = Directory.GetCurrentDirectory + "\pl0mv\pl0mv\Debug\SimplexMv.exe" 'cambiar ruta
+        rutaVM = (Path.GetFullPath("SimplexMv.exe"))
         m.StartInfo.FileName = rutaVM
-        Dim sp As String() = rutaArchivo.Split(".")
-        rutaCp = sp(0) + ".obp"
 
-        m.StartInfo.Arguments = Chr(34) + rutaCp + Chr(34)
-        m.Start()
-        salidaStd = p.StandardOutput.ReadToEnd
-        salidaEr = p.StandardError.ReadToEnd
-        MessageBox.Show(salidaStd.ToString())
+        If (File.Exists("SimplexMv.exe")) Then
+            Dim sp As String() = rutaArchivo.Split(".")
+            rutaCp = sp(0) + ".ob"
 
+            m.StartInfo.Arguments = Chr(34) + rutaCp + Chr(34)
+            m.Start()
+            salidaStd = a.StandardOutput.ReadToEnd
+            salidaEr = a.StandardError.ReadToEnd
+            MessageBox.Show(salidaStd.ToString())
+        Else
+            MessageBox.Show("No se encontro el archivo de la maquina virtual", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-        m.WaitForExit()
-        'historial.Show()
+            m.WaitForExit()
+        End If
+
     End Sub
 End Class
