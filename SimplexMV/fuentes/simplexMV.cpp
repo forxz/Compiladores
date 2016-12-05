@@ -151,7 +151,7 @@ void interpretar(void) {
 			case 15:
 				printf("scanf: ");
 				char str[80];
-				scanf_s("%79s", str);
+				scanf("%79s", str);
 				strcpy_s(p[++s].sval, str);
 				p[s].tipo = 4;
 			case 16:
@@ -389,7 +389,7 @@ void operaciones(codigo_intermedio i, int *s)
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("\ncomparacion de %f == %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("\ncomparacion de %f == %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval == p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -413,13 +413,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 9:
 		if (p[*s].tipo == 0)
 		{
-			printf("comparacion de %d < %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("comparacion de %d < %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival < p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			printf("comparacion de %f < %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			//printf("comparacion de %f < %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval < p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
