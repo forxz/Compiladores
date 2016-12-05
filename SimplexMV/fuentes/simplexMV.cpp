@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define MAXIC     200  //tamaño máximo del array de código-p
+#define MAXIC     1500  //tamaño máximo del array de código-p
 #define LONGSTACK 500  //tamaño-longitud del stack de datos                    
 
 //instrucciones(mnemónicos) del código-p
@@ -26,10 +26,10 @@ typedef struct {
 } Tipo_Var;
 
 typedef struct {
-	enum fcn f; //mnemónico
-	int     ni; //nivel (0..MAXNIV)
-	Tipo_Var     di; //dirección o desplazamiento (0..32767)
-	int		np;
+	enum fcn	f; //mnemónico
+	int			ni; //nivel (0..MAXNIV)
+	Tipo_Var	di; //dirección o desplazamiento (0..32767)
+	int			np;
 } codigo_intermedio;
 
 codigo_intermedio codigo[MAXIC]; //array con las instrucciones de codigo-p
@@ -98,13 +98,13 @@ void interpretar(void) {
 
 		//printf("\n\n d es %i b es %i s es %i \n", d, b ,s);
 		i = codigo[d++];
-		//printf("\n\nejecutando la instruccion %4d: %3s %5d %5d tipo %i", d - 1, mnemonico[i.f], i.ni, i.di.ival, i.di.tipo);
+		printf("\n\nejecutando la instruccion %4d: %3s %5d %5d tipo %i", d - 1, mnemonico[i.f], i.ni, i.di.ival, i.di.tipo);
 
 		switch (i.f) {
 		case LIT:
 			p[++s] = i.di;
 			p[s].tipo = i.di.tipo;
-			//printf("\n\n LIT tipo %i %s \n", p[s].tipo, p[s].sval);
+			printf("\n\n LIT tipo %i %s \n", p[s].tipo, p[s].sval);
 			//printf("\nLIT : cargando la literal %d en la direccion %d (s en %d)", i.di.ival, s, s);
 			break;
 
@@ -118,7 +118,7 @@ void interpretar(void) {
 				p[s] = p[aux];
 				d = p[s + 3].ival;
 				b = p[s + 2].ival;
-				//printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
+				printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
 				break;
 			case 1:
 			case 2:
@@ -270,7 +270,16 @@ void interpretar(void) {
 			p[s + 1].ival = base(i.ni, b);
 			p[s + 2].ival = b;
 			p[s + 3].ival = d;
-			//printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival);
+
+			if (i.np > 0){ // Colocar al tope de la pila y del nuevo segmento los valores de los parametros
+				int memParams = s + 4, is = i.np-1;
+				while (is >= 0){
+					p[memParams] = p[s - is];
+					is--;
+					memParams++;
+				}				
+			}
+			printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d. numParametros: %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival, i.np);
 
 			b = s + 1; d = i.di.ival;
 			//printf("\n    : nueva base %d, instruccion %d (s en %d)", b, d, s);
@@ -299,7 +308,7 @@ void interpretar(void) {
 			break;
 		};
 
-		//getchar();
+		getchar();
 
 	} while (d != 0);
 }

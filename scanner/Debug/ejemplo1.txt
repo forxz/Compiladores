@@ -6,7 +6,7 @@ procedure sumar3 (int n1, int n2)
 
 main {
 	int a = 3
-	int b = 2;
+	int b = 2
 	array zapato <int>[5]
 	array zapato1<int>[5]
 	int k
@@ -14,6 +14,9 @@ main {
 /*qwerty ====== COMentario de bloque
 zaq*/**********\
 	c = sumar(a,2)
+	h = factorial(a)
+	print(c)
+	print(h)
 	switch(c){
 		case 1 :
 			bool boleano = true
@@ -21,7 +24,7 @@ zaq*/**********\
 		case 5 :
 			print(c)
 		break
-	}	
+	}
 	if (true){
 		print("El numero es negativo")
 	}else{
@@ -32,7 +35,7 @@ zaq*/**********\
 function sumar(int n1, int n2) : int {
 	int n
 	int h
-	return 2
+	return n1 + n2
 }
 
 function sumar2(int n1, int n2) : int {

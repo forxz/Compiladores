@@ -24,7 +24,7 @@ Param_Declaration(int toksig[]), Array_Param(int toksig[]), Type(int toksig[]), 
 String_Expression(int toksig[]), Char_Expression(int toksig[]), Float_Expression(int toksig[]), Float_Function(int toksig[]), Integer_Function(int toksig[]), String_Function(int toksig[]), Bool_Function(int toksig[]),
 Subroutine_Call(int toksig[]), Aritmethic_Expression(int toksig[]), Term(int toksig[]), Factor(int toksig[]), If(int toksig[], int* idat), Switch(int toksig[], int* idat), While(int toksig[], int* idat), For(int toksig[], int* idat), Repeat(int toksig[], int* idat), Average(int toksig[]), CloseFile(int toksig[]), Compare(int toksig[]),
 Concat(int toksig[]), Even(int toksig[]), Factorial(int toksig[]), OpenFile(int toksig[]), Pow(int toksig[]), Substring(int toksig[]), Print(int toksig[]), Read(int toksig[]), Sort(int toksig[]), Cond(int toksig[], int* idat), CondAux(int toksig[], int numConds[], int* i, int* idat), Numeric_Expression(int toksig[]), Conjunction_Expression(int toksig[]),
-Relational_Expression(int toksig[]), AddObject();
+Relational_Expression(int toksig[]), AddObject(int *idat = NULL);
 int SwitchAux(int toksig[], int* idat, int variable);
 void patchSubCalls(int iTds, int icSub);
 
@@ -367,11 +367,7 @@ void Function_Definition(int toksig[]) {
 	int setpaso[NOTOKENS];
 	int vacio[NOTOKENS] = { 0 };
 	int idat = 3;
-	int ic1 = ic;
-
-	value.tipo = 0;
-	value.ival = idat;
-	gen(INS, 0, value);
+	int ic1 = ic;	
 
 	if (token == functionTok){
 		obtoken();
@@ -380,8 +376,12 @@ void Function_Definition(int toksig[]) {
 			if (globalExist != NULL && globalExist->tipo == DEC_FUNCTION)
 			{
 				registro *localExist = LocalSearch();
-				if (localExist == NULL)
-				{
+				if (localExist == NULL) {
+
+					value.tipo = 0;
+					value.ival = idat + globalExist->params.length + 1;
+					gen(INS, 0, value);
+
 					char functionName[100];
 					strcpy(functionName, nametok);
 					obtoken();
@@ -402,7 +402,8 @@ void Function_Definition(int toksig[]) {
 						copia_set(setpaso, toksig);
 						setpaso[arrayTok] = 1;
 						Param_Declaration(setpaso);
-						AddObject();
+
+						AddObject(&idat);
 						listaParametros[index] = currentObject;
 						while (token == commaTok)
 						{
@@ -416,7 +417,7 @@ void Function_Definition(int toksig[]) {
 							copia_set(setpaso, toksig);
 							setpaso[arrayTok] = 1;
 							Param_Declaration(setpaso);
-							AddObject();
+							AddObject(&idat);
 							listaParametros[index] = currentObject;
 						}
 					}
@@ -489,17 +490,16 @@ void Function_Definition(int toksig[]) {
 	else error(1); //Se esperaba declaración de función o procedimiento o main
 }
 
-void AddObject()
+void AddObject(int *idat)
 {
 	registro *localExist = LocalSearch();
 	if (localExist == NULL) {
-		SetTable(paramDeclaration->tipo, paramDeclaration->name);
+		SetTable(paramDeclaration->tipo, paramDeclaration->name, idat? idat: NULL);
 	}
 	else error(3);
 }
 
 void Procedure_Definition(int toksig[]) {
-
 	int setpaso[NOTOKENS];
 	int idat = 3;
 	int ic1 = ic;
@@ -512,11 +512,13 @@ void Procedure_Definition(int toksig[]) {
 		obtoken();
 		if (token == identTok){
 			registro *globalExist = GlobalSearch();
-			if (globalExist != NULL && globalExist->tipo == DEC_PROCEDURE)
-			{
+			if (globalExist != NULL && globalExist->tipo == DEC_PROCEDURE) {
+				value.tipo = 0;
+				value.ival = idat + globalExist->params.length + 1;
+				gen(INS, 0, value);
+					
 				registro *localExist = LocalSearch();
-				if (localExist == NULL)
-				{
+				if (localExist == NULL) {
 					char functionName[100];
 					strcpy(functionName, nametok);
 					obtoken();
@@ -538,7 +540,7 @@ void Procedure_Definition(int toksig[]) {
 						setpaso[arrayTok] = 1;
 						Param_Declaration(setpaso);
 
-						AddObject();
+						AddObject(&idat);
 						listaParametros[index] = currentObject;
 						while (token == commaTok){
 							index++;
@@ -553,7 +555,7 @@ void Procedure_Definition(int toksig[]) {
 							setpaso[arrayTok] = 1;
 							Param_Declaration(setpaso);
 
-							AddObject();
+							AddObject(&idat);
 							listaParametros[index] = currentObject;
 						}
 					}
@@ -709,9 +711,10 @@ void Instruction(int toksig[], int* idat) {
 
 		// consultar tds				
 		name = nametok;
-		localExist = GeneralSearch();
-		if (localExist != NULL)
-		{
+		localExist = GeneralSearch();		
+
+		if (localExist != NULL) {
+
 			if (isVariable(localExist->tipo)){ // Si es variable Assignation
 				// toksig U Prim(Expression) U Prim(Integer_Expression)
 				union_set(setpaso, toksig, tokiniexp);
@@ -724,7 +727,9 @@ void Instruction(int toksig[], int* idat) {
 			}
 		}
 		else{
-			error(2); // Variable no declarada
+			obtoken();
+			init_set(setpaso);			// Salto explícito
+			test(setpaso, toksig, 2);	// Variable no declarada
 		}
 
 		break;
@@ -1218,7 +1223,7 @@ void Subroutine_Call(int toksig[]) {
 
 		if (token == parentLTok) obtoken();
 		else error(16); // falta (
-
+		//comienzan parametros
 		if (token == refTok || IsExpression()){
 			// Incluir validación para parámetros por referencia
 			if (token == refTok){
@@ -1242,7 +1247,7 @@ void Subroutine_Call(int toksig[]) {
 					}
 				}
 			}
-			else{
+			else {
 				// verificar que en este indice no lleva parametro por referencia si es un identificador					
 				if (reg->params.refParams[index] == 1)
 					error(36); // Se esperaba parámetro por referencia	
@@ -1298,15 +1303,16 @@ void Subroutine_Call(int toksig[]) {
 			else if ((index - 1) > reg->params.length)
 				error(45); // Se superó el número de parametros esperados la función
 	
-
-
 		}
 		if (token == parentRTok){
 			obtoken();
 
+			// Poner al tope de la pila los parametros
+
+
 			value.tipo = 0;
 			value.ival = 0;
-			gen(LLA, reg->index, value, reg->params.length);
+			gen(LLA, reg->index, value, reg->params.length +1);
 
 		}
 		else error(17); //Se esperaba )
@@ -2244,7 +2250,8 @@ int isBlock(){
 
 int  isNumeric_Expression()
 {
-	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok;
+	return token == minusTok || token == identTok || token == floatValTok || token == numberValTok || token == factorialTok
+		|| token == powTok || token == averageTok;
 }
 
 int IsBoolExpression()
