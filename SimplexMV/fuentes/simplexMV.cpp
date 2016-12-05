@@ -76,8 +76,8 @@ int main(int argc, char *argv[]) {
 		interpretar();
 	}
 
-	printf("\n\nPresione una enter para finalizar");
-	getchar();
+	//printf("\n\nPresione una enter para finalizar");
+	//getchar();
 	return(0);
 }
 
@@ -88,7 +88,7 @@ void interpretar(void) {
 	register int b;       //registro de dirección base
 	register int s;       //apuntador al tope del stack
 	codigo_intermedio i;  //registro de instrucción: contiene la siguiente instrucción a ejecutar		     
-
+	int aux;
 	s = -1; b = 0; d = 0;
 	p[0].ival = p[1].ival = p[2].ival = 0;  //ED,EE y DR para el programa principal
 
@@ -112,7 +112,9 @@ void interpretar(void) {
 			//determinar de que operador se trata
 			switch (i.di.ival) {
 			case 0: //retornar o fin
+				aux = s;
 				s = --b;
+				p[s] = p[aux];
 				d = p[s + 3].ival;
 				b = p[s + 2].ival;
 				//printf("retornar a la instruccion %d, base=%d (s en %d)", d, b, s);
@@ -254,17 +256,17 @@ void interpretar(void) {
 			break;
 
 		case CAR:
-			p[++s] = p[i.di.ival];
+			p[++s] = p[base(i.ni, b) + i.di.ival];
 			//printf("\nCAR : cargando %d en la direccion %d (s en %d)", p[base(i.ni, b) + i.di.ival].ival, s, s);
 			break;
 		case ALM:
 			//printf("\nALM : almacenando %d en la direccion %d (s en %d)", p[s].ival, base(i.ni, b) + i.di.ival, s - 1);
-			p[i.di.ival] = p[s];
+			p[base(i.ni, b) + i.di.ival] = p[s];
 			--s;
 			break;
 		case LLA:
 			//generar un nuevo bloque
-			p[s + 1].ival = i.ni;
+			p[s + 1].ival = base(i.ni, b);
 			p[s + 2].ival = b;
 			p[s + 3].ival = d;
 			//printf("\nLLA : activando subrutina, enlaces y DR: %d %d %d", p[s + 1].ival, p[s + 2].ival, p[s + 3].ival);
@@ -273,7 +275,7 @@ void interpretar(void) {
 			//printf("\n    : nueva base %d, instruccion %d (s en %d)", b, d, s);
 			break;
 		case INS:
-			//printf("\nINS : asignando %d espacios en el stack (s en %d)", i.di.ival, s + i.di.ival);
+			//printf("\nINS : asignando %d espacios en el stack (s en %d)\n", i.di.ival, s + i.di.ival);
 			s += i.di.ival;
 			break;
 		case SAL:
@@ -283,7 +285,7 @@ void interpretar(void) {
 
 		case SAC:
 			//printf("\nSAC : ");
-			if (p[s].ival == 0)
+			if (p[s].bval == false)
 			{
 				d = i.di.ival;
 				//printf("la condicion es falsa. saltando condicionalmente a la instruccion %d.", d);
@@ -296,7 +298,7 @@ void interpretar(void) {
 			break;
 		};
 
-		//	getchar();
+		//getchar();
 
 	} while (d != 0);
 }
@@ -319,7 +321,8 @@ void operaciones(codigo_intermedio i, int *s)
 		break;
 	case 2:
 		if (p[*s].tipo == 0){
-			//printf("suma de %d + %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("s %i",*s);
+			//printf("s %i suma de %d + %d (s en %d)\n", *s, p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].ival = p[*s].ival + p[*s + 1].ival;
 		}
 		else if (p[*s].tipo == 3)
@@ -380,13 +383,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 7:
 		if (p[*s].tipo == 0)
 		{
-			//printf("comparacion de %d == %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			//printf("\n comparacion de %d == %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival == p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			//printf("comparacion de %f == %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			printf("\ncomparacion de %f == %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval == p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
@@ -410,13 +413,13 @@ void operaciones(codigo_intermedio i, int *s)
 	case 9:
 		if (p[*s].tipo == 0)
 		{
-			//printf("comparacion de %d < %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
+			printf("comparacion de %d < %d (s en %d)", p[*s].ival, p[*s + 1].ival, *s);
 			p[*s].bval = p[*s].ival < p[*s + 1].ival;
 			p[*s].tipo = 1;
 		}
 		else if (p[*s].tipo == 3)
 		{
-			//printf("comparacion de %f < %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
+			printf("comparacion de %f < %f (s en %f)", p[*s].fval, p[*s + 1].fval, *s);
 			p[*s].bval = p[*s].fval < p[*s + 1].fval;
 			p[*s].tipo = 1;
 		}
