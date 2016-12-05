@@ -1,2 +1,0 @@
-37,Se esperaba parametro por valor,16,17
-37,Se esperaba parametro por valor,25,4

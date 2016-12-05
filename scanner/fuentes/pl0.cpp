@@ -13,6 +13,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include "conjuntos.h"
+#include "codigo_p.h"
 
 FILE *fp = NULL;								//apuntador a archivo conteniendo el programa fuente
 FILE *tokensFile = NULL, *errorsFile = NULL;	// Archivo de tokens del programa generado por el scanner
@@ -61,9 +62,14 @@ int main(int argc, char *argv[]) {
 				estadisticas();
 
 				Clear(); // limpiando tabla de simbolos
-				//cerrar el programa fuente
+						//cerrar el programa fuente
 				fclose(fp);
 				fclose(tokensFile);
+
+				if (no_de_errores == 0) {
+					listar_p();
+					escribe_codigop(argv[1]);
+				}
 			}
 		}
 	}

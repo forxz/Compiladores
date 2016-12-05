@@ -14,6 +14,13 @@ extern int	fin_de_archivo;			//bandera de fin de archivo (se usa en pl0.cpp y sc
 extern char lex[1000];				//último lexeme leído ( +1 para colocar "\0")
 extern char nametok[100];
 extern long int valor;				//valor numérico de una lexeme correspondiene a un número
-extern int	comentario, integertok;	//Bandera para comentarios
+extern int	comentario;				//Bandera para comentarios
+
+extern int integerVal;				//Variables para contener valores literales
+extern float floatVal;
+extern char stringVal[200];
+extern char charVal;
+extern bool boolVal;
+
 extern int numLine;
 void obtoken(), obtokenAux();

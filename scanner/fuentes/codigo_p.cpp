@@ -43,11 +43,29 @@ void listar_p()
  printf("\n\n --Listado de codigo-p simplificado generado por el compilador--\n\n");
   
  for(i=0;i<ic;++i) {
-     printf("\n %4d  %3s %5d %5d %s",i,mnemonico[codigo[i].f],codigo[i].ni,codigo[i].di,comentario[codigo[i].f]);
+	 switch (codigo[i].di.tipo){
+	 case 0:
+		 printf("\n %4d  %3s %5d %5d %s", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di.ival, comentario[codigo[i].f]);
+		 break;
+	 case 1:
+		 printf("\n %4d  %3s %5d %5d %s", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di.bval, comentario[codigo[i].f]);
+		 break;
+	 case 2:
+		 printf("\n %4d  %3s %5d %5c %s", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di.cval, comentario[codigo[i].f]);
+		 break;
+	 case 3:
+		 printf("\n %4d  %3s %5d %5f %s", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di.fval, comentario[codigo[i].f]);
+		 break;
+	 case 4:
+		 printf("\n %4d  %3s %5d %5s %s", i, mnemonico[codigo[i].f], codigo[i].ni, codigo[i].di.sval, comentario[codigo[i].f]);
+		 break;
+	 }
+
+     
  }
 }
 
-//escribe_codigop: escribe un archivo con extensión .p conteniendo el código-p generado
+// Escribe_codigop: escribe un archivo con extensión .p conteniendo el código-p generado
 void escribe_codigop(char *fuente) {
  //construir nombre de archivo con el mismo nombre del fuente pero con extensión .obp
 
@@ -72,7 +90,7 @@ void escribe_codigop(char *fuente) {
   strcpy(codigo_p,fuente); //el fuente no tiene apellido
 
  //finalmente,colocamos la extensión deseada
-  strcat(codigo_p,".obp");
+  strcat(codigo_p,".ob");
 
  //grabar en el disco el archivo con código_p,a partir del array código creado por el generador de código intermedio
  if  ( (obj=fopen(codigo_p,"w+b"))==NULL ) {

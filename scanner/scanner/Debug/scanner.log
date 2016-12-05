@@ -1,9 +1,10 @@
-﻿Compilación iniciada a las 02/12/2016 23:18:26.
+﻿Compilación iniciada a las 04/12/2016 19:21:18.
      1>Proyecto "C:\Users\Marvin\Documents\Compiladores\scanner\scanner\scanner.vcxproj" en el nodo 2 (Rebuild destinos).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D _MBCS /D _CRT_SECURE_NO_DEPRECATE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\fuentes\auxiliares.cpp ..\fuentes\codigo_p.cpp ..\fuentes\conjuntos.cpp ..\fuentes\lexico.cpp ..\fuentes\Parser.cpp ..\fuentes\pl0.cpp ..\fuentes\scanner.cpp ..\fuentes\tds.cpp
          tds.cpp
          scanner.cpp
+     1>c:\users\marvin\documents\compiladores\scanner\fuentes\scanner.cpp(125): warning C4244: '=' : conversión de 'double' a 'float'; posible pérdida de datos
          pl0.cpp
          Parser.cpp
          lexico.cpp
@@ -25,4 +26,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:04.29
+Tiempo transcurrido 00:00:08.23
