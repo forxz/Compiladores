@@ -8,7 +8,16 @@
 #include "lexico.h"
 #include "scanner.h"
 
+void inicializar()
+{
+	if ((errorsFile = fopen("errores.txt", "w")) == NULL){
+		printf("\nNo pudo escribir archivo errores.");
+		exit(1);
+	}
 
+	if (errorsFile != NULL)
+		fclose(errorsFile);
+}
      
 int error(int no){
 	if (errorsFile == NULL){

@@ -1,2 +1,2 @@
 int error(int no), estadisticas();
-void inicializar_espec();
+void inicializar_espec(), inicializar();

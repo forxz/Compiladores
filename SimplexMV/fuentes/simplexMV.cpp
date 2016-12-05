@@ -149,7 +149,7 @@ void interpretar(void) {
 				p[s].bval = 1;
 				break;
 			case 15:
-				//printf("scanf");
+				printf("scanf: ");
 				char str[80];
 				scanf_s("%79s", str);
 				strcpy_s(p[++s].sval, str);

@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
 			else{
 				//inicializacion de tokens de símbolos especiales (en auxiliares.cpp)
 				inicializar_espec();
+				inicializar();
 
 				//inicializacion de otras variables (en scanner.h)
 				ch = ' ';
